@@ -15,7 +15,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
@@ -99,7 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pastime\Pastime.csproj">
-      <Project>{CD4DCA7D-F50A-44EB-9BBD-B0CAC66C8BA5}</Project>
+      <Project>{6656751B-0283-4725-B586-EF440053D028}</Project>
       <Name>Pastime</Name>
     </ProjectReference>
   </ItemGroup>
