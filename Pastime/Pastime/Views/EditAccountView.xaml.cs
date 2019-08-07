@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Pastime.ViewModels;
 using Xamarin.Forms;
 
 namespace Pastime.Views
@@ -10,6 +10,8 @@ namespace Pastime.Views
         public EditAccountView()
         {
             InitializeComponent();
+            this.BindingContext = new EditAccountViewModel();
+
         }
     }
 }
