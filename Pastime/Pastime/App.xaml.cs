@@ -10,7 +10,8 @@ namespace Pastime
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            //CHange this to test specific pages
+            MainPage = new OtherProfilesUI();
         }
 
         protected override void OnStart()
