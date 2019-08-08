@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage Padding="20" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Pastime.Views.EditAccountView">
+<ContentPage Padding="20" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Pastime.Views.EditAccountView" NavigationPage.HasNavigationBar="true">
     <ScrollView>
         <StackLayout>
             <Label HorizontalOptions="Center" Text="Edit Account" />
 
             <Label Text="Change username" />
-            <Editor PlaceholderColor="white" TextColor="white" BackgroundColor="gray" Placeholder="{Binding Name}" />
+            <Editor Placeholder="{Binding Name}" />
 
             <Label Text="Change email" />
-            <Editor PlaceholderColor="white"  TextColor="white" BackgroundColor="gray"  Placeholder="{Binding Email}" >
+            <Editor Placeholder="{Binding Email}" />
 
-            </Editor>
 
 
             <!-- TODO picker data should come from inbuilt collection of sports -->

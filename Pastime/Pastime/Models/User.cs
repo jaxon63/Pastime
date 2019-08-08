@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Pastime
 {
-    class User
+    public class User
     {
         private String email;
         private String password;
