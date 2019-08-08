@@ -20,7 +20,7 @@ namespace Pastime
 
             User user = new User("hellO@steven.com", "password1", "steveny1");
 
-            this.BindingContext = new OtherProfilesViewModel(user.getUsername(), "I like cricket and other stuff I guess", "2014", "Hawthorn", "Cricket" );
+            this.BindingContext = new OtherProfilesViewModel(user.getUsername(), "I like cricket and other stuff I guess", "Member since: 2014", "Location: Hawthorn", "Favourite Sport: Cricket" );
         }
         
     }
