@@ -1005,20 +1005,20 @@
     ]
   },
   "packageFolders": {
-    "/Users/stevenmoe/.nuget/packages/": {}
+    "/Users/vietnguyen/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.iOS/Pastime.iOS.csproj",
+      "projectUniqueName": "/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/Pastime.iOS.csproj",
       "projectName": "Pastime.iOS",
-      "projectPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.iOS/Pastime.iOS.csproj",
-      "packagesPath": "/Users/stevenmoe/.nuget/packages/",
-      "outputPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.iOS/obj/",
+      "projectPath": "/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/Pastime.iOS.csproj",
+      "packagesPath": "/Users/vietnguyen/.nuget/packages/",
+      "outputPath": "/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/obj/",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "/Users/stevenmoe/.config/NuGet/NuGet.Config"
+        "/Users/vietnguyen/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "xamarinios10"
@@ -1029,8 +1029,8 @@
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/Pastime.csproj": {
-              "projectPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/Pastime.csproj"
+            "/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime/Pastime.csproj": {
+              "projectPath": "/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime/Pastime.csproj"
             }
           }
         }

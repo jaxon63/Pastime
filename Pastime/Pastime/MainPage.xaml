@@ -15,9 +15,9 @@
                FontSize="20"
                />
         <StackLayout VerticalOptions="CenterAndExpand" >
-            <Entry Placeholder="Email" />
-            <Entry Placeholder="Password" IsPassword="True" />
-            <Button Text="Log In" />
+            <Entry Placeholder="Email" x:Name="Email"/>
+            <Entry Placeholder="Password" IsPassword="True" x:Name="Password"/>
+            <Button Text="Log In" Clicked="LogMeIn"/>
 
             <Label Text="If you're new to Pastime, click here!" 
                    Margin="0, 40, 0, 0"
@@ -25,9 +25,6 @@
             <Button Text="Create Account"/>
 
         </StackLayout>
-
-
-
 
     </StackLayout>
 

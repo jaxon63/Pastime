@@ -16,6 +16,54 @@ namespace Pastime
         public MainPage()
         {
             InitializeComponent();
+
+            /*Label email = this.FindByName<Label>("Email");
+            Label password = this.FindByName<Label>("Password");
+            Button button = this.FindByName<Button>("Button");
+
+            button.Clicked += async (sender, args) =>
+            {
+                //temp credentials
+                if (email.Text == "test@test.com" && password.Text == "password")
+                {
+                    await DisplayAlert("Message",
+                        "Logged in!",
+                        "OK");
+                }
+                else
+                {
+                    await DisplayAlert("Message",
+                        "Incorrect details!",
+                        "OK");
+                }
+            };
+            */
+        }
+
+     
+        async void LogMeIn(object sender, EventArgs args)
+        {
+            /*
+            await DisplayAlert("Message",
+                "Logged in!",
+                "OK");
+            */
+           
+            Entry email = this.FindByName<Entry>("Email");
+            Entry password = this.FindByName<Entry>("Password");
+            //temp credentials
+            if (email.Text == "test@test.com" && password.Text == "password")
+            {
+                await DisplayAlert("Message",
+                    "Logged in!",
+                    "OK");
+            }
+            else
+            {
+                await DisplayAlert("Message",
+                    "Incorrect details!",
+                    "OK");
+            }
         }
     }
 }

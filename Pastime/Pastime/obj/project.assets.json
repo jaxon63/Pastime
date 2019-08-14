@@ -555,23 +555,23 @@
     ]
   },
   "packageFolders": {
-    "/Users/stevenmoe/.nuget/packages/": {},
+    "/Users/vietnguyen/.nuget/packages/": {},
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/Pastime.csproj",
+      "projectUniqueName": "/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime/Pastime.csproj",
       "projectName": "Pastime",
-      "projectPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/Pastime.csproj",
-      "packagesPath": "/Users/stevenmoe/.nuget/packages/",
-      "outputPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/obj/",
+      "projectPath": "/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime/Pastime.csproj",
+      "packagesPath": "/Users/vietnguyen/.nuget/packages/",
+      "outputPath": "/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/stevenmoe/.config/NuGet/NuGet.Config"
+        "/Users/vietnguyen/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
