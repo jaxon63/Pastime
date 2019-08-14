@@ -13,6 +13,7 @@ namespace Pastime.ViewModels
         private string favSports;
 
 
+        //TODO - How best to pass user data to the ViewModel constructor? Individual parameters or as a whole User object
         public OtherProfilesViewModel(string name, string desc, string memberSince, string location, string favSports)
         {
             this.name = name;

@@ -1,0 +1,15 @@
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\bin\Debug\netstandard2.0\Pastime.deps.json
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\bin\Debug\netstandard2.0\Pastime.dll
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\bin\Debug\netstandard2.0\ref\Pastime.dll
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\bin\Debug\netstandard2.0\Pastime.pdb
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\obj\Debug\netstandard2.0\Pastime.csprojAssemblyReference.cache
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\obj\Debug\netstandard2.0\App.xaml.g.cs
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\obj\Debug\netstandard2.0\OtherProfilesUI.xaml.g.cs
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\obj\Debug\netstandard2.0\Pastime.csproj.CoreCompileInputs.cache
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\obj\Debug\netstandard2.0\Pastime.AssemblyInfoInputs.cache
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\obj\Debug\netstandard2.0\Pastime.AssemblyInfo.cs
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\obj\Debug\netstandard2.0\XamlC.stamp
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\obj\Debug\netstandard2.0\Pastime.dll
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\obj\Debug\netstandard2.0\ref\Pastime.dll
+D:\Steven\Documents\Code\Uni\Pastime\Pastime\Pastime\Pastime\obj\Debug\netstandard2.0\Pastime.pdb

@@ -15,6 +15,7 @@
                 </Grid.RowDefinitions>
                 
                 <!-- Header -->
+                <!-- Maybe delete???? -->
                 <StackLayout  Grid.Row="0" HeightRequest="100" BackgroundColor="LightGray" >
                     <Image HorizontalOptions="Center"  VerticalOptions="CenterAndExpand" HeightRequest="30"   Aspect="AspectFill" Source="placeholderimg.png" />
                     

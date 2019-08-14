@@ -2000,32 +2000,39 @@
     ]
   },
   "packageFolders": {
-    "/Users/stevenmoe/.nuget/packages/": {}
+    "C:\\Users\\Steven.DESKTOP-2FH2H76\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.Android/Pastime.Android.csproj",
+      "projectUniqueName": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime.Android\\Pastime.Android.csproj",
       "projectName": "Pastime.Android",
-      "projectPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.Android/Pastime.Android.csproj",
-      "packagesPath": "/Users/stevenmoe/.nuget/packages/",
-      "outputPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.Android/obj/",
+      "projectPath": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime.Android\\Pastime.Android.csproj",
+      "packagesPath": "C:\\Users\\Steven.DESKTOP-2FH2H76\\.nuget\\packages\\",
+      "outputPath": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "/Users/stevenmoe/.config/NuGet/NuGet.Config"
+        "C:\\Users\\Steven.DESKTOP-2FH2H76\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "monoandroid90"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "monoandroid90": {
           "projectReferences": {
-            "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/Pastime.csproj": {
-              "projectPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/Pastime.csproj"
+            "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime\\Pastime.csproj": {
+              "projectPath": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime\\Pastime.csproj"
             }
           }
         }
