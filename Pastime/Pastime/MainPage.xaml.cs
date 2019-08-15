@@ -5,42 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Net;
+using Newtonsoft.Json;
 
 namespace Pastime
 {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
+
     public partial class MainPage : ContentPage
     {
         public MainPage()
         {
             InitializeComponent();
-
-            /*Label email = this.FindByName<Label>("Email");
-            Label password = this.FindByName<Label>("Password");
-            Button button = this.FindByName<Button>("Button");
-
-            button.Clicked += async (sender, args) =>
-            {
-                //temp credentials
-                if (email.Text == "test@test.com" && password.Text == "password")
-                {
-                    await DisplayAlert("Message",
-                        "Logged in!",
-                        "OK");
-                }
-                else
-                {
-                    await DisplayAlert("Message",
-                        "Incorrect details!",
-                        "OK");
-                }
-            };
-            */
         }
 
-     
         async void LogMeIn(object sender, EventArgs args)
         {
             /*
@@ -48,14 +28,20 @@ namespace Pastime
                 "Logged in!",
                 "OK");
             */
-           
+
             Entry email = this.FindByName<Entry>("Email");
             Entry password = this.FindByName<Entry>("Password");
+
+            string login_api = "https://vietnguyen.me/pastime/login.php?email=" + email + "&password=" + password;
+            //WebClient client = new WebClient();
+            //string response = client.DownloadString(login_api);
+            //LoginJSON json = JsonConvert.DeserializeObject<LoginJSON>(response);
+
             //temp credentials
             if (email.Text == "test@test.com" && password.Text == "password")
             {
                 await DisplayAlert("Message",
-                    "Logged in!",
+                    login_api,
                     "OK");
             }
             else

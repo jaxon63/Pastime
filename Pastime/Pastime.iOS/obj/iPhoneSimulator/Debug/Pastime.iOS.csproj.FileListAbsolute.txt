@@ -1,5 +1,11 @@
 /Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/Pastime.iOS.exe
 /Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/Pastime.iOS.pdb
+/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/Newtonsoft.Json.dll
+/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/SQLite-net.dll
+/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/SQLitePCLRaw.batteries_green.dll
+/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/SQLitePCLRaw.batteries_v2.dll
+/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/SQLitePCLRaw.core.dll
+/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/SQLitePCLRaw.provider.sqlite3.dll
 /Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/Xamarin.Essentials.dll
 /Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/Xamarin.Essentials.pdb
 /Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/Xamarin.Forms.Core.dll
