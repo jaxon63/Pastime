@@ -13,9 +13,13 @@
 
             <!-- Label for the User's name-->
             <Label Text="{Binding Name}"
-                   Style="{DynamicResource TitleStyle}"
                    HorizontalTextAlignment="Center"
-                   FontSize="Large" />
+                   FontSize="20" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label FontSize="8" Text="Events attended: " />
+                <Label FontSize="8" Text="Events hosted: " />
+                <Label FontSize="8" Text="User rating: " />
+            </StackLayout>
 
             <!-- Label for User's bio-->
             <Label HorizontalTextAlignment="Center"
