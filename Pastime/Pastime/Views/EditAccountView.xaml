@@ -1,37 +1,36 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage Padding="20" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Pastime.Views.EditAccountView" NavigationPage.HasNavigationBar="true">
-    <ScrollView>
-        <StackLayout>
-            <Label HorizontalOptions="Center" Text="Edit Account" />
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Pastime.Views.EditAccountView" 
+             NavigationPage.HasNavigationBar="true">
+    <ContentPage.Content>
+        <StackLayout >
+            <StackLayout>
+                <Label HorizontalOptions="Center" Text="{Binding Name}" />
+                <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                    <Label FontSize="10" Text="Events attended: " />
+                    <Label FontSize="10" Text="Events hosted: "/>
+                    <Label FontSize="10" Text="User rating: " />
+                </StackLayout>
 
-            <Label Text="Change username" />
-            <Editor Placeholder="{Binding Name}" />
+            </StackLayout>
 
-            <Label Text="Change email" />
-            <Editor Placeholder="{Binding Email}" />
-
-
-
-            <!-- TODO picker data should come from inbuilt collection of sports -->
-            <Picker x:Name="sportPicker"
-                    Title="Pick your favourite sport"
-                    >
-                <Picker.ItemsSource> 
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Cricket</x:String>
-                        <x:String>Basketball</x:String>
-                        <x:String>Cricket</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
-
-            <Label Text="Location" />
-
-
-            <Button Text="Submit" BackgroundColor="gray" TextColor="white" />
-
-                
+            <StackLayout>
+                <TableView  RowHeight="35" Intent="Form">
+                    <TableRoot>
+                        <TableSection TextColor="DarkBlue" Title="Basic Information">
+                            <TextCell  Text="Change Name" TextColor="Black" Tapped="EditNamePopup" />
+                            <TextCell Text="Change Password" TextColor="Black" Tapped="EditPasswordPopup"/>
+                            <TextCell Text="Change Email" TextColor="Black" Tapped="EditEmailPopup" />
+                        </TableSection>
+                        <TableSection TextColor="DarkBlue" Title="Other Settings">
+                            <TextCell Text="Notification Settings" TextColor="Black" />
+                        </TableSection>
+                    </TableRoot>
+                </TableView>
+            </StackLayout>
         </StackLayout>
-    </ScrollView>
+    </ContentPage.Content>
+    
 
 </ContentPage>

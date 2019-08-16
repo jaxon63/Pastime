@@ -1,33 +1,39 @@
 {
   "format": 1,
   "restore": {
-    "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.iOS/Pastime.iOS.csproj": {}
+    "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime.iOS\\Pastime.iOS.csproj": {}
   },
   "projects": {
-    "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.iOS/Pastime.iOS.csproj": {
+    "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime.iOS\\Pastime.iOS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.iOS/Pastime.iOS.csproj",
+        "projectUniqueName": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime.iOS\\Pastime.iOS.csproj",
         "projectName": "Pastime.iOS",
-        "projectPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.iOS/Pastime.iOS.csproj",
-        "packagesPath": "/Users/stevenmoe/.nuget/packages/",
-        "outputPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.iOS/obj/",
+        "projectPath": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime.iOS\\Pastime.iOS.csproj",
+        "packagesPath": "C:\\Users\\Steven.DESKTOP-2FH2H76\\.nuget\\packages\\",
+        "outputPath": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime.iOS\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "/Users/stevenmoe/.config/NuGet/NuGet.Config"
+          "C:\\Users\\Steven.DESKTOP-2FH2H76\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "xamarinios10"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "xamarinios10": {
             "projectReferences": {
-              "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/Pastime.csproj": {
-                "projectPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/Pastime.csproj"
+              "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime\\Pastime.csproj": {
+                "projectPath": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime\\Pastime.csproj"
               }
             }
           }
@@ -36,6 +42,10 @@
       "frameworks": {
         "xamarinios10": {
           "dependencies": {
+            "Rg.Plugins.Popup": {
+              "target": "Package",
+              "version": "[1.1.5.188, )"
+            },
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.1.0, )"
@@ -59,25 +69,29 @@
         }
       }
     },
-    "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/Pastime.csproj": {
+    "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime\\Pastime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/Pastime.csproj",
+        "projectUniqueName": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime\\Pastime.csproj",
         "projectName": "Pastime",
-        "projectPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/Pastime.csproj",
-        "packagesPath": "/Users/stevenmoe/.nuget/packages/",
-        "outputPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/obj/",
+        "projectPath": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime\\Pastime.csproj",
+        "packagesPath": "C:\\Users\\Steven.DESKTOP-2FH2H76\\.nuget\\packages\\",
+        "outputPath": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/stevenmoe/.config/NuGet/NuGet.Config"
+          "C:\\Users\\Steven.DESKTOP-2FH2H76\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -99,6 +113,10 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "Rg.Plugins.Popup": {
+              "target": "Package",
+              "version": "[1.1.5.188, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",

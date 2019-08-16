@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Pastime.Popups;
 using Pastime.ViewModels;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
 namespace Pastime.Views
@@ -26,7 +28,26 @@ namespace Pastime.Views
             userList.Add(user5);
 
 
-            this.BindingContext = new EditAccountViewModel(userList[0]);
+            this.BindingContext = new EditAccountViewModel(userList[0]);   
         }
+
+        //TODO : I think there has to be a way to do this in one method by passing the element tapped's ID
+
+        private void EditNamePopup(object o, EventArgs e)
+        {
+            PopupNavigation.Instance.PushAsync(new ChangeNamePopup());
+        }
+        private void EditPasswordPopup(object o, EventArgs e)
+        {
+
+            PopupNavigation.Instance.PushAsync(new ChangePasswordPopup());
+
+        }
+        private void EditEmailPopup(object o, EventArgs e)
+        {
+            PopupNavigation.Instance.PushAsync(new ChangeEmailPopup());
+
+        }
+        
     }
 }

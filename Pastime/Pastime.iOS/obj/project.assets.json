@@ -2,6 +2,20 @@
   "version": 3,
   "targets": {
     "Xamarin.iOS,Version=v1.0": {
+      "Rg.Plugins.Popup/1.1.5.188": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "2.5.0.121934"
+        },
+        "compile": {
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.IOS.dll": {},
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.dll": {}
+        },
+        "runtime": {
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.IOS.dll": {},
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.dll": {}
+        }
+      },
       "System.Numerics.Vectors/4.5.0": {
         "type": "package",
         "compile": {
@@ -153,6 +167,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "Rg.Plugins.Popup": "1.1.5.188",
           "Xamarin.Essentials": "1.1.0",
           "Xamarin.Forms": "4.0.0.425677"
         },
@@ -165,6 +180,20 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win": {
+      "Rg.Plugins.Popup/1.1.5.188": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "2.5.0.121934"
+        },
+        "compile": {
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.IOS.dll": {},
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.dll": {}
+        },
+        "runtime": {
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.IOS.dll": {},
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.dll": {}
+        }
+      },
       "System.Numerics.Vectors/4.5.0": {
         "type": "package",
         "compile": {
@@ -316,6 +345,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "Rg.Plugins.Popup": "1.1.5.188",
           "Xamarin.Essentials": "1.1.0",
           "Xamarin.Forms": "4.0.0.425677"
         },
@@ -328,6 +358,20 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win-x64": {
+      "Rg.Plugins.Popup/1.1.5.188": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "2.5.0.121934"
+        },
+        "compile": {
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.IOS.dll": {},
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.dll": {}
+        },
+        "runtime": {
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.IOS.dll": {},
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.dll": {}
+        }
+      },
       "System.Numerics.Vectors/4.5.0": {
         "type": "package",
         "compile": {
@@ -479,6 +523,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "Rg.Plugins.Popup": "1.1.5.188",
           "Xamarin.Essentials": "1.1.0",
           "Xamarin.Forms": "4.0.0.425677"
         },
@@ -491,6 +536,20 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win-x86": {
+      "Rg.Plugins.Popup/1.1.5.188": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "2.5.0.121934"
+        },
+        "compile": {
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.IOS.dll": {},
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.dll": {}
+        },
+        "runtime": {
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.IOS.dll": {},
+          "lib/Xamarin.IOS/Rg.Plugins.Popup.dll": {}
+        }
+      },
       "System.Numerics.Vectors/4.5.0": {
         "type": "package",
         "compile": {
@@ -642,6 +701,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "Rg.Plugins.Popup": "1.1.5.188",
           "Xamarin.Essentials": "1.1.0",
           "Xamarin.Forms": "4.0.0.425677"
         },
@@ -655,6 +715,36 @@
     }
   },
   "libraries": {
+    "Rg.Plugins.Popup/1.1.5.188": {
+      "sha512": "PE7uHJ/LuI5pSO1HpgjJ+v2KhNfftzqt/L1AoGH/5mX0fP7pcW6lG4FbUHuCFKolrzJfLLotuuET+hfN50Whpg==",
+      "type": "package",
+      "path": "rg.plugins.popup/1.1.5.188",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/MonoAndroid/Rg.Plugins.Popup.Droid.dll",
+        "lib/MonoAndroid/Rg.Plugins.Popup.Droid.pdb",
+        "lib/MonoAndroid/Rg.Plugins.Popup.dll",
+        "lib/MonoAndroid/Rg.Plugins.Popup.pdb",
+        "lib/MonoTouch/Rg.Plugins.Popup.IOS.dll",
+        "lib/MonoTouch/Rg.Plugins.Popup.IOS.pdb",
+        "lib/MonoTouch/Rg.Plugins.Popup.dll",
+        "lib/MonoTouch/Rg.Plugins.Popup.pdb",
+        "lib/Xamarin.IOS/Rg.Plugins.Popup.IOS.dll",
+        "lib/Xamarin.IOS/Rg.Plugins.Popup.IOS.pdb",
+        "lib/Xamarin.IOS/Rg.Plugins.Popup.dll",
+        "lib/Xamarin.IOS/Rg.Plugins.Popup.pdb",
+        "lib/netstandard1.0/Rg.Plugins.Popup.dll",
+        "lib/netstandard1.0/Rg.Plugins.Popup.pdb",
+        "lib/uap10.0/Rg.Plugins.Popup.UWP.dll",
+        "lib/uap10.0/Rg.Plugins.Popup.UWP.pdb",
+        "lib/uap10.0/Rg.Plugins.Popup.dll",
+        "lib/uap10.0/Rg.Plugins.Popup.pdb",
+        "readme.txt",
+        "rg.plugins.popup.1.1.5.188.nupkg.sha512",
+        "rg.plugins.popup.nuspec"
+      ]
+    },
     "System.Numerics.Vectors/4.5.0": {
       "sha512": "QQTlPTl06J/iiDbJCiepZ4H//BVraReU4O4EoRw1U02H5TLUIT7xn3GnDp9AXPSlJUDyFs4uWjWafNX6WrAojQ==",
       "type": "package",
@@ -1000,37 +1090,45 @@
   "projectFileDependencyGroups": {
     "Xamarin.iOS,Version=v1.0": [
       "Pastime >= 1.0.0",
+      "Rg.Plugins.Popup >= 1.1.5.188",
       "Xamarin.Essentials >= 1.1.0",
       "Xamarin.Forms >= 4.0.0.425677"
     ]
   },
   "packageFolders": {
-    "/Users/stevenmoe/.nuget/packages/": {}
+    "C:\\Users\\Steven.DESKTOP-2FH2H76\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.iOS/Pastime.iOS.csproj",
+      "projectUniqueName": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime.iOS\\Pastime.iOS.csproj",
       "projectName": "Pastime.iOS",
-      "projectPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.iOS/Pastime.iOS.csproj",
-      "packagesPath": "/Users/stevenmoe/.nuget/packages/",
-      "outputPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime.iOS/obj/",
+      "projectPath": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime.iOS\\Pastime.iOS.csproj",
+      "packagesPath": "C:\\Users\\Steven.DESKTOP-2FH2H76\\.nuget\\packages\\",
+      "outputPath": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime.iOS\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "/Users/stevenmoe/.config/NuGet/NuGet.Config"
+        "C:\\Users\\Steven.DESKTOP-2FH2H76\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "xamarinios10"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/Pastime.csproj": {
-              "projectPath": "/Users/stevenmoe/Code/Uni/SEPB/Pastime/Pastime/Pastime/Pastime.csproj"
+            "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime\\Pastime.csproj": {
+              "projectPath": "D:\\Steven\\Documents\\Code\\Uni\\Pastime\\Pastime\\Pastime\\Pastime\\Pastime.csproj"
             }
           }
         }
@@ -1039,6 +1137,10 @@
     "frameworks": {
       "xamarinios10": {
         "dependencies": {
+          "Rg.Plugins.Popup": {
+            "target": "Package",
+            "version": "[1.1.5.188, )"
+          },
           "Xamarin.Essentials": {
             "target": "Package",
             "version": "[1.1.0, )"
