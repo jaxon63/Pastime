@@ -31,11 +31,8 @@
         <Entry FontSize="8" Placeholder="Email Address" />
         <Entry FontSize="8" IsPassword="True" Placeholder="Password" />
         <StackLayout Orientation="Horizontal">
-            <Button FontSize="8" Text="Cancel"  />
+            <Button Clicked="OnCloseButtonClicked" FontSize="8" Text="Cancel"  />
             <Button FontSize="8" Text="Save" />
-
         </StackLayout>
-
-
     </StackLayout>
 </pages:PopupPage>

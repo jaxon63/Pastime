@@ -16,12 +16,12 @@
             </StackLayout>
 
             <StackLayout>
-                <TableView  RowHeight="35" Intent="Form">
+                <TableView  RowHeight="50" Intent="Data">
                     <TableRoot>
                         <TableSection TextColor="DarkBlue" Title="Basic Information">
-                            <TextCell  Text="Change Name" TextColor="Black" Tapped="EditNamePopup" />
+                            <TextCell Detail="{Binding Name}"  Text="Change Name" TextColor="Black" Tapped="EditNamePopup" />
                             <TextCell Text="Change Password" TextColor="Black" Tapped="EditPasswordPopup"/>
-                            <TextCell Text="Change Email" TextColor="Black" Tapped="EditEmailPopup" />
+                            <TextCell Detail="{Binding Email}" Text="Change Email" TextColor="Black" Tapped="EditEmailPopup" />
                         </TableSection>
                         <TableSection TextColor="DarkBlue" Title="Other Settings">
                             <TextCell Text="Notification Settings" TextColor="Black" />
