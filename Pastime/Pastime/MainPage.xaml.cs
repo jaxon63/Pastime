@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Collections.Generic;
 
 namespace Pastime
 {
@@ -15,12 +16,15 @@ namespace Pastime
         public MainPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasBackButton(this, false);
             Validate();
         }
 
         //This method to validate the user login credentials
-        public string Validate()
+        public List<string> Validate()
         {
+            List<string> results = new List<string>();
+
             //Get the user's inputs
             //Check your related input fields in the MainPage.xaml file
             Entry email = this.FindByName<Entry>("Email");
@@ -49,35 +53,36 @@ namespace Pastime
             //my JSON response only have 1 JSON object
             //that's why I used .login[0] (index 0 object)
             var status = JsonConvert.DeserializeObject<LoginJSON>(response).login[0].status;
+            results.Add(status);
+
+            var current_user = JsonConvert.DeserializeObject<LoginJSON>(response).login[0].current_user;
+            results.Add(current_user);
 
             //return the status
-            return status;
+            return results;
         }
 
         //this method will be called when user clicks the button
         async void LogMeIn(object sender, EventArgs args)
         {
             //get the response by calling Validate() method
-            var response = Validate();
+            List<string> response = Validate();
 
-            //depends on what the response is, assign value for grant_access
-            string grant_access;
+            string status = response[0];
+            string current_user = response[1];
 
-            if (response == "success")
+            if (status == "success")
             {
-                grant_access = "Logged in!";
+                var nextPage = new TestingPage
+                {
+                    CurrentUser = current_user
+                };
+                await Navigation.PushAsync(nextPage);
             }
             else
             {
-                grant_access = "Incorrect details!";
+                await DisplayAlert("Message", "Incorrect details!" ,"OK");
             }
-
-            //prints message to the user's screen
-            //anyway, this function is mainly focusing the logic of Login page
-            //it's definitely not a completed one.
-            await DisplayAlert("Message",
-                grant_access,
-                "OK");
         }
     }
 }

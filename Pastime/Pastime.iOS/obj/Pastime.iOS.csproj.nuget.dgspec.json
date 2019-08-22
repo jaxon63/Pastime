@@ -108,6 +108,10 @@
               "target": "Package",
               "version": "[106.6.10, )"
             },
+            "Xam.Plugins.Settings": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.1.0, )"

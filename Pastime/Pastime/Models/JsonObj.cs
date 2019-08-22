@@ -12,6 +12,7 @@ namespace Pastime
     public class LoginObj
     { 
         public string status { get; set; }
+        public string current_user { get; set; }
         public string http_code { get; set; }
     }
 

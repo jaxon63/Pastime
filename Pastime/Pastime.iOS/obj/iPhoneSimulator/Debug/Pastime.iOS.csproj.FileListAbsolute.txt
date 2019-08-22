@@ -64,3 +64,6 @@
 /Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/obj/iPhoneSimulator/Debug/Pastime.iOS.csproj.CopyComplete
 /Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/obj/iPhoneSimulator/Debug/Pastime.iOS.exe
 /Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/obj/iPhoneSimulator/Debug/Pastime.iOS.pdb
+/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/Plugin.Settings.Abstractions.dll
+/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/Plugin.Settings.Abstractions.pdb
+/Users/vietnguyen/Desktop/Sem02_2019/Pastime/Pastime/Pastime.iOS/bin/iPhoneSimulator/Debug/Plugin.Settings.dll
