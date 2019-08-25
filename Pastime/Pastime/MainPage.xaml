@@ -23,7 +23,6 @@
                    Margin="0, 40, 0, 0"
                    HorizontalOptions="Center"/>
             <Button Text="Create Account"/>
-
         </StackLayout>
 
     </StackLayout>
