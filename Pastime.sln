@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pastime.Android", "Pastime\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pastime.iOS", "Pastime\Pastime.iOS\Pastime.iOS.csproj", "{E763F822-741A-4961-B8D4-63ADC566E8CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pastime", "Pastime\Pastime\Pastime.csproj", "{6656751B-0283-4725-B586-EF440053D028}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pastime", "Pastime\Pastime\Pastime.csproj", "{6656751B-0283-4725-B586-EF440053D028}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
