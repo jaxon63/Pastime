@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Pastime.Register">
+
+    <StackLayout 
+                 Margin="20"
+                 >
+
+        <Label HorizontalOptions="Center"
+               Text="Welcome to Pastime!"
+               FontSize="20"
+               />
+        <StackLayout VerticalOptions="CenterAndExpand" >
+            <Entry Placeholder="Name" x:Name="Name"/>
+            <Entry Placeholder="Email" x:Name="Email"/>
+            <Entry Placeholder="Password" IsPassword="True" x:Name="Password"/>
+            <Entry Placeholder="Confirm Password" IsPassword="True" x:Name="Verify_Password"/>
+            <Button Text="Register Account" Clicked="Registration"/>
+
+            <Label Text="If you already have an account, head back to the Main Page to log in!"
+                   Margin="0, 40, 0, 0"
+                   HorizontalOptions="Center"/>
+        </StackLayout>
+
+    </StackLayout>
+
+</ContentPage>
