@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.IO;
 
 namespace Pastime
 {
@@ -9,9 +10,8 @@ namespace Pastime
         public App()
         {
             InitializeComponent();
+            MainPage = new MainPage();
 
-            //CHange this to test specific pages
-            MainPage = new OtherProfilesUI();
         }
 
         protected override void OnStart()
