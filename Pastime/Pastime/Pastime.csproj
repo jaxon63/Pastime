@@ -21,17 +21,12 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Views\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="OtherProfilesUI.xaml.cs">
-      <DependentUpon>OtherProfilesUI.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="OtherProfilesUI.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
+    <Compile Remove="Views\LoginPage.cs" />
+    <Compile Remove="Views\LoginPage.cs" />
+    <Compile Remove="Views\LoginPage.cs" />
   </ItemGroup>
 </Project>

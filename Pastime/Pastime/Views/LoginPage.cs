@@ -1,5 +1,7 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using RestSharp;
 using Xamarin.Forms;
 
 namespace Pastime.Views
@@ -8,13 +10,10 @@ namespace Pastime.Views
     {
         public LoginPage()
         {
-            Content = new StackLayout
-            {
-                Children = {
-                    new Label { Text = "Hello ContentPage" }
-                }
-            };
+            
         }
+
+        
     }
 }
 
