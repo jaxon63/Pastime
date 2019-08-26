@@ -2,6 +2,8 @@
 using Pastime.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.IO;
+using Pastime.Views;
 
 namespace Pastime
 {
@@ -10,8 +12,12 @@ namespace Pastime
         public App()
         {
             InitializeComponent();
+            MainPage = new LoginPage();
 
+<<<<<<< HEAD
             MainPage = new EditAccountView();
+=======
+>>>>>>> master
         }
 
         protected override void OnStart()
