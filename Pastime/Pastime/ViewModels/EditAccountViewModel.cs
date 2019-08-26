@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using Pastime.Models;
 
 namespace Pastime.ViewModels
 {
@@ -10,12 +11,9 @@ namespace Pastime.ViewModels
         private string email;
         private string password;
 
-        public EditAccountViewModel(User user)
+        public EditAccountViewModel()
         {
-            this.user = user;
-            this.name = this.user.getUsername();
-            this.email = this.user.getEmail();
-            this.password = this.user.getPassword();
+            
         }
 
         public string Name { get { return name; } set { name = value; } }
