@@ -14,10 +14,6 @@ namespace Pastime
             InitializeComponent();
             MainPage = new LoginPage();
 
-<<<<<<< HEAD
-            MainPage = new EditAccountView();
-=======
->>>>>>> master
         }
 
         protected override void OnStart()
