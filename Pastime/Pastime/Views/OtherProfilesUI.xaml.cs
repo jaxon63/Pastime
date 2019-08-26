@@ -13,7 +13,6 @@ namespace Pastime
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OtherProfilesUI : ContentPage
     {
-        private String hello;
         public OtherProfilesUI()
         {
             InitializeComponent();

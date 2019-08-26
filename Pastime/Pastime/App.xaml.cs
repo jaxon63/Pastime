@@ -1,4 +1,5 @@
 ﻿using System;
+using Pastime.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.IO;
@@ -11,7 +12,7 @@ namespace Pastime
         public App()
         {
             InitializeComponent();
-            MainPage = new LoginPage();
+            MainPage = new EditAccountView();
 
         }
 

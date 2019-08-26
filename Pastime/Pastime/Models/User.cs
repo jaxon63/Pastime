@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Pastime.Models
 {
-    class User
+    public class User
     {
         private int userId;
         private string email;
