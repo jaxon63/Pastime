@@ -1,4 +1,5 @@
-﻿using Rg.Plugins.Popup.Services;
+﻿using Pastime.ViewModels;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace Pastime.Popups
         public ChangeNamePopup()
         {
             InitializeComponent();
+            this.BindingContext = new EditAccountViewModel();
+
         }
 
         private async void OnCloseButtonClicked(object sender, EventArgs e)

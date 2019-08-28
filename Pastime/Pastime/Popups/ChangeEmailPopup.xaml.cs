@@ -1,4 +1,5 @@
-﻿using Rg.Plugins.Popup.Services;
+﻿using Pastime.ViewModels;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,11 @@ namespace Pastime.Popups
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChangeEmailPopup : Rg.Plugins.Popup.Pages.PopupPage
     {
+        
         public ChangeEmailPopup()
         {
             InitializeComponent();
+            this.BindingContext = new EditAccountViewModel();
         }
 
         private async void OnCloseButtonClicked(object sender, EventArgs e)
@@ -23,6 +26,7 @@ namespace Pastime.Popups
             await PopupNavigation.Instance.PopAsync();
         }
 
+       
         
     }
 }

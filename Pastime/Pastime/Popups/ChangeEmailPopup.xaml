@@ -28,11 +28,11 @@
             Text="Change Email Address"
             HorizontalTextAlignment="Center"
             />
-        <Entry FontSize="8" Placeholder="Email Address" />
-        <Entry FontSize="8" IsPassword="True" Placeholder="Password" />
+        <Entry FontSize="8" Text="{Binding Email}" Placeholder="Email Address" />
+        <Entry FontSize="8" Text="{Binding Password}" IsPassword="True" Placeholder="Password" />
         <StackLayout Orientation="Horizontal">
             <Button Clicked="OnCloseButtonClicked" FontSize="8" Text="Cancel"  />
-            <Button FontSize="8" Text="Save" />
+            <Button Command="{Binding SaveCommand}" FontSize="8" Text="Save" />
         </StackLayout>
     </StackLayout>
 </pages:PopupPage>

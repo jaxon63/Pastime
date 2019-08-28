@@ -36,8 +36,6 @@ namespace Pastime.Models
             this.bio = bio;
             this.dpUri = dpUri;
             this.rating = rating;
-
-
         }
 
         public int UserId

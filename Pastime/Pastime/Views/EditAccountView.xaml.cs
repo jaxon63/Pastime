@@ -12,10 +12,7 @@ namespace Pastime.Views
     {
         public EditAccountView()
         {
-            InitializeComponent();
-
-            //Fake user data
-          
+            InitializeComponent();          
 
             this.BindingContext = new EditAccountViewModel();   
         }

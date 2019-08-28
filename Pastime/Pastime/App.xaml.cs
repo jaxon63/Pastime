@@ -12,7 +12,7 @@ namespace Pastime
         public App()
         {
             InitializeComponent();
-            MainPage = new EditAccountView();
+            MainPage = new NavigationPage(new MainPage());
 
         }
 

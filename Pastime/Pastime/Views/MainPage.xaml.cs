@@ -4,6 +4,8 @@ using Xamarin.Forms;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.Generic;
+using Pastime.Views;
+using Pastime.Models;
 
 namespace Pastime
 {
@@ -18,6 +20,13 @@ namespace Pastime
             InitializeComponent();
 
         }
+
+        async void OnEditAccountButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new EditAccountView());
+        }
+      
+        
 
        
 
