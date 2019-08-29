@@ -38,11 +38,34 @@ namespace Pastime
             request.AddParameter("email", email.Text);
             request.AddParameter("password", password.Text);
             request.AddParameter("verify_password", verify_password.Text);
+            
+            var response = client.Execute<RegisterJSON>(request).Content;
+            
+            var status = JsonConvert.DeserializeObject<RegisterJSON>(response).register[0].status;
+            results.Add(Status);
+            
+            var reason = JsonConvert.DeserializeObject<LoginJSON>(response).register[0].reason;
+            result.Add(reason);
+            
+            return result;
         }
 
         async void Registration(object sender, EventArgs args)
         {
-            
+            //get the response by calling Validate() method
+            List<string> response = Validate();
+
+            string status = response[0];
+            string reason = response[1];
+
+            if (status == "success")
+            {
+                await Navigation.PushAsync(new MainPage);
+            }
+            else
+            {
+                await DisplayAlert(reason);
+            }
         }
 
         async void OnBackButtonPressed(object sender, EventArgs e)
