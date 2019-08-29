@@ -22,13 +22,14 @@
         VerticalOptions="Center" 
         HorizontalOptions="Center" 
         Padding="20, 20, 20, 20"
-        BackgroundColor="White"
+        BackgroundColor="#E3E3E3"
         >
         <Label
             Text="Change Email Address"
             HorizontalTextAlignment="Center"
             />
         <Entry FontSize="8" Placeholder="Email Address" />
+        <Entry FontSize="8" Placeholder="Confirm Email Address" />
         <Entry FontSize="8" IsPassword="True" Placeholder="Password" />
         <StackLayout Orientation="Horizontal">
             <Button Clicked="OnCloseButtonClicked" FontSize="8" Text="Cancel"  />

@@ -23,9 +23,7 @@
         VerticalOptions="Center" 
         HorizontalOptions="Center" 
         Padding="20, 20, 20, 20"
-        BackgroundColor="White"
-        HeightRequest="150"
-        WidthRequest="200"
+        BackgroundColor="#E3E3E3"
         >
         <Label
             Text="Change Username"
@@ -34,7 +32,7 @@
         <Entry FontSize="8" Placeholder="{Binding Name}" />
         <StackLayout Orientation="Horizontal">
             <Button Clicked="OnCloseButtonClicked" FontSize="8"   Text="Cancel"  />
-            <Button FontSize="8" Text="Save" />
+            <Button FontSize="10" Text="Save" />
 
         </StackLayout>
         
