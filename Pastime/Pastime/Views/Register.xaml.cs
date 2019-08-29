@@ -44,7 +44,7 @@ namespace Pastime
             var status = JsonConvert.DeserializeObject<RegisterJSON>(response).register[0].status;
             results.Add(Status);
             
-            var reason = JsonConvert.DeserializeObject<LoginJSON>(response).register[0].reason;
+            var reason = JsonConvert.DeserializeObject<RegisterJSON>(response).register[0].reason;
             result.Add(reason);
             
             return result;
