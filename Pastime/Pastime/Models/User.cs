@@ -22,7 +22,6 @@ namespace Pastime.Models
         private Uri dpUri;
         private int rating;
 
-        //g'day m8
        // private Image displayPicture;
         
 
