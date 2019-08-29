@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Pastime.Views.LoginPage">
+    <ContentPage.Content>
+        <StackLayout 
+                 Margin="20"
+                 >
+
+        <Label HorizontalOptions="Center"
+               Text="Welcome to Pastime!"
+               FontSize="20"
+               />
+        <StackLayout VerticalOptions="CenterAndExpand" >
+            <Entry Placeholder="Email" x:Name="Email"/>
+            <Entry Placeholder="Password" IsPassword="True" x:Name="Password"/>
+            <Button Text="Log In" Clicked="LogMeIn"/>
+
+            <Label Text="If you're new to Pastime, click here!" 
+                   Margin="0, 40, 0, 0"
+                   HorizontalOptions="Center"/>
+            <Button Text="Create Account"/>
+        </StackLayout>
+
+    </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
