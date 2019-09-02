@@ -9,6 +9,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="2*" />
+                    <RowDefinition Height="1*" />
+
                 </Grid.RowDefinitions>
                 <!-- Header -->
                 <StackLayout
@@ -51,7 +53,7 @@
 
                 <!-- Body content-->
                 <StackLayout Grid.Row="1">
-                    <TableView  RowHeight="50"
+                    <TableView  RowHeight="60"
                                 Intent="Data">
                         <TableRoot>
                             <TableSection TextColor="DarkBlue"
@@ -75,7 +77,10 @@
                             </TableSection>
                         </TableRoot>
                     </TableView>
+                    <Button Text="asndalsc" Command="{Binding Something}" />
                 </StackLayout>
+                <Label Grid.Row="2"  TextColor="green" Opacity="0" Text="Email successfully updated" HorizontalTextAlignment="Center" x:Name="message" />
+                <Label Text="{Binding Email}" />
 
             </Grid>
         </StackLayout>

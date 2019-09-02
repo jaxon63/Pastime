@@ -18,7 +18,7 @@ namespace Pastime.Popups
         {
             InitializeComponent();
             this.BindingContext = new EditAccountViewModel();
-
+            
         }
 
         private async void OnCloseButtonClicked(object sender, EventArgs e)

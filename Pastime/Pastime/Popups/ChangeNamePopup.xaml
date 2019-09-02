@@ -34,7 +34,7 @@
         <Entry FontSize="8" Placeholder="{Binding Name}" />
         <StackLayout Orientation="Horizontal">
             <Button Clicked="OnCloseButtonClicked" FontSize="8"   Text="Cancel"  />
-            <Button FontSize="8" Text="Save" />
+            <Button Command="{Binding SaveNameCommand}" FontSize="8" Text="Save" />
 
         </StackLayout>
         

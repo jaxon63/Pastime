@@ -28,11 +28,14 @@
             Text="Change Email Address"
             HorizontalTextAlignment="Center"
             />
-        <Entry FontSize="8" Text="{Binding Email}" Placeholder="Email Address" />
+        <Entry FontSize="8" Text="{Binding Email}" Placeholder="New Email Address" />
         <Entry FontSize="8" Text="{Binding Password}" IsPassword="True" Placeholder="Password" />
+        <Label FontSize="6" TextColor="red" x:Name="emailErrorMsg" />
+        <Label FontSize="6" TextColor="red" x:Name="passwordErrorMsg" />
+
         <StackLayout Orientation="Horizontal">
             <Button Clicked="OnCloseButtonClicked" FontSize="8" Text="Cancel"  />
-            <Button Command="{Binding SaveCommand}" FontSize="8" Text="Save" />
+            <Button Command="{Binding SaveEmailCommand}" FontSize="8" Text="Save" />
         </StackLayout>
-    </StackLayout>
+    </StackLayout>  
 </pages:PopupPage>
