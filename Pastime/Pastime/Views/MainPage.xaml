@@ -11,7 +11,7 @@
             <!-- Header -->
                 <StackLayout
                     
-                    BackgroundColor="Green"
+                    BackgroundColor="#343333"
                     Padding="20">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -19,15 +19,15 @@
 
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
 
                     <!-- "Profile picture" frame -->
                     <Frame CornerRadius="30"
-                           HeightRequest="60"
-                           WidthRequest="60"
-                           HorizontalOptions="Center"
+                           HeightRequest="40"
+                           WidthRequest="40"
+                           HorizontalOptions="Start"
                            VerticalOptions="CenterAndExpand"
                            Margin="0"
                            Padding="0"
@@ -43,9 +43,8 @@
                     </Frame>
                     
                     <Label Text="Dashboard" Grid.Column="1"
-                           
-                           FontSize="25"/>
-            </Grid>
+                           FontSize="25" VerticalTextAlignment="Center" TextColor="#FEFCFC" />
+                </Grid>
         </StackLayout>
 
             
@@ -53,49 +52,48 @@
                             HorizontalOptions="FillAndExpand"
                             Margin="0, 0, 0, 0"/>
             <StackLayout Spacing="0" Padding="10">
-                <Label Text="Your Activities" FontSize="30"/>
-                <Frame BorderColor="Green" Margin="0,10,0,0" Padding="10" HasShadow="True">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.5*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50" />
-                        </Grid.RowDefinitions>
-                        <Image Grid.Row="0"
-                                Source="C:\Users\antho\Desktop\Pastime-master\Pastime\Pastime\Views\Resources\Logo.PNG"/>
-                        <Label Grid.Column="1"
-                                Text="[Event]" FontSize="30" />
-                    </Grid>
-                </Frame>
-                <Frame BorderColor="Green" Margin="0,10,0,0" Padding="10" HasShadow="True">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.5*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50" />
-                        </Grid.RowDefinitions>
-                        <Image Grid.Row="0"
-                                Source="C:\Users\antho\Desktop\Pastime-master\Pastime\Pastime\Views\Resources\Logo.PNG"/>
-                        <Label Grid.Column="1"
-                                Text="[Event]" FontSize="30" />
-                    </Grid>
-                </Frame>
-                <Frame BorderColor="Green" Margin="0,10,0,0" Padding="10" HasShadow="True">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.5*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50" />
-                        </Grid.RowDefinitions>
-                        <Image Grid.Row="0"
-                        Source="C:\Users\antho\Desktop\Pastime-master\Pastime\Pastime\Views\Resources\Logo.PNG"/>
-                        <Label Grid.Column="1"
-                        Text="[Event]" FontSize="30" />
-                    </Grid>
-                </Frame>
+                <Label Text="Activities Near You" FontSize="30" Margin="0,0,0,10"/>
+
+                <TableView  RowHeight="160" Margin="0,0,0,0" >
+                    <TableRoot>
+                        <TableSection>
+                            <ViewCell>
+                                <Frame BorderColor="Green" Padding="10" Margin="0,0,0,10" HasShadow="True">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.2*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="0" Source="C:\Users\antho\Desktop\SEPB\Pastime\Pastime\Pastime\Pastime\Views\images\Logo.PNG"/>
+                                        <Label Grid.Column="1" Text="Event Title: Football" FontSize="20" VerticalOptions="StartAndExpand" />
+                                        <Button Grid.Column ="1" Grid.Row="1" Text="Cancel" VerticalOptions="End" HorizontalOptions="Start" />
+                                        <Button Grid.Column ="1" Grid.Row="1" Text="More" VerticalOptions="Start" HorizontalOptions="End" />
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                            <ViewCell>
+                                <Frame BorderColor="Green" Margin="0,0,0,10" Padding="10" HasShadow="True">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.2*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="0" Source="C:\Users\antho\Desktop\SEPB\Pastime\Pastime\Pastime\Pastime\Views\images\Logo.PNG"/>
+                                        <Label Grid.Column="1" Text="Event Title: Football" FontSize="20" VerticalOptions="StartAndExpand" />
+                                        <Button Grid.Column ="1" Grid.Row="1" Text="Cancel" VerticalOptions="End" HorizontalOptions="Start" />
+                                        <Button Grid.Column ="1" Grid.Row="1" Text="More" VerticalOptions="Start" HorizontalOptions="End" />
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </TableSection>
+                    </TableRoot>
+                </TableView>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
