@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Pastime
 {
@@ -81,7 +82,7 @@ namespace Pastime
             }
             else
             {
-                await DisplayAlert("Message", "Incorrect details!" ,"OK");
+                await DisplayAlert("Message", "Incorrect details!", "OK");
             }
         }
     }
