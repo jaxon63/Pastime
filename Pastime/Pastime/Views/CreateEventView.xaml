@@ -7,6 +7,9 @@
         <StackLayout Padding="20">
             <Entry Text="{Binding Name}"
                    Placeholder="Event name" />
+            <Label IsVisible="{Binding InvalidName}"
+                   Text="Name is invalid" />
+
 
             <Picker x:Name="SportPicker"
                     Title="Select a sport">
@@ -17,9 +20,15 @@
                 </Picker.Items>
             </Picker>
 
-            <Entry Placeholder="Event Description"
+            <Entry Text="{Binding Desc}"
+                   Placeholder="Event Description"
                    HeightRequest="50" />
-            <Entry Placeholder="Location" />
+            <Label IsVisible="{Binding InvalidDesc}"
+                   Text="Description is invalid" />
+
+            <Entry Text="{Binding Search}" Placeholder="Location" />
+            <Button Command="{Binding DoSearchCommand}" CommandParameter="{Binding CanSearch}"/>
+
 
 
 

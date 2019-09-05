@@ -13,6 +13,7 @@ namespace Pastime
         {
             InitializeComponent();
             MainPage = new NavigationPage(new CreateEventView());
+            
 
         }
 

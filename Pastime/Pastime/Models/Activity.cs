@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Pastime.Models
 {
-    class Activity
+    public class Activity
     {
         private string name;
         private Uri iconImage;
