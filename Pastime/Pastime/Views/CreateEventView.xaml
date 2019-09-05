@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage  xmlns="http://xamarin.com/schemas/2014/forms"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              x:Class="Pastime.Views.CreateEventView">
+    <ContentPage.Title>Hello</ContentPage.Title>
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Entry Text="{Binding Name}"
+                   Placeholder="Event name" />
+
+            <Picker x:Name="SportPicker"
+                    Title="Select a sport">
+                <Picker.Items>
+                    <x:String>Cricket</x:String>
+                    <x:String>Basketball</x:String>
+                    <x:String>Hockey?</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Entry Placeholder="Event Description"
+                   HeightRequest="50" />
+            <Entry Placeholder="Location" />
+
+
+
+            <Label Text="Date" />
+
+            <DatePicker  HorizontalOptions="FillAndExpand"
+                         Format="D" />
+
+            <StackLayout Orientation="Horizontal">
+                <TimePicker  HorizontalOptions="FillAndExpand"
+                             Format="t" />
+                <TimePicker HorizontalOptions="FillAndExpand"
+                            Format="t" />
+            </StackLayout>
+
+            <Label Text="Equipmemnt Needed" />
+
+            <Entry Placeholder="Additional notes" />
+            <Button Command="{Binding SubmitCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Post Event" />
+
+
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
