@@ -4,26 +4,21 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Pastime.MainPage">
-
+             x:Class="Pastime.RegisterPage">
     <ScrollView>
         <StackLayout Margin="20">
 
             <Label HorizontalOptions="Center"
-                   Text="Welcome to Pastime!"
+                   Text="Create new account"
                    FontSize="20"
-                   />
+            />
+
             <StackLayout VerticalOptions="CenterAndExpand" >
                 <Entry Placeholder="Email" x:Name="Email"/>
+                <Entry Placeholder="Username" x:Name="Username"/>
                 <Entry Placeholder="Password" IsPassword="True" x:Name="Password"/>
-                <Button Text="Log In" Clicked="LogMeIn"/>
-            
-
-                <Label Text="If you're new to Pastime, click here!" 
-                       Margin="0, 40, 0, 0"
-                       HorizontalOptions="Center"/>
-                <Button Text="Create Account" Clicked="RegisterUser"/>
-
+                <Entry Placeholder="Verify Password" IsPassword="True" x:Name="VerifyPassword"/>
+                <Button Text="Submit" Clicked="SubmitRegister"/>
             </StackLayout>
 
         </StackLayout>

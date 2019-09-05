@@ -85,5 +85,12 @@ namespace Pastime
                 await DisplayAlert("Message", "Incorrect details!", "OK");
             }
         }
+
+        //this method will be called when user clicks the button
+        async void RegisterUser(object sender, EventArgs args)
+        {
+            var nextPage = new RegisterPage();
+            await Navigation.PushAsync(nextPage);
+        }
     }
 }
