@@ -15,7 +15,7 @@
                     Grid.Row="0"
                     BackgroundColor="#AFCBE2"
                     Padding="20">
-
+ 
                     <!-- "Profile picture" frame -->
                     <Frame CornerRadius="30"
                            HeightRequest="60"

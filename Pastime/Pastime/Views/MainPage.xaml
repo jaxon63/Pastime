@@ -8,7 +8,7 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <!-- Header -->
+            
                 <StackLayout
                     
                     BackgroundColor="#343333"
@@ -23,7 +23,7 @@
                         <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- "Profile picture" frame -->
+                    
                     <Frame CornerRadius="30"
                            HeightRequest="40"
                            WidthRequest="40"
@@ -52,8 +52,17 @@
                             HorizontalOptions="FillAndExpand"
                             Margin="0, 0, 0, 0"/>
             <StackLayout Spacing="0" Padding="10">
-                <Label Text="Activities Near You" FontSize="30" Margin="0,0,0,10"/>
-
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="Activities Near You" FontSize="25" Margin="0,0,0,10"/>
+                    <Button Grid.Column ="1" Text="Filter" ImageSource="filter.png"/>
+                </Grid>
                 <TableView  RowHeight="160" Margin="0,0,0,0" >
                     <TableRoot>
                         <TableSection>
@@ -67,9 +76,9 @@
                                             <RowDefinition Height="50" />
                                             <RowDefinition Height="50" />
                                         </Grid.RowDefinitions>
-                                        <Image Grid.Row="0" Source="C:\Users\antho\Desktop\SEPB\Pastime\Pastime\Pastime\Pastime\Views\images\Logo.PNG"/>
-                                        <Label Grid.Column="1" Text="Event Title: Football" FontSize="20" VerticalOptions="StartAndExpand" />
-                                        <Button Grid.Column ="1" Grid.Row="1" Text="Cancel" VerticalOptions="End" HorizontalOptions="Start" />
+                                        <Image Grid.Row="0" Source="LogoWithName.png"/>
+                                        <Label Grid.Column="1" Text="[Event Title]" FontSize="20" VerticalOptions="StartAndExpand" />
+                                        <Button Grid.Column ="1" Grid.Row="1" Text="Dismiss" VerticalOptions="End" HorizontalOptions="Start" />
                                         <Button Grid.Column ="1" Grid.Row="1" Text="More" VerticalOptions="Start" HorizontalOptions="End" />
                                     </Grid>
                                 </Frame>
@@ -84,8 +93,8 @@
                                             <RowDefinition Height="50" />
                                             <RowDefinition Height="50" />
                                         </Grid.RowDefinitions>
-                                        <Image Grid.Row="0" Source="C:\Users\antho\Desktop\SEPB\Pastime\Pastime\Pastime\Pastime\Views\images\Logo.PNG"/>
-                                        <Label Grid.Column="1" Text="Event Title: Football" FontSize="20" VerticalOptions="StartAndExpand" />
+                                        <Image Grid.Row="0" Source="LogoWithName.PNG"/>
+                                        <Label Grid.Column="1" Text="[Event Title]" FontSize="20" VerticalOptions="StartAndExpand" />
                                         <Button Grid.Column ="1" Grid.Row="1" Text="Cancel" VerticalOptions="End" HorizontalOptions="Start" />
                                         <Button Grid.Column ="1" Grid.Row="1" Text="More" VerticalOptions="Start" HorizontalOptions="End" />
                                     </Grid>

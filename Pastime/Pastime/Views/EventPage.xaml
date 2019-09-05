@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Pastime.Views.EventPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout
+                    BackgroundColor="#343333"
+                    Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Frame CornerRadius="30"
+                           HeightRequest="40"
+                           WidthRequest="40"
+                           HorizontalOptions="Start"
+                           VerticalOptions="CenterAndExpand"
+                           Margin="0"
+                           Padding="0"
+                           BorderColor="black"
+                           HasShadow="False" Grid.Column="0">
+
+                        <Label Text="SM"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               FontAttributes="Bold" />
+                    </Frame>
+
+                    <Label Text="Event" Grid.Column="1"
+                           FontSize="25" VerticalTextAlignment="Center" TextColor="#FEFCFC" />
+                    <Button ImageSource="settings.png" Grid.Column="2" HorizontalOptions="End"/>
+                </Grid>
+            </StackLayout>
+            <BoxView HeightRequest="3" BackgroundColor="Green" 
+                            HorizontalOptions="FillAndExpand"
+                            Margin="0, 0, 0, 0"/>
+
+            <StackLayout>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60" />
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="LogoWithName.png"/>
+                    <Label Grid.Column ="1" Text="[Event Name]" Margin="10" FontSize="30"/>
+                </Grid>
+                <StackLayout>
+                    <TableView  RowHeight="40"
+                                Intent="Data">
+                        <TableRoot>
+                            <TableSection TextColor="DarkBlue"
+                                          Title="Info">
+                                <TextCell Text="Date: "
+                                          TextColor="Black"/>
+                                
+                                <TextCell Text="Time: "
+                                          TextColor="Black" />
+                                <TextCell Text="Location: "
+                                          TextColor="Black"/>
+                                <TextCell Text="Attending: " 
+                                          TextColor="Black"/>
+                            </TableSection>
+                            <TableSection TextColor="DarkBlue"
+                                          Title="More Info">
+                                <TextCell Text="Equipment needed: " 
+                                          TextColor="Black"/>
+
+                            </TableSection>
+                        </TableRoot>
+                    </TableView>
+                </StackLayout>
+
+            </StackLayout>
+            
+            <StackLayout>
+                <Button ImageSource="comments.png" WidthRequest="60" HeightRequest="60" BorderRadius="30" HorizontalOptions="End" Margin="0,0,15,0" />
+                <Grid BackgroundColor="#343333"
+                    Padding="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Text="Cancel" TextColor="Black" FontSize="Medium" />
+                    <Button Grid.Column="2" Text="Join Event" TextColor="White" BackgroundColor="Green" />
+
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

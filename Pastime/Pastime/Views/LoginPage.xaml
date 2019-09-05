@@ -17,7 +17,7 @@
         <StackLayout VerticalOptions="CenterAndExpand" >
             <Entry Placeholder="Email"/>
             <Entry Placeholder="Password" IsPassword="True" />
-            <Button Text="Log In" Margin="0,20,0,0"/>
+            <Button Text="Log In" Margin="0,20,0,0" ImageSource="login.png"/>
 
             <BoxView HeightRequest="3" BackgroundColor="Green" 
                             HorizontalOptions="FillAndExpand"
