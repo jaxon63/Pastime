@@ -7,11 +7,26 @@ namespace Pastime.Views
 {
     public partial class CreateEventView : ContentPage
     {
+        public CreateEventViewModel vm;
         public CreateEventView()
         {
             InitializeComponent();
-            this.BindingContext =  new CreateEventViewModel();
+            vm = new CreateEventViewModel();
+
+            this.BindingContext = vm;
+
 
         }
+
+        private async void OnTextChanged(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrWhiteSpace(vm.AddressText))
+            {
+                await vm.GetPlacesPredictionsAsync();
+            }
+          
+        }
+
+
     }
 }

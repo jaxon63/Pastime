@@ -21,39 +21,55 @@ namespace Pastime.Models
         private DateTime endTime;
         private bool active;
 
-
-
-
-
-
-
-        public EventModel(string name, Activity activity, string description)
+        public EventModel()
         {
-            this.name = name;
-            this.activity = activity;
-            this.description = description;
-
-
-
-
-
-
+           
         }
 
-        public bool validateName()
+        //validation methods.
+        //output parameter will be the error message displayed on the UI
+        public bool validateName(string name, out string errMsg)
         {
             if (string.IsNullOrEmpty(name))
+            {
+                errMsg = "Please enter a name for the event";
                 return false;
+
+            }
+            else if (name.Length > 30)
+            {
+                errMsg = "Please enter a name less than 30 characters long";
+                return false;
+            }
             else
+            {
+                errMsg = string.Empty;
                 return true;
+            }
         }
 
-        public bool validateDesc()
+        public bool validateDesc(string desc, out string errMsg)
         {
-            if (description.Length < 20 || description.Length > 300)
+            if (string.IsNullOrEmpty(desc))
+            {
+                errMsg = "Please enter a description for the event";
                 return false;
+            }
+            else if (desc.Length < 20)
+            {
+                errMsg = "Please enter at least 20 characters";
+                return false;
+            }
+            else if (desc.Length > 300)
+            {
+                errMsg = "Description can be no more than 300 characters long";
+                return false;
+            } 
             else
+            {
+                errMsg = string.Empty;
                 return true;
+            }
         }
 
         public Event createEvent()
