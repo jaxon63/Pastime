@@ -13,13 +13,17 @@
 
 
                 <Picker x:Name="SportPicker"
-                    Title="Select a sport">
+                    Title="Select a sport"
+                        
+                        SelectedItem="{Binding Sport}">
                     <Picker.Items>
                         <x:String>Cricket</x:String>
                         <x:String>Basketball</x:String>
                         <x:String>Hockey?</x:String>
                     </Picker.Items>
                 </Picker>
+                <Label Text="{Binding SportErrMsg}" IsVisible="{Binding InvalidSport}" TextColor="Red" HorizontalOptions="Center" FontSize="Micro" />
+
 
                 <Entry Text="{Binding Desc}"
                    Placeholder="Event Description"
@@ -28,20 +32,21 @@
                    Text="{Binding DescErrMsg}" />
 
                 <Entry Text="{Binding AddressText}" x:Name="AddressText" TextChanged="OnTextChanged" Placeholder="Location" />
-                <ListView ItemsSource="{Binding Addresses}" >
+                <Label Text="{Binding DisplayAddress}" />
+                <Label HorizontalOptions="Center" Text="{Binding LocErrMsg}" TextColor="Red" FontSize="Micro" IsVisible="{Binding InvalidLoc}" />
+                <ListView IsVisible="{Binding DisplayList }" ItemsSource="{Binding Addresses}" SelectedItem="{Binding SelectedAddress}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextCell Text="{Binding Address}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Command="{Binding DoSearchCommand}" Text="Search" CommandParameter="{Binding CanSearch}"/>
-    
+
 
 
 
                 <Label Text="Date" />
-                
+
 
                 <DatePicker  HorizontalOptions="FillAndExpand"
                          Format="D" />

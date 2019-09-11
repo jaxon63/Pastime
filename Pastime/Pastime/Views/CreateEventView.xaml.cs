@@ -27,6 +27,9 @@ namespace Pastime.Views
           
         }
 
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
 
+        }
     }
 }

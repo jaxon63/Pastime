@@ -22,38 +22,35 @@ namespace Pastime.ViewModels
         private string nameErrMsg = string.Empty;
         private bool invalidName;
 
-
-
-
-
         private string desc = string.Empty;
         private string descErrMsg = string.Empty;
         private bool invalidDesc;
 
-        private EventModel em;
+        private string addressText;
 
-        private Activity activity;
+        private string displayAddress = string.Empty;
 
-        private readonly GooglePlacesApiService service;
+
+        private bool displayList;
+
+        private List<Activity> activities;
+
+        private string locErrMsg = string.Empty;
+        private bool invalidLoc;
+
+
+        private AddressInfo selectedAddress;
+
+        private readonly EventModel em;
 
         public CreateEventViewModel()
         {
             SubmitCommand = new Command(PostEvent);
 
             em = new EventModel();
+        }
 
-            //TODO: the API key crashes the app for some reason.
-            //TODO: get environment variable to work Environment.GetEnvironmentVariable("AIzaSyDymVB9no6IHh7boHfCSzDoV-jU9eeeQTk")
-            //var settings = GoogleApiSettings.Builder.WithApiKey("AIzaSyBnDLNBhZVaiHtpwzHtVeSgJNSSyiTz9FE").Build();
-            //service = new GooglePlacesApiService(settings);
-            
-            
-
-
-
-    }
-
-    public string Name
+        public string Name
         {
             get => name;
             set
@@ -79,6 +76,19 @@ namespace Pastime.ViewModels
             }
         }
 
+        public string NameErrMsg
+        {
+            get => nameErrMsg;
+            set
+            {
+                if (nameErrMsg == value)
+                    return;
+
+                nameErrMsg = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string Desc
         {
             get => desc;
@@ -91,7 +101,6 @@ namespace Pastime.ViewModels
                 OnPropertyChanged();
             }
         }
-
         public bool InvalidDesc
         {
             get => invalidDesc;
@@ -118,15 +127,101 @@ namespace Pastime.ViewModels
             }
         }
 
-        public string NameErrMsg
+        public List<Activity> Activities
         {
-            get => nameErrMsg;
+            get => activities;
             set
             {
-                if (nameErrMsg == value)
+                if (activities == value)
                     return;
 
-                nameErrMsg = value;
+                activities = value;
+                OnPropertyChanged();
+            }
+        }
+     
+        public string LocErrMsg
+        {
+            get => locErrMsg;
+            set
+            {
+                if (locErrMsg == value)
+                    return;
+
+                locErrMsg = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public AddressInfo SelectedAddress
+        {
+            get => selectedAddress;
+            set
+            {
+                if (selectedAddress == value)
+                    return;
+
+                selectedAddress = value;
+
+                DisplayAddress = selectedAddress.Address;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool InvalidLoc
+        {
+            get => invalidLoc;
+            set
+            {
+                if (invalidLoc == value)
+                    return;
+
+                invalidLoc = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string AddressText
+        {
+            get => addressText;
+            set
+            {
+                if (addressText != value)
+                {
+                    addressText = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        //Label for displaying the currently selected address 
+        //When set it hides the list from the view and resets the search text
+        public string DisplayAddress
+        {
+            get => displayAddress;
+            set
+            {
+                if (displayAddress == value)
+                    return;
+
+                displayAddress = value;
+
+                AddressText = string.Empty;
+                DisplayList = false;
+                
+                OnPropertyChanged();
+            }
+        }
+
+        public bool DisplayList
+        {
+            get => displayList;
+            set
+            {
+                if (displayList == value)
+                    return;
+
+                displayList = value;
                 OnPropertyChanged();
             }
         }
@@ -134,51 +229,6 @@ namespace Pastime.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand SubmitCommand { private set; get; }
-       // public ICommand DoSearchCommand => new Command(async () => await DoSearchAsync().ConfigureAwait(false), () => CanSearch);
-
-        //TODO: Location search doesn't work
-        private string searchText;
-        public string SearchText
-        {
-            get => searchText;
-            set
-            {
-                searchText = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /*
-
-               private int resultCount;
-               public int ResultCount
-               {
-                   get => resultCount;
-                   set => resultCount = value;
-               }
-
-               private List<Prediction> results;
-               public List<Prediction> Results
-               {
-                   get => results;
-                   set => results = value;
-               }
-
-               public bool CanSearch => !string.IsNullOrWhiteSpace(SearchText) && SearchText.Length > 2;
-               public bool HasResults => resultCount > 0;
-
-               private async Task DoSearchAsync()
-               {
-                   var results = await service.GetPredictionsAsync(SearchText).ConfigureAwait(false);
-
-                   if (results != null && results.Status.Equals("OK"))
-                   {
-                       Results = results.Items;
-                       OnPropertyChanged("HasResults");
-                   }
-               }  */
-
-
 
         void OnPropertyChanged([CallerMemberName]string propertyName = "")
         {
@@ -189,53 +239,39 @@ namespace Pastime.ViewModels
         {
             //Create Event Model which is responsible for validating the input
             //The view is then updated to reflect any errors in the input
-            
+
             //Assign result of validation to public properties, which triggers the display of the error messages in the UI
             //The value of the error message is generated in EventModel, depening on the validation (too long, too short, empty ect.)
             InvalidName = !em.validateName(Name, out string nameErrMsg);
             NameErrMsg = nameErrMsg;
+
             InvalidDesc = !em.validateDesc(Desc, out string descErrMsg);
             DescErrMsg = descErrMsg;
 
+            InvalidLoc = !em.validateLocationString(AddressText, out string locErrMsg);
+            LocErrMsg = locErrMsg;
+
         }
 
 
-
-
-
-
-
-        //Places autocomplete code
-        //TODO: Move it somewhere else?
+        //Code for location autocomplete
         public const string GooglePlacesApiAutoCompletePath = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key={0}&input={1}&components=country:au";
-        public const string GooglePlacesApiKey = "AIzaSyBnDLNBhZVaiHtpwzHtVeSgJNSSyiTz9FE";
 
-        private static HttpClient _httpClientInstance;
-        public static HttpClient HttpClientInstance => _httpClientInstance ?? (_httpClientInstance = new HttpClient());
+        //TODO: store the key on the server
+        public const string GooglePlacesApiKey = "AIzaSyC88PtFFRYXHEaTfvTjiXy-KrvZhAvOnb4";
 
-        private ObservableCollection<AddressInfo> _addresses;
+        private static HttpClient httpClientInstance;
+        public static HttpClient HttpClientInstance => httpClientInstance ?? (httpClientInstance = new HttpClient());
+
+        private ObservableCollection<AddressInfo> addresses;
         public ObservableCollection<AddressInfo> Addresses
         {
-            get => _addresses ?? (_addresses = new ObservableCollection<AddressInfo>());
+            get => addresses ?? (addresses = new ObservableCollection<AddressInfo>());
             set
             {
-                if (_addresses != value)
+                if (addresses != value)
                 {
-                    _addresses = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _addressText;
-        public string AddressText
-        {
-            get => _addressText;
-            set
-            {
-                if (_addressText != value)
-                {
-                    _addressText = value;
+                    addresses = value;
                     OnPropertyChanged();
                 }
             }
@@ -248,7 +284,7 @@ namespace Pastime.ViewModels
 
             CancellationToken cancellationToken = new CancellationTokenSource(TimeSpan.FromMinutes(2)).Token;
 
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, string.Format(GooglePlacesApiAutoCompletePath, GooglePlacesApiKey, WebUtility.UrlEncode(_addressText))))
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, string.Format(GooglePlacesApiAutoCompletePath, GooglePlacesApiKey, WebUtility.UrlEncode(addressText))))
             { //Be sure to UrlEncode the search term they enter
 
                 using (HttpResponseMessage message = await HttpClientInstance.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken).ConfigureAwait(false))
@@ -266,6 +302,7 @@ namespace Pastime.ViewModels
 
                             if (predictionList.Predictions.Count > 0)
                             {
+                                DisplayList = true;
                                 foreach (Prediction prediction in predictionList.Predictions)
                                 {
                                     Addresses.Add(new AddressInfo
@@ -273,6 +310,7 @@ namespace Pastime.ViewModels
                                         Address = prediction.Description
                                     });
                                 }
+
                             }
                         }
                         else
@@ -289,69 +327,9 @@ namespace Pastime.ViewModels
 }
 
 
-public class AddressInfo
-{
-    public string Address { get; set; }
-    public string City { get; set; }
-    public string State { get; set; }
-    public string ZipCode { get; set; }
-    public string Longitue { get; set; }
-    public string Latitude { get; set; }
-  
-}
 
 
-public class PlacesMatchedSubstring
-{
-    [Newtonsoft.Json.JsonProperty("length")]
-    public int Length { get; set; }
 
-    [Newtonsoft.Json.JsonProperty("offset")]
-    public int Offset { get; set; }
-}
 
-public class PlacesTerm
-{
-    [Newtonsoft.Json.JsonProperty("offset")]
-    public int Offset { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("value")]
-    public string Value { get; set; }
-
-}
-
-public class Prediction
-{
-    [Newtonsoft.Json.JsonProperty("id")]
-    public string Id { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("description")]
-    public string Description { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("matched_substrings")]
-    public List<PlacesMatchedSubstring> MatchedSubstrings { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("place_id")]
-    public string PlaceId { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("reference")]
-    public string Reference { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("terms")]
-    public List<PlacesTerm> Terms { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("types")]
-    public List<string> Types { get; set; }
-}
-
-public class PlacesLocationPredictions
-{
-
-    [Newtonsoft.Json.JsonProperty("predictions")]
-    public List<Prediction> Predictions { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("status")]
-    public string Status { get; set; }
-}
 
 

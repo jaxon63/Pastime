@@ -23,14 +23,14 @@ namespace Pastime.Models
 
         public EventModel()
         {
-           
+
         }
 
         //validation methods.
         //output parameter will be the error message displayed on the UI
         public bool validateName(string name, out string errMsg)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 errMsg = "Please enter a name for the event";
                 return false;
@@ -50,7 +50,7 @@ namespace Pastime.Models
 
         public bool validateDesc(string desc, out string errMsg)
         {
-            if (string.IsNullOrEmpty(desc))
+            if (string.IsNullOrWhiteSpace(desc))
             {
                 errMsg = "Please enter a description for the event";
                 return false;
@@ -64,7 +64,7 @@ namespace Pastime.Models
             {
                 errMsg = "Description can be no more than 300 characters long";
                 return false;
-            } 
+            }
             else
             {
                 errMsg = string.Empty;
@@ -72,10 +72,39 @@ namespace Pastime.Models
             }
         }
 
+        public bool validateLocationString(string loc, out string errMsg)
+        {
+            if (string.IsNullOrWhiteSpace(loc))
+            {
+                errMsg = "Location can not be empty";
+                return false;
+            }
+            else
+            {
+                errMsg = string.Empty;
+                return true;
+            }
+        }
+
+        public bool validateSport(string sport, out string errMsg)
+        {
+            if (string.IsNullOrWhiteSpace(sport))
+            {
+                errMsg = "Please select a sport";
+                return false;
+            }
+            else
+            {
+                errMsg = string.Empty;
+                return true;
+            }
+        }
+
+
+
         public Event createEvent()
         {
-            Event result = null;
-
+            Event result = new Event(0, "", null, null, null, 0, "", new DateTime(), new DateTime());
             return result;
         }
 

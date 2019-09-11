@@ -3,7 +3,6 @@ using Pastime.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.IO;
-using Pastime.Views;
 
 namespace Pastime
 {
