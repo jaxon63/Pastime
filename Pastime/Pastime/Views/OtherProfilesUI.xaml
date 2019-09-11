@@ -40,14 +40,14 @@
                     <!-- Label for the User's name-->
                     <Label Text="{Binding Name}"
                            HorizontalTextAlignment="Center"
-                           FontSize="20" />
+                           FontSize="20" TextColor="White" />
                     <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="Center">
-                        <Label FontSize="8"
+                        <Label TextColor="White" FontSize="8"
                                Text="Events attended: " />
-                        <Label FontSize="8"
+                        <Label TextColor="White" FontSize="8"
                                Text="Events hosted: " />
-                        <Label FontSize="8"
+                        <Label TextColor="White" FontSize="8"
                                Text="User rating: " />
                     </StackLayout>
                 </StackLayout>

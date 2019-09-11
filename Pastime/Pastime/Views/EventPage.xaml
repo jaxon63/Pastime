@@ -7,6 +7,7 @@
              x:Class="Pastime.Views.EventPage">
     <ContentPage.Content>
         <StackLayout>
+            <!-- Top Bar with settings button -->
             <StackLayout
                     BackgroundColor="#343333"
                     Padding="20">
@@ -35,7 +36,7 @@
                         <Label Text="SM"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
-                               HorizontalTextAlignment="Center"
+                               HorizontalTextAlignment="Center "
                                VerticalTextAlignment="Center"
                                FontAttributes="Bold" />
                     </Frame>
@@ -68,19 +69,19 @@
                         <TableRoot>
                             <TableSection TextColor="DarkBlue"
                                           Title="Info">
-                                <TextCell Text="Date: "
+                                <!-- Information on Event -->
+                                <TextCell d:Text ="Date: " Text="{Binding Date}"
                                           TextColor="Black"/>
-                                
-                                <TextCell Text="Time: "
+                                <TextCell d:Text ="Time: " Text="{Binding Time}"
                                           TextColor="Black" />
-                                <TextCell Text="Location: "
+                                <TextCell d:Text="Location: " Text="{Binding Location}"
                                           TextColor="Black"/>
-                                <TextCell Text="Attending: " 
+                                <TextCell d:Text="Attending: " Text="{Binding Attending}"
                                           TextColor="Black"/>
                             </TableSection>
                             <TableSection TextColor="DarkBlue"
                                           Title="More Info">
-                                <TextCell Text="Equipment needed: " 
+                                <TextCell d:Text="Equipment needed: " Text="{Binding Equipment}"
                                           TextColor="Black"/>
 
                             </TableSection>
@@ -91,7 +92,9 @@
             </StackLayout>
             
             <StackLayout>
+                <!-- Comment section Button -->
                 <Button ImageSource="comments.png" WidthRequest="60" HeightRequest="60" BorderRadius="30" HorizontalOptions="End" Margin="0,0,15,0" />
+                <!-- Join Event/ Cancel bar (Should disappear and change event state once joined)-->
                 <Grid BackgroundColor="#343333"
                     Padding="20">
                     <Grid.RowDefinitions>
