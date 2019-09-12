@@ -17,7 +17,7 @@
         <StackLayout VerticalOptions="CenterAndExpand" >
             <Entry Placeholder="Email"/>
             <Entry Placeholder="Password" IsPassword="True" />
-            <Button Text="Log In" Margin="0,20,0,0" ImageSource="login.png"/>
+            <Button Text="Log In" Margin="0,20,0,0" ImageSource="login.png" BorderRadius="30" WidthRequest="60" HeightRequest="50"/>
 
             <BoxView HeightRequest="3" BackgroundColor="Green" 
                             HorizontalOptions="FillAndExpand"
@@ -25,7 +25,7 @@
             <Label Text="If you're new to Pastime, click here!" 
                    Margin="0, 30, 0, 0"
                    HorizontalOptions="Center"/>
-            <Button Text="Create Account"/>
+            <Button Text="Create Account" BorderRadius="30" WidthRequest="60" HeightRequest="50"/>
 
         </StackLayout>
         <Label Text="Swinburne University SEP" 

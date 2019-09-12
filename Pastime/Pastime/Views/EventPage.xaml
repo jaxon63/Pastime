@@ -43,13 +43,12 @@
 
                     <Label Text="Event" Grid.Column="1"
                            FontSize="25" VerticalTextAlignment="Center" TextColor="#FEFCFC" />
-                    <Button ImageSource="settings.png" Grid.Column="2" HorizontalOptions="End"/>
+                    <Button ImageSource="settings.png" Grid.Column="2" HorizontalOptions="End" BorderRadius="30" WidthRequest="40" HeightRequest="50"/>
                 </Grid>
             </StackLayout>
             <BoxView HeightRequest="3" BackgroundColor="Green" 
                             HorizontalOptions="FillAndExpand"
                             Margin="0, 0, 0, 0"/>
-
             <StackLayout>
                 <Grid>
                     <Grid.RowDefinitions>

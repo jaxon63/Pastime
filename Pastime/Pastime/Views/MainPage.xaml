@@ -8,14 +8,12 @@
 
     <ContentPage.Content>
         <StackLayout>
-            
-                <StackLayout
-                    
-                    BackgroundColor="#343333"
+
+            <StackLayout BackgroundColor="#343333"
                     Padding="20">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="40" />
 
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -23,7 +21,7 @@
                         <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
 
-                    
+
                     <Frame CornerRadius="30"
                            HeightRequest="40"
                            WidthRequest="40"
@@ -41,16 +39,14 @@
                                VerticalTextAlignment="Center"
                                FontAttributes="Bold" />
                     </Frame>
-                    
+
                     <Label Text="Dashboard" Grid.Column="1"
                            FontSize="25" VerticalTextAlignment="Center" TextColor="#FEFCFC" />
+                    <Button ImageSource="settings.png" Grid.Column="2" HorizontalOptions="End"  BorderRadius="30" WidthRequest="40" HeightRequest="50"/>
                 </Grid>
-        </StackLayout>
 
-            
-            <BoxView HeightRequest="3" BackgroundColor="Green" 
-                            HorizontalOptions="FillAndExpand"
-                            Margin="0, 0, 0, 0"/>
+            </StackLayout>
+            <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand"/>
             <StackLayout Spacing="0" Padding="10">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -60,12 +56,13 @@
                         <ColumnDefinition Width="3*" />
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="Activities Near You" FontSize="25" Margin="0,0,0,10"/>
-                    <Button Grid.Column ="1" Text="Filter" ImageSource="filter.png"/>
+                    <Label Grid.Column="0" Text="Activities Near You" FontSize="25" Margin="0,5"/>
+                    <Button Grid.Column ="1" Text="Filter" ImageSource="filter.png" BorderRadius="30" WidthRequest="60" HeightRequest="50"/>
                 </Grid>
-                <TableView  RowHeight="160" Margin="0,0,0,0" >
-                    <TableRoot>
-                        <TableSection>
+
+                <ListView>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
                             <ViewCell>
                                 <Frame BorderColor="Green" Padding="10" Margin="0,0,0,10" HasShadow="True">
                                     <Grid>
@@ -83,28 +80,11 @@
                                     </Grid>
                                 </Frame>
                             </ViewCell>
-                            <ViewCell>
-                                <Frame BorderColor="Green" Margin="0,0,0,10" Padding="10" HasShadow="True">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.2*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="45" />
-                                            <RowDefinition Height="35" />
-                                        </Grid.RowDefinitions>
-                                        <Image Grid.Row="0" Source="LogoWithName.PNG"/>
-                                        <Label Grid.Column="1" Text="EventName" FontSize="20" VerticalOptions="StartAndExpand" />
-                                        <Label Grid.Column="1" Grid.Row="1" Text="Location: "/>
-                                        <Button Grid.Column ="1" Grid.Row="2" Text="Cancel" VerticalOptions="End" HorizontalOptions="Start" />
-                                        <Button Grid.Column ="1" Grid.Row="2" Text="More" VerticalOptions="Start" HorizontalOptions="End" />
-                                    </Grid>
-                                </Frame>
-                            </ViewCell>
-                        </TableSection>
-                    </TableRoot>
-                </TableView>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
+            <Button ImageSource="add.png" WidthRequest="60" HeightRequest="60" BorderRadius="30" HorizontalOptions="End" Margin="0,0,15,15" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
