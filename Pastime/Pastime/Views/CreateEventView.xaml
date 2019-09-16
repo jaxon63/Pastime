@@ -1,20 +1,22 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage  xmlns="http://xamarin.com/schemas/2014/forms"
               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              x:Class="Pastime.Views.CreateEventView" >
+              x:Class="Pastime.Views.CreateEventView">
     <ContentPage.Title>Create Event</ContentPage.Title>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="20">
                 <Entry Text="{Binding Name}"
-                   Placeholder="Event name" />
-                <Label HorizontalOptions="Center" TextColor="Red" FontSize="Micro"  IsVisible="{Binding InvalidName}"
-                   Text="{Binding NameErrMsg}" />
+                       Placeholder="Event name" />
+                <Label HorizontalOptions="Center"
+                       TextColor="Red"
+                       FontSize="Micro"
+                       IsVisible="{Binding InvalidName}"
+                       Text="{Binding NameErrMsg}" />
 
 
                 <Picker x:Name="SportPicker"
-                    Title="Select a sport"
-                        
+                        Title="Select a sport"
                         SelectedItem="{Binding Sport}">
                     <Picker.Items>
                         <x:String>Cricket</x:String>
@@ -22,19 +24,37 @@
                         <x:String>Hockey?</x:String>
                     </Picker.Items>
                 </Picker>
-                <Label Text="{Binding SportErrMsg}" IsVisible="{Binding InvalidSport}" TextColor="Red" HorizontalOptions="Center" FontSize="Micro" />
+                <Label Text="{Binding SportErrMsg}"
+                       IsVisible="{Binding InvalidSport}"
+                       TextColor="Red"
+                       HorizontalOptions="Center"
+                       FontSize="Micro" />
 
 
                 <Entry Text="{Binding Desc}"
-                   Placeholder="Event Description"
-                   HeightRequest="50" />
-                <Label HorizontalOptions="Center" TextColor="Red" FontSize="Micro" IsVisible="{Binding InvalidDesc}"
-                   Text="{Binding DescErrMsg}" />
+                       Placeholder="Event Description"
+                       HeightRequest="50" />
+                <Label HorizontalOptions="Center"
+                       TextColor="Red"
+                       FontSize="Micro"
+                       IsVisible="{Binding InvalidDesc}"
+                       Text="{Binding DescErrMsg}" />
 
-                <Entry Text="{Binding AddressText}" x:Name="AddressText" TextChanged="OnTextChanged" Placeholder="Location" />
+                <Entry Text="{Binding AddressText}"
+                       x:Name="AddressText"
+                       TextChanged="OnTextChanged"
+                       Placeholder="Location" />
                 <Label Text="{Binding DisplayAddress}" />
-                <Label HorizontalOptions="Center" Text="{Binding LocErrMsg}" TextColor="Red" FontSize="Micro" IsVisible="{Binding InvalidLoc}" />
-                <ListView IsVisible="{Binding DisplayList }" ItemsSource="{Binding Addresses}" SelectedItem="{Binding SelectedAddress}" >
+                <Label HorizontalOptions="Center"
+                       Text="{Binding LocErrMsg}"
+                       TextColor="Red"
+                       FontSize="Micro"
+                       IsVisible="{Binding InvalidLoc}" />
+                <ListView Footer=""
+                          HeightRequest="1"
+                          IsVisible="{Binding DisplayList }"
+                          ItemsSource="{Binding Addresses}"
+                          SelectedItem="{Binding SelectedAddress}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextCell Text="{Binding Address}" />
@@ -45,25 +65,34 @@
 
 
 
+
+
                 <Label Text="Date" />
 
 
-                <DatePicker  HorizontalOptions="FillAndExpand"
-                         Format="D" />
+                <DatePicker Date="{Binding EventDate}"
+                            HorizontalOptions="FillAndExpand"
+                            Format="D" />
+                <Label HorizontalOptions="Center"
+                       TextColor="Red"
+                       FontSize="Micro"
+                       Text="{Binding EventDateErrMsg}" />
 
                 <StackLayout Orientation="Horizontal">
-                    <TimePicker  HorizontalOptions="FillAndExpand"
-                             Format="t" />
-                    <TimePicker HorizontalOptions="FillAndExpand"
-                            Format="t" />
+                    <TimePicker Time="{Binding StartTime}"
+                                HorizontalOptions="FillAndExpand"
+                                Format="t" />
+                    <TimePicker Time="{Binding EndTime}"
+                                HorizontalOptions="FillAndExpand"
+                                Format="t" />
                 </StackLayout>
 
                 <Label Text="Equipmemnt Needed" />
 
                 <Entry Placeholder="Additional notes" />
                 <Button Command="{Binding SubmitCommand}"
-                    HorizontalOptions="FillAndExpand"
-                    Text="Post Event" />
+                        HorizontalOptions="FillAndExpand"
+                        Text="Post Event" />
             </StackLayout>
 
 

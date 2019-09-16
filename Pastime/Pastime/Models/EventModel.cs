@@ -17,7 +17,7 @@ namespace Pastime.Models
         private Xamarin.Essentials.Location location;
         private int maxGuests;
         private string description;
-        private DateTime startTime;
+        private TimeSpan startTime;
         private DateTime endTime;
         private bool active;
 
@@ -99,6 +99,22 @@ namespace Pastime.Models
                 return true;
             }
         }
+
+        public bool validateEventDate(DateTime eventDate, TimeSpan startTime, out string errMsg)
+        {
+            DateTime dateTime = eventDate.Date + startTime;
+            if (dateTime < DateTime.Now.Add(new TimeSpan(1, 0, 0)))
+            {
+                errMsg = "Please choose a later time";
+                return false;
+            }
+
+            errMsg = string.Empty;
+            return true;
+            
+        }
+
+      
 
 
 

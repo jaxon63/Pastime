@@ -27,19 +27,31 @@ namespace Pastime.ViewModels
         private bool invalidDesc;
 
         private string addressText;
-
         private string displayAddress = string.Empty;
-
-
         private bool displayList;
+        private AddressInfo selectedAddress;
+
 
         private List<Activity> activities;
 
         private string locErrMsg = string.Empty;
         private bool invalidLoc;
 
+        private string sport;
+        private bool invalidSport;
+        private string sportErrMsg;
 
-        private AddressInfo selectedAddress;
+        private DateTime eventDate = DateTime.Now.Date;
+        private string eventDateErrMsg;
+        private bool invalidEventDate;
+
+        private TimeSpan startTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(1, 0, 0));
+        private TimeSpan endTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(2, 0, 0));
+
+        private DateTime dateAndTime;
+
+
+
 
         private readonly EventModel em;
 
@@ -48,6 +60,11 @@ namespace Pastime.ViewModels
             SubmitCommand = new Command(PostEvent);
 
             em = new EventModel();
+
+            DateTime MinimumDate = DateTime.Now;
+
+
+
         }
 
         public string Name
@@ -101,6 +118,7 @@ namespace Pastime.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public bool InvalidDesc
         {
             get => invalidDesc;
@@ -139,7 +157,7 @@ namespace Pastime.ViewModels
                 OnPropertyChanged();
             }
         }
-     
+
         public string LocErrMsg
         {
             get => locErrMsg;
@@ -208,7 +226,7 @@ namespace Pastime.ViewModels
 
                 AddressText = string.Empty;
                 DisplayList = false;
-                
+
                 OnPropertyChanged();
             }
         }
@@ -222,6 +240,113 @@ namespace Pastime.ViewModels
                     return;
 
                 displayList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Sport
+        {
+            get => sport;
+            set
+            {
+                if (sport == value)
+                    return;
+
+                sport = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool InvalidSport
+        {
+            get => invalidSport;
+            set
+            {
+                if (invalidSport == value)
+                    return;
+
+                invalidSport = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string SportErrMsg
+        {
+            get => sportErrMsg;
+            set
+            {
+                if (sportErrMsg == value)
+                    return;
+
+                sportErrMsg = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime EventDate
+        {
+            get => eventDate;
+
+            set
+            {
+                if (eventDate == value)
+                    return;
+
+                eventDate = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+        public TimeSpan StartTime
+        {
+            get => startTime;
+            set
+            {
+                if (startTime == value)
+                    return;
+
+                startTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TimeSpan EndTime
+        {
+            get => endTime;
+            set
+            {
+                if (endTime == value)
+                    return;
+                endTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
+        public string EventDateErrMsg
+        {
+            get => eventDateErrMsg;
+            set
+            {
+                if (eventDateErrMsg == value)
+                    return;
+
+                eventDateErrMsg = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool InvalidEventDate
+        {
+            get => invalidEventDate;
+            set
+            {
+                if (invalidEventDate == value)
+                    return;
+
+                invalidEventDate = value;
                 OnPropertyChanged();
             }
         }
@@ -248,9 +373,15 @@ namespace Pastime.ViewModels
             InvalidDesc = !em.validateDesc(Desc, out string descErrMsg);
             DescErrMsg = descErrMsg;
 
-            InvalidLoc = !em.validateLocationString(AddressText, out string locErrMsg);
+            InvalidLoc = !em.validateLocationString(DisplayAddress, out string locErrMsg);
             LocErrMsg = locErrMsg;
 
+            InvalidSport = !em.validateSport(Sport, out string sportErrMsg);
+            SportErrMsg = sportErrMsg;
+
+            //TODO: Event can't be posted on the same day, need to change it to account for the time of the event
+            InvalidEventDate = !em.validateEventDate(EventDate, StartTime, out string eventDateErrMsg);
+            EventDateErrMsg = eventDateErrMsg;
         }
 
 
@@ -258,12 +389,13 @@ namespace Pastime.ViewModels
         public const string GooglePlacesApiAutoCompletePath = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key={0}&input={1}&components=country:au";
 
         //TODO: store the key on the server
-        public const string GooglePlacesApiKey = "AIzaSyC88PtFFRYXHEaTfvTjiXy-KrvZhAvOnb4";
+        public const string GooglePlacesApiKey = "AIzaSyDensjvndlwB4SfjbHOddaael86GDcoNgs";
 
         private static HttpClient httpClientInstance;
         public static HttpClient HttpClientInstance => httpClientInstance ?? (httpClientInstance = new HttpClient());
 
         private ObservableCollection<AddressInfo> addresses;
+
         public ObservableCollection<AddressInfo> Addresses
         {
             get => addresses ?? (addresses = new ObservableCollection<AddressInfo>());
@@ -276,6 +408,7 @@ namespace Pastime.ViewModels
                 }
             }
         }
+
 
         public async Task GetPlacesPredictionsAsync()
         {
@@ -305,10 +438,14 @@ namespace Pastime.ViewModels
                                 DisplayList = true;
                                 foreach (Prediction prediction in predictionList.Predictions)
                                 {
-                                    Addresses.Add(new AddressInfo
+                                    if (Addresses.Count != 5)
                                     {
-                                        Address = prediction.Description
-                                    });
+                                        Addresses.Add(new AddressInfo
+                                        {
+                                            Address = prediction.Description
+                                        });
+                                    }
+
                                 }
 
                             }
