@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xamarin.Essentials;
 
@@ -14,15 +15,21 @@ namespace Pastime.Models
         private Activity activity;
         private List<string> equipmentNeeded;
         private Location location;
+        private int numOfGuests;
         private int maxGuests;
         private string description;
         private DateTime startTime;
-        private DateTime endTime;
+        private TimeSpan endTime;
         private bool active;
 
-        public Event(int eventId, string name, User host, Activity activity, Location location, int maxGuests, string description, DateTime startTime, DateTime endTime)
+        //TODO: add user to list of guests
+
+        public Event()
         {
-            this.eventId = eventId;
+        }
+
+        public Event( string name, User host, Activity activity, Location location, int maxGuests, string description, DateTime startTime, TimeSpan endTime)
+        {
             this.name = name;
             this.host = host;
             this.activity = activity;
@@ -32,6 +39,8 @@ namespace Pastime.Models
             this.startTime = startTime;
             this.endTime = endTime;
             active = true;
+            //Automatically add the host as a guest to the event
+            this.guests.Add(host);
         }
 
         public int EventId
@@ -62,6 +71,7 @@ namespace Pastime.Models
                 return host;
             }
         }
+
 
         public List<User> Guests
         {
@@ -143,7 +153,7 @@ namespace Pastime.Models
             }
         }
 
-        public DateTime EndTime
+        public TimeSpan EndTime
         {
             get
             {
@@ -189,7 +199,12 @@ namespace Pastime.Models
             return false;
         }
 
-        public bool CheckIfActive()
+        public int getGuestCount()
+        {
+            return guests.Count();
+        }
+
+       /* public bool CheckIfActive()
         {
             if (DateTime.Now > endTime)
             {
@@ -201,6 +216,6 @@ namespace Pastime.Models
             }
 
             return active;
-        }
+        } */
     }
 }

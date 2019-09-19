@@ -8,9 +8,9 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using GooglePlacesApi;
 using GooglePlacesApi.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Pastime.Models;
 using Xamarin.Forms;
 
@@ -18,6 +18,7 @@ namespace Pastime.ViewModels
 {
     public class CreateEventViewModel : INotifyPropertyChanged
     {
+        //Fields that require validation also have an error message and a boolean
         private string name = string.Empty;
         private string nameErrMsg = string.Empty;
         private bool invalidName;
@@ -26,12 +27,16 @@ namespace Pastime.ViewModels
         private string descErrMsg = string.Empty;
         private bool invalidDesc;
 
+        //Address is the text used as a search string for the location search
         private string addressText;
+        //Display address is bound to the seleced address
         private string displayAddress = string.Empty;
         private bool displayList;
+        //The selected address stores the address string as well as the lat and long.
+        //This data can be used to create a Xamarin Essentials Location object
         private AddressInfo selectedAddress;
 
-
+        //TODO: activities need to be retrieved from the database
         private List<Activity> activities;
 
         private string locErrMsg = string.Empty;
@@ -41,31 +46,48 @@ namespace Pastime.ViewModels
         private bool invalidSport;
         private string sportErrMsg;
 
+        //The default date/time is now
         private DateTime eventDate = DateTime.Now.Date;
         private string eventDateErrMsg;
         private bool invalidEventDate;
 
+        //Number of guests is 1 by default and can't be lower than 1 or higher than 10
+        private int numberOfGuests = 1;
+
+        //TODO: maybe some validation to make sure only alphanumeric is used
+        //User added equipment gets stored in the ObservableCollection
+        private ObservableCollection<string> equipmentList = new ObservableCollection<string>();
+        private string equipment = string.Empty;
+        //equipmentListToString displays the list as a single string separated by commas
+        private string equipmentListToString = string.Empty;
+
+        //TODO: Do we need this?
+        private string additionalNotes = string.Empty;
+
+        //The default start time is set to one hour from the current time
         private TimeSpan startTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(1, 0, 0));
+
+        //End time is automatically set to 2 hours from the current time
+        //TODO: Make it default to 1 hour from the start time instead of the current time
         private TimeSpan endTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(2, 0, 0));
 
-        private DateTime dateAndTime;
-
-
-
-
+        //Event model used to handle all the business logic regarding events
         private readonly EventModel em;
 
         public CreateEventViewModel()
         {
             SubmitCommand = new Command(PostEvent);
+            AddEquipCommand = new Command(AddEquipmentToList);
+            ClearEquipCommand = new Command(ClearEquipmentList);
 
+            //Instantiate the EventModel
             em = new EventModel();
 
+            //Instantiate the minimium date the user can select to the current time
             DateTime MinimumDate = DateTime.Now;
-
-
-
         }
+
+        //Getters and setters
 
         public string Name
         {
@@ -318,12 +340,11 @@ namespace Pastime.ViewModels
             {
                 if (endTime == value)
                     return;
+
                 endTime = value;
                 OnPropertyChanged();
             }
         }
-
-
 
         public string EventDateErrMsg
         {
@@ -351,9 +372,78 @@ namespace Pastime.ViewModels
             }
         }
 
+        public ObservableCollection<string> EquipmentList
+        {
+            get => equipmentList;
+            set
+            {
+                if (equipmentList == value)
+                    return;
+
+                equipmentList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Equipment
+        {
+            get => equipment;
+            set
+            {
+                if (equipment == value)
+                    return;
+
+                equipment = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string EquipmentListToString
+        {
+            get => equipmentListToString;
+
+            set
+            {
+                if (equipmentListToString == value)
+                    return;
+
+                equipmentListToString = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string AdditionalNotes
+        {
+            get => additionalNotes;
+            set
+            {
+                if (additionalNotes == value)
+                    return;
+                additionalNotes = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int NumberOfGuests
+        {
+            get => numberOfGuests;
+            set
+            {
+                if (numberOfGuests == value)
+                    return;
+
+                numberOfGuests = value;
+                OnPropertyChanged();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand SubmitCommand { private set; get; }
+        public ICommand AddEquipCommand { private set; get; }
+        public ICommand ClearEquipCommand { private set; get; }
+        public ICommand Hello { private set; get; }
+
 
         void OnPropertyChanged([CallerMemberName]string propertyName = "")
         {
@@ -362,7 +452,7 @@ namespace Pastime.ViewModels
 
         private void PostEvent(object obj)
         {
-            //Create Event Model which is responsible for validating the input
+            //Calls Event Model which is responsible for validating the input
             //The view is then updated to reflect any errors in the input
 
             //Assign result of validation to public properties, which triggers the display of the error messages in the UI
@@ -375,18 +465,58 @@ namespace Pastime.ViewModels
 
             InvalidLoc = !em.validateLocationString(DisplayAddress, out string locErrMsg);
             LocErrMsg = locErrMsg;
+            Xamarin.Essentials.Location loc = null;
+            if (!string.IsNullOrWhiteSpace(displayAddress))
+            {
+                loc = new Xamarin.Essentials.Location(Double.Parse(selectedAddress.Latitude), Double.Parse(selectedAddress.Longitue));
+            }
+            else
+                LocErrMsg = "Location can not be empty";
+
 
             InvalidSport = !em.validateSport(Sport, out string sportErrMsg);
             SportErrMsg = sportErrMsg;
 
-            //TODO: Event can't be posted on the same day, need to change it to account for the time of the event
-            InvalidEventDate = !em.validateEventDate(EventDate, StartTime, out string eventDateErrMsg);
+            DateTime combinedDate = EventDate + StartTime;
+            InvalidEventDate = !em.validateEventDate(combinedDate, out string eventDateErrMsg);
             EventDateErrMsg = eventDateErrMsg;
+
+            List<String> equip = new List<string>();
+            equip.Add("Basketball");
+
+            //Create event if all data validates
+            //TODO: 
+            if (!invalidName && !invalidDesc && !invalidLoc && !invalidSport && !invalidEventDate)
+            {
+                Event newEvent = em.createEvent(name, equip, loc, numberOfGuests, desc, combinedDate, EndTime);
+            }
+            else
+                Console.WriteLine("Failed");
+        }
+        
+        //Add equipment to the list of equipment and clear the input
+        //Also joins the list into a string to display to the user
+        private void AddEquipmentToList()
+        {
+            EquipmentList.Add(Equipment);
+            EquipmentListToString = String.Join(", ", EquipmentList);
+            Equipment = string.Empty;
         }
 
+        //Clears the lears
+        //TODO: Delete individual items
+        private void ClearEquipmentList()
+        {
+            if (EquipmentList.Count > 0)
+            {
+                EquipmentList.Clear();
+                EquipmentListToString = string.Empty;
+            }
+        }
 
-        //Code for location autocomplete
+        //Code for Google Places API
         public const string GooglePlacesApiAutoCompletePath = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key={0}&input={1}&components=country:au";
+        public const string GooglePlacesDetailPath = "https://maps.googleapis.com/maps/api/place/details/json?place_id={0}&fields=geometry&key={1}";
 
         //TODO: store the key on the server
         public const string GooglePlacesApiKey = "AIzaSyDensjvndlwB4SfjbHOddaael86GDcoNgs";
@@ -409,7 +539,6 @@ namespace Pastime.ViewModels
             }
         }
 
-
         public async Task GetPlacesPredictionsAsync()
         {
 
@@ -430,24 +559,21 @@ namespace Pastime.ViewModels
 
                         if (predictionList.Status == "OK")
                         {
-
                             Addresses.Clear();
 
                             if (predictionList.Predictions.Count > 0)
                             {
                                 DisplayList = true;
+
                                 foreach (Prediction prediction in predictionList.Predictions)
                                 {
-                                    if (Addresses.Count != 5)
+                                    //TODO: Get lat and long of place
+                                    Addresses.Add(new AddressInfo
                                     {
-                                        Addresses.Add(new AddressInfo
-                                        {
-                                            Address = prediction.Description
-                                        });
-                                    }
-
+                                        Address = prediction.Description,
+                                        Id = prediction.PlaceId,
+                                    });
                                 }
-
                             }
                         }
                         else
@@ -457,9 +583,26 @@ namespace Pastime.ViewModels
                     }
                 }
             }
+
+            //Get the addres details
+            //Store the lat and long in the Addresses List
+            foreach (AddressInfo address in Addresses)
+            {
+                using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, string.Format(GooglePlacesDetailPath, address.Id, GooglePlacesApiKey)))
+                {
+                    using (HttpResponseMessage message = await HttpClientInstance.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken).ConfigureAwait(false))
+                    {
+                        if (message.IsSuccessStatusCode)
+                        {
+                            string data = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            var json = JObject.Parse(data);
+                            address.Latitude = json["result"]["geometry"]["location"]["lat"].ToString();
+                            address.Longitue = json["result"]["geometry"]["location"]["lng"].ToString();
+                        }
+                    }
+                }
+            }
         }
-
-
     }
 }
 

@@ -7,6 +7,7 @@ namespace Pastime.Models
 {
     public class AddressInfo
     {
+        public string Id { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
@@ -69,3 +70,8 @@ public class PlacesLocationPredictions
     [Newtonsoft.Json.JsonProperty("status")]
     public string Status { get; set; }
 }
+
+
+
+
+

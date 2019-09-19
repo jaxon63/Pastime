@@ -21,11 +21,6 @@ namespace Pastime.Models
         private DateTime endTime;
         private bool active;
 
-        public EventModel()
-        {
-
-        }
-
         //validation methods.
         //output parameter will be the error message displayed on the UI
         public bool validateName(string name, out string errMsg)
@@ -86,6 +81,7 @@ namespace Pastime.Models
             }
         }
 
+
         public bool validateSport(string sport, out string errMsg)
         {
             if (string.IsNullOrWhiteSpace(sport))
@@ -100,10 +96,10 @@ namespace Pastime.Models
             }
         }
 
-        public bool validateEventDate(DateTime eventDate, TimeSpan startTime, out string errMsg)
+        public bool validateEventDate(DateTime eventDate, out string errMsg)
         {
             DateTime dateTime = eventDate.Date + startTime;
-            if (dateTime < DateTime.Now.Add(new TimeSpan(1, 0, 0)))
+            if (eventDate < DateTime.Now.Add(new TimeSpan((int)0.45, 0, 0)))
             {
                 errMsg = "Please choose a later time";
                 return false;
@@ -114,19 +110,14 @@ namespace Pastime.Models
             
         }
 
-      
-
-
-
-        public Event createEvent()
+        public Event createEvent(string name, List<string>euipment, Location location, int maxGuests, string desc, DateTime date, TimeSpan endTime )
         {
-            Event result = new Event(0, "", null, null, null, 0, "", new DateTime(), new DateTime());
+            //TODO: call all validation before creating the object
+            //TODO: assign eventid to object once event is created in the database?
+            Event result = new Event(name, null, null, location, maxGuests, desc, date, endTime);
+
             return result;
         }
-
-
-
-
 
     }
 }
