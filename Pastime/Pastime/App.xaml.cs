@@ -10,7 +10,7 @@ namespace Pastime
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new RegisterPage());
         }
 
         protected override void OnStart()
