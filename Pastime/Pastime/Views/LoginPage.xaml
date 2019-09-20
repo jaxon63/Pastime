@@ -1,25 +1,38 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Pastime.Views.LoginPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pastime.Views.LoginPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <KeyboardFlags x:Key="NoCapitalsKeyboard">None</KeyboardFlags>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout 
-                 Margin="20"
-                 >
+        <StackLayout
+            Margin="20">
 
-        <Label HorizontalOptions="Center"
-               Text="Welcome to Pastime!"
-               FontSize="20"
-               />
-        <StackLayout VerticalOptions="CenterAndExpand" >
-            <Entry Placeholder="Email" x:Name="Email"/>
-            <Entry Placeholder="Password" IsPassword="True" x:Name="Password"/>
-            <Button Text="Log In" Clicked="LogMeIn"/>
+            <Label HorizontalOptions="Center"
+                   Text="Welcome to Pastime!"
+                   FontSize="20" />
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Entry Keyboard="Email" Placeholder="Email"
+                       Text="{Binding Email}" />
+                <Entry Placeholder="Password"
+                       IsPassword="True"
+                       Text="{Binding Password}" />
+                <Button Text="Log In"
+                        Command="{Binding LoginCommand}" />
+                <Label HorizontalOptions="Center"
+                       TextColor="red"
+                       FontSize="Micro"
+                       Text="{Binding LoginErrMsg}"
+                       IsVisible="{Binding InvalidLogin}" />
+                <Label Text="If you're new to Pastime, click here!"
+                       Margin="0, 40, 0, 0"
+                       HorizontalOptions="Center" />
+                <Button Text="Create Account" />
+            </StackLayout>
 
-            <Label Text="If you're new to Pastime, click here!" 
-                   Margin="0, 40, 0, 0"
-                   HorizontalOptions="Center"/>
-            <Button Text="Create Account"/>
         </StackLayout>
-
-    </StackLayout>
     </ContentPage.Content>
 </ContentPage>
