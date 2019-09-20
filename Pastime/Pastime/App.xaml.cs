@@ -12,6 +12,7 @@ namespace Pastime
         {
             InitializeComponent();
 
+
             //Uncomment this line to test the IsLoggedIn property
             //Application.Current.Properties["IsLoggedIn"] = Boolean.TrueString;
             bool isLoggedIn = Current.Properties.ContainsKey("IsLoggedIn") ? Convert.ToBoolean(Current.Properties["IsLoggedIn"]) : false;

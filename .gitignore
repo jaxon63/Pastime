@@ -360,5 +360,9 @@ MigrationBackup/
 
 # End of https://www.gitignore.io/api/visualstudio,xamarinstudio
 
+<<<<<<< HEAD
+.DS_Store
+=======
 # .vs folder
 .vs/*
+>>>>>>> master
