@@ -359,3 +359,5 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/visualstudio,xamarinstudio
+
+.DS_Store
