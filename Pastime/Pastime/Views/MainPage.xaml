@@ -6,26 +6,5 @@
              mc:Ignorable="d"
              x:Class="Pastime.MainPage">
 
-    <ScrollView>
-        <StackLayout Margin="20">
-
-            <Label HorizontalOptions="Center"
-                   Text="Welcome to Pastime!"
-                   FontSize="20"
-                   />
-            <StackLayout VerticalOptions="CenterAndExpand" >
-                <Entry Placeholder="Email" x:Name="Email"/>
-                <Entry Placeholder="Password" IsPassword="True" x:Name="Password"/>
-                <Button Text="Log In" Clicked="LogMeIn"/>
-            
-
-                <Label Text="If you're new to Pastime, click here!" 
-                       Margin="0, 40, 0, 0"
-                       HorizontalOptions="Center"/>
-                <Button Text="Create Account" Clicked="RegisterUser"/>
-
-            </StackLayout>
-
-        </StackLayout>
-    </ScrollView>
+    
 </ContentPage>

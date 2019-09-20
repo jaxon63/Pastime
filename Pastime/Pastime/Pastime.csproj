@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
     <PackageReference Include="Xamarin.Forms" Version="4.0.0.425677" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
@@ -22,6 +23,32 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="ViewModels\" />
+
     <Folder Include="Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+
+    <Compile Update="Popups\ChangePasswordPopup.xaml.cs">
+      <DependentUpon>ChangePasswordPopup.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Popups\ChangeEmailPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Popups\ChangeNamePopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Popups\ChangePasswordPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+
+    <Compile Remove="Views\LoginPage.cs" />
+    <Compile Remove="Views\LoginPage.cs" />
+    <Compile Remove="Views\LoginPage.cs" />
+
+    <Compile Remove="Views\MainPage.xaml.cs" />
   </ItemGroup>
 </Project>

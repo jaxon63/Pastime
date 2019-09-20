@@ -2,39 +2,42 @@
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
+using Xamarin.Essentials;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Pastime
+namespace Pastime.Models
 {
-    class User
+    public class User
     {
         private int userId;
         private string email;
         private string password;
         private string username;
         private int yearJoined;
-        private string location;
+        private Location location;
+        private string locality;
         private string faveSport;
         private string bio;
         private Uri dpUri;
         private int rating;
 
-        private Image displayPicture; //Don't include in database
+       // private Image displayPicture;
         
 
-        public User(int userId, string email, string password, string username, int yearJoined, string location, string faveSport, string bio, Uri dpUri, int rating)
+        public User(int userId, string email, string password, string username, int yearJoined, string faveSport, string bio, Uri dpUri, int rating)
         {
             this.userId = userId;
             this.email = email;
             this.password = password;
             this.username = username;
             this.yearJoined = yearJoined;
-            this.location = location;
             this.faveSport = faveSport;
             this.bio = bio;
             this.dpUri = dpUri;
             this.rating = rating;
 
-            getPictureFromUri();
+
         }
 
         public int UserId
@@ -89,15 +92,11 @@ namespace Pastime
             }
         }
 
-        public string Location
+        public string Locality
         {
             get
             {
-                return location;
-            }
-            set
-            {
-                location = value;
+                return locality;
             }
         }
 
@@ -125,7 +124,7 @@ namespace Pastime
             }
         }
 
-        public Uri DisplayPicture
+        public Uri DpUri
         {
             get
             {
@@ -136,6 +135,14 @@ namespace Pastime
                 dpUri = value;
             }
         }
+
+        /*public Image DisplayPicture
+        {
+            get
+            {
+                return displayPicture;
+            }
+        }*/
 
         public int Rating
         {
@@ -149,17 +156,22 @@ namespace Pastime
             }
         }
 
-        //TODO
-        public void getPictureFromUri()
+        /// <summary>
+        /// DOESN'T WORK. Sets the user's display picture as a Xamarin Forms Image object. Propbably not needed as you can just use
+        /// the URI as the image source to the image on a form.
+        /// </summary>
+        /*public void getPictureFromUri()
         {
-          
-        }
+            try
+            {
+                if (ImageSource.FromUri(dpUri) != null)
+                    displayPicture.Source = ImageSource.FromUri(dpUri);
+            } catch (NullReferenceException nEx)
+            {
+                Console.WriteLine(nEx.StackTrace);
+            }
+        }*/
 
-        //TODO
-        public void getCurrentLocation()
-        {
-
-        }
 
         //TODO
         public bool validateBio()
@@ -168,15 +180,73 @@ namespace Pastime
         }
 
         //TODO
-        public bool validateEmail()
-        {
+        public bool validateEmail() { 
             return true;
+
         }
 
         //TODO
-        public bool validatePassword()
-        {
+        public bool validatePass() {
             return true;
+        }
+
+        /// <summary>
+        /// Gets the user's current geographical location and sets it to a Location object.
+        /// </summary>
+        /// <returns></returns>
+        public async Task SetCurrentLocation()
+        {
+            try
+            {
+                Location location = await Geolocation.GetLocationAsync(new GeolocationRequest(GeolocationAccuracy.Medium)); //Can set to be more accurate if necessary
+                if (location != null)
+                {
+                    this.location = location;
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                throw fnsEx;
+            }
+            catch (FeatureNotEnabledException fneEx)
+            {
+                throw fneEx;
+            }
+            catch (PermissionException pEx)
+            {
+                throw pEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Finds the locality of the user based off their current location. Only needs to be done when showing a user profile.
+        /// Could not get it to work on emulator but works on physical device
+        /// </summary>
+        /// <returns></returns>
+        public async Task SetCurrentLocality()
+        {
+            try
+            {
+                var placemarks = await Geocoding.GetPlacemarksAsync(location);
+                Placemark placemark = placemarks?.FirstOrDefault();
+                if (placemark != null)
+                {
+                    locality = placemark.Locality;
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                throw fnsEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }
