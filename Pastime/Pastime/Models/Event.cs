@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Xamarin.Essentials;
@@ -13,7 +14,7 @@ namespace Pastime.Models
         private User host;
         private List<User> guests;
         private Activity activity;
-        private List<string> equipmentNeeded;
+        private ObservableCollection<string> equipmentNeeded;
         private Location location;
         private int numOfGuests;
         private int maxGuests;
@@ -24,21 +25,21 @@ namespace Pastime.Models
 
         //TODO: add user to list of guests
 
-        public Event()
-        {
-        }
+       
 
-        public Event( string name, User host, Activity activity, Location location, int maxGuests, string description, DateTime startTime, TimeSpan endTime)
+        public Event( string name, User host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests, string description, DateTime startTime, TimeSpan endTime)
         {
             this.name = name;
             this.host = host;
             this.activity = activity;
+            this.equipmentNeeded = equipment;
             this.location = location;
             this.maxGuests = maxGuests;
             this.description = description;
             this.startTime = startTime;
             this.endTime = endTime;
-            active = true;
+            this.active = true;
+            this.guests = new List<User>();
             //Automatically add the host as a guest to the event
             this.guests.Add(host);
         }
@@ -81,7 +82,7 @@ namespace Pastime.Models
             }
         }
 
-        public List<string> EquipmentNeeded
+        public ObservableCollection<string> EquipmentNeeded
         {
             get
             {

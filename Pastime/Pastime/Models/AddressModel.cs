@@ -18,6 +18,7 @@ namespace Pastime.Models
     }
 }
 
+
 public class PlacesMatchedSubstring
 {
     [Newtonsoft.Json.JsonProperty("length")]

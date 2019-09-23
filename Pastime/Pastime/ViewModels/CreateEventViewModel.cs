@@ -42,7 +42,7 @@ namespace Pastime.ViewModels
         private string locErrMsg = string.Empty;
         private bool invalidLoc;
 
-        private string sport;
+        private Activity selectedActivity;
         private bool invalidSport;
         private string sportErrMsg;
 
@@ -65,14 +65,14 @@ namespace Pastime.ViewModels
         private string additionalNotes = string.Empty;
 
         //The default start time is set to one hour from the current time
-        private TimeSpan startTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(1, 0, 0));
+        private TimeSpan startTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(0, 0, 0));
 
         //End time is automatically set to 2 hours from the current time
         //TODO: Make it default to 1 hour from the start time instead of the current time
-        private TimeSpan endTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(2, 0, 0));
+        private TimeSpan endTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(0, 0, 0));
 
         //Event model used to handle all the business logic regarding events
-        private readonly EventModel em;
+        private readonly EventModel model;
 
         public CreateEventViewModel()
         {
@@ -81,10 +81,19 @@ namespace Pastime.ViewModels
             ClearEquipCommand = new Command(ClearEquipmentList);
 
             //Instantiate the EventModel
-            em = new EventModel();
+            model = new EventModel();
+
+            activities = model.GetActivities();
 
             //Instantiate the minimium date the user can select to the current time
             DateTime MinimumDate = DateTime.Now;
+        }
+
+        //TODO: the app crashes when setting the time near midnight
+        //Need to handle the logic here
+        private void InitializeTimes()
+        {
+
         }
 
         //Getters and setters
@@ -203,6 +212,7 @@ namespace Pastime.ViewModels
 
                 selectedAddress = value;
 
+
                 DisplayAddress = selectedAddress.Address;
                 OnPropertyChanged();
             }
@@ -266,15 +276,14 @@ namespace Pastime.ViewModels
             }
         }
 
-        public string Sport
+        public Activity SelectedActivity
         {
-            get => sport;
+            get => selectedActivity;
             set
             {
-                if (sport == value)
+                if (selectedActivity == value)
                     return;
-
-                sport = value;
+                selectedActivity = value;
                 OnPropertyChanged();
             }
         }
@@ -457,43 +466,55 @@ namespace Pastime.ViewModels
 
             //Assign result of validation to public properties, which triggers the display of the error messages in the UI
             //The value of the error message is generated in EventModel, depening on the validation (too long, too short, empty ect.)
-            InvalidName = !em.validateName(Name, out string nameErrMsg);
+            InvalidName = !model.ValidateName(Name, out string nameErrMsg);
             NameErrMsg = nameErrMsg;
 
-            InvalidDesc = !em.validateDesc(Desc, out string descErrMsg);
+            InvalidDesc = !model.ValidateDesc(Desc, out string descErrMsg);
             DescErrMsg = descErrMsg;
 
-            InvalidLoc = !em.validateLocationString(DisplayAddress, out string locErrMsg);
+            InvalidLoc = !model.ValidateLocationString(DisplayAddress, out string locErrMsg);
             LocErrMsg = locErrMsg;
             Xamarin.Essentials.Location loc = null;
+
+
             if (!string.IsNullOrWhiteSpace(displayAddress))
             {
-                loc = new Xamarin.Essentials.Location(Double.Parse(selectedAddress.Latitude), Double.Parse(selectedAddress.Longitue));
+                if (!string.IsNullOrWhiteSpace(selectedAddress.Latitude) && !string.IsNullOrWhiteSpace(selectedAddress.Longitue))
+                {
+                    loc = new Xamarin.Essentials.Location(Double.Parse(selectedAddress.Latitude), Double.Parse(selectedAddress.Longitue));
+
+                }
+                else
+                    LocErrMsg = "Location can not be empty";
+
+            }
+
+            if (selectedActivity == null)
+            {
+                InvalidSport = true;
+                SportErrMsg = "Please select an activity";
             }
             else
-                LocErrMsg = "Location can not be empty";
-
-
-            InvalidSport = !em.validateSport(Sport, out string sportErrMsg);
-            SportErrMsg = sportErrMsg;
+            {
+                InvalidSport = false;
+            }
 
             DateTime combinedDate = EventDate + StartTime;
-            InvalidEventDate = !em.validateEventDate(combinedDate, out string eventDateErrMsg);
+            InvalidEventDate = !model.ValidateEventDate(combinedDate, EndTime, out string eventDateErrMsg);
             EventDateErrMsg = eventDateErrMsg;
 
-            List<String> equip = new List<string>();
-            equip.Add("Basketball");
 
             //Create event if all data validates
             //TODO: 
-            if (!invalidName && !invalidDesc && !invalidLoc && !invalidSport && !invalidEventDate)
+            if (!invalidName && !invalidDesc && !invalidLoc && loc != null && !invalidSport && !invalidEventDate)
             {
-                Event newEvent = em.createEvent(name, equip, loc, numberOfGuests, desc, combinedDate, EndTime);
+                Event newEvent = model.CreateEvent(name, selectedActivity, equipmentList, loc, numberOfGuests, desc, combinedDate, EndTime);
             }
             else
                 Console.WriteLine("Failed");
+
         }
-        
+
         //Add equipment to the list of equipment and clear the input
         //Also joins the list into a string to display to the user
         private void AddEquipmentToList()
@@ -519,7 +540,7 @@ namespace Pastime.ViewModels
         public const string GooglePlacesDetailPath = "https://maps.googleapis.com/maps/api/place/details/json?place_id={0}&fields=geometry&key={1}";
 
         //TODO: store the key on the server
-        public const string GooglePlacesApiKey = "AIzaSyDensjvndlwB4SfjbHOddaael86GDcoNgs";
+        public const string GooglePlacesApiKey = "hello";
 
         private static HttpClient httpClientInstance;
         public static HttpClient HttpClientInstance => httpClientInstance ?? (httpClientInstance = new HttpClient());
@@ -543,7 +564,6 @@ namespace Pastime.ViewModels
         {
 
             // TODO: Add throttle logic, Google begins denying requests if too many are made in a short amount of time
-
             CancellationToken cancellationToken = new CancellationTokenSource(TimeSpan.FromMinutes(2)).Token;
 
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, string.Format(GooglePlacesApiAutoCompletePath, GooglePlacesApiKey, WebUtility.UrlEncode(addressText))))
@@ -567,41 +587,60 @@ namespace Pastime.ViewModels
 
                                 foreach (Prediction prediction in predictionList.Predictions)
                                 {
-                                    //TODO: Get lat and long of place
+                                    AddressInfo address = new AddressInfo
+                                    {
+                                        Address = prediction.Description,
+                                        Id = prediction.PlaceId
+                                    };
+                                    //Gets the lat and long for each address
+                                    await GetPlaceDetails(address);
+
+                                    Addresses.Add(address);
+
+                                    /*
                                     Addresses.Add(new AddressInfo
                                     {
                                         Address = prediction.Description,
                                         Id = prediction.PlaceId,
+                                        
                                     });
+                                    */
+                                    
                                 }
                             }
                         }
                         else
                         {
-                            throw new Exception(predictionList.Status);
+                            Console.WriteLine("No results found");
+                            //throw new Exception(predictionList.Status);
                         }
                     }
+                }
+            }
+        }
+
+        public async Task GetPlaceDetails(AddressInfo address)
+        {
+            //Get the addres details
+            //Store the lat and long in the Addresses List
+            CancellationToken cancellationToken = new CancellationTokenSource(TimeSpan.FromMinutes(2)).Token;
+
+
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, string.Format(GooglePlacesDetailPath, address.Id, GooglePlacesApiKey)))
+            {
+                using (HttpResponseMessage message = await HttpClientInstance.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken).ConfigureAwait(false))
+                {
+                    if (message.IsSuccessStatusCode)
+                    {
+                        string data = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        var json = JObject.Parse(data);
+                        address.Latitude = json["result"]["geometry"]["location"]["lat"].ToString();
+                        address.Longitue = json["result"]["geometry"]["location"]["lng"].ToString();
+                    }
+
                 }
             }
 
-            //Get the addres details
-            //Store the lat and long in the Addresses List
-            foreach (AddressInfo address in Addresses)
-            {
-                using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, string.Format(GooglePlacesDetailPath, address.Id, GooglePlacesApiKey)))
-                {
-                    using (HttpResponseMessage message = await HttpClientInstance.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken).ConfigureAwait(false))
-                    {
-                        if (message.IsSuccessStatusCode)
-                        {
-                            string data = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            var json = JObject.Parse(data);
-                            address.Latitude = json["result"]["geometry"]["location"]["lat"].ToString();
-                            address.Longitue = json["result"]["geometry"]["location"]["lng"].ToString();
-                        }
-                    }
-                }
-            }
         }
     }
 }

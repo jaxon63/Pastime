@@ -364,3 +364,5 @@ MigrationBackup/
 .vs/*
 
 secrets.json
+
+.DS_Store

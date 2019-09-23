@@ -82,14 +82,17 @@
 
 
                     <Picker x:Name="SportPicker"
+                            ItemsSource="{Binding Activities}"
+                            ItemDisplayBinding="{Binding Name}"
                             Title="Select a sport"
-                            SelectedItem="{Binding Sport}">
-                        <Picker.Items>
-                            <x:String>Cricket</x:String>
-                            <x:String>Basketball</x:String>
-                            <x:String>Hockey?</x:String>
-                        </Picker.Items>
+                            SelectedItem="{Binding SelectedActivity}">
+
                     </Picker>
+
+                    <Label Text="{Binding SportErrMsg}"
+                           IsVisible="{Binding InvalidSport}"
+                           TextColor="Red"
+                           FontSize="Micro" />
 
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Number of openings" />
@@ -99,10 +102,7 @@
                         <Label Text="{Binding NumberOfGuests}" />
                     </StackLayout>
 
-                    <Label Text="{Binding SportErrMsg}"
-                           IsVisible="{Binding InvalidSport}"
-                           TextColor="Red"
-                           FontSize="Micro" />
+
 
                     <Entry Text="{Binding Desc}"
                            Placeholder="Event Description"
