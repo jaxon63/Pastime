@@ -65,6 +65,7 @@
                     <Label Text="Event Details: "
                            FontSize="25"
                            Margin="10,0,0,0" />
+                    <!-- Event Title -->
                     <StackLayout Orientation="Horizontal"
                                  Margin="10,0,0,0">
                         <Image Source="title.png" />
@@ -73,28 +74,33 @@
                                Placeholder="Event Name"
                                HorizontalOptions="FillAndExpand" />
                     </StackLayout>
-
+                    <!-- Event name ERROR -->
                     <Label
                         TextColor="Red"
                         FontSize="Micro"
                         IsVisible="{Binding InvalidName}"
                         Text="{Binding NameErrMsg}" />
 
-
-                    <Picker x:Name="SportPicker"
+                    <!-- Event Sport-->
+                    <StackLayout Orientation="Horizontal" Margin="10,0,0,0">
+                        <Image Source="sport.png"/>
+                        <Picker x:Name="SportPicker"
                             ItemsSource="{Binding Activities}"
                             ItemDisplayBinding="{Binding Name}"
                             Title="Select a sport"
-                            SelectedItem="{Binding SelectedActivity}">
-
-                    </Picker>
-
+                            SelectedItem="{Binding SelectedActivity}"
+                            HorizontalOptions="FillAndExpand">
+                        </Picker>
+                    </StackLayout>
+                    <!-- Event Sport ERROR-->
                     <Label Text="{Binding SportErrMsg}"
                            IsVisible="{Binding InvalidSport}"
                            TextColor="Red"
                            FontSize="Micro" />
 
-                    <StackLayout Orientation="Horizontal">
+                    <!-- Event Opening -->
+                    <StackLayout Orientation="Horizontal" Margin="10,0,0,0">
+                        <Image Source="attendees.png"  HeightRequest="20"/>
                         <Label Text="Number of openings" />
                         <Stepper Minimum="1"
                                  Maximum="10"
@@ -102,18 +108,22 @@
                         <Label Text="{Binding NumberOfGuests}" />
                     </StackLayout>
 
-
-
-                    <Entry Text="{Binding Desc}"
+                    <!-- Event Description -->
+                    <StackLayout Orientation="Horizontal" Margin="10,0,0,0">
+                        <Image Source="description.png"  HeightRequest="20"/>
+                        <Entry Text="{Binding Desc}"
                            Placeholder="Event Description"
-                           HeightRequest="50" />
-
+                           HeightRequest="50" HorizontalOptions="FillAndExpand" Margin="10,0,0,0"/>
+                    </StackLayout>
+                    
+                    <!-- Event Description ERROR-->
                     <Label
                         TextColor="Red"
                         FontSize="Micro"
                         IsVisible="{Binding InvalidDesc}"
                         Text="{Binding DescErrMsg}" />
 
+                    <!-- Event Location -->
                     <Entry Text="{Binding AddressText}"
                            x:Name="AddressText"
                            TextChanged="OnTextChanged"
@@ -125,6 +135,7 @@
                         TextColor="Red"
                         FontSize="Micro"
                         IsVisible="{Binding InvalidLoc}" />
+
 
                     <ListView Footer=""
                               IsVisible="{Binding DisplayList }"
@@ -138,6 +149,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
 
+                    <!-- Event Date -->
                     <Label Text="Date" />
 
                     <DatePicker Date="{Binding EventDate}"
@@ -167,7 +179,7 @@
                             Placeholder="Equipment"
                             Text="{Binding Equipment}" />
                         <Button
-                            Text="Add"
+                            ImageSource="add.png"
                             Command="{Binding AddEquipCommand}" />
                         <Button Text="Clear"
                                 Command="{Binding ClearEquipCommand}" />
