@@ -5,7 +5,7 @@ using Xamarin.Essentials;
 
 namespace Pastime.Models
 {
-    class Event
+   public class Event
     {
         private int eventId;
         private string name;
