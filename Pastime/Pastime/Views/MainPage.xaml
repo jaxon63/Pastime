@@ -42,7 +42,7 @@
                 </ListView>
             </StackLayout>
             <!--<Button Text="Hello" BackgroundColor="Pink" HeightRequest="60" WidthRequest="60" CornerRadius="30" /> -->
-            <Button BackgroundColor="#0d47a1" Command="{Binding CreateEventCommand}" AbsoluteLayout.LayoutFlags="PositionProportional" HorizontalOptions="Fill" AbsoluteLayout.LayoutBounds=".95, .95, 40, 40"  BorderRadius="60" />
+            <Button BackgroundColor="#0d47a1" Command="{Binding CreateEventCommand}" AbsoluteLayout.LayoutFlags="PositionProportional" HorizontalOptions="Fill" AbsoluteLayout.LayoutBounds=".95, .95, 50, 50"  BorderRadius="25" />
             <!-- ImageSource="add.png" -->
         </AbsoluteLayout>
     </ContentPage.Content>
