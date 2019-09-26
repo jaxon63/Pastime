@@ -44,6 +44,9 @@
     <EmbeddedResource Update="Popups\ChangePasswordPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Popups\LocationPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
 
     <Compile Remove="Views\LoginPage.cs" />
     <Compile Remove="Views\LoginPage.cs" />

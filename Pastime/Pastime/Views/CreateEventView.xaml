@@ -123,7 +123,7 @@
                         IsVisible="{Binding InvalidDesc}"
                         Text="{Binding DescErrMsg}" />
 
-                    <!-- Event Location -->
+                    <!-- Event Location 
                     <Entry Text="{Binding AddressText}"
                            x:Name="AddressText"
                            TextChanged="OnTextChanged"
@@ -147,8 +147,9 @@
                                 <TextCell Text="{Binding Address}" />
                             </DataTemplate>
                         </ListView.ItemTemplate>
-                    </ListView>
+                    </ListView> -->
 
+                   
                     <!-- Event Date -->
                     <Label Text="Date" />
 
@@ -183,9 +184,15 @@
                             Command="{Binding AddEquipCommand}" />
                         <Button Text="Clear"
                                 Command="{Binding ClearEquipCommand}" />
-                    </StackLayout>                    <Label Text="{Binding EquipmentListToString}" />
-                    <Entry Text="{Binding AdditionalNotes}"
-                           Placeholder="Additional notes" />
+                    </StackLayout>                    <Label Text="{Binding EquipmentListToString}" />                    <Label Text="{Binding DisplayAddress}" />
+
+                    <Label
+                        Text="{Binding LocErrMsg}"
+                        TextColor="Red"
+                        FontSize="Micro"
+                        IsVisible="{Binding InvalidLoc}" />
+                    <Button Text="Select Location" Clicked="LocationPopupNavAsync"/>
+
 
                     <Button Command="{Binding SubmitCommand}"
                             HorizontalOptions="FillAndExpand"

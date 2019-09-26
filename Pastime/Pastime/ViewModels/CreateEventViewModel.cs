@@ -12,6 +12,8 @@ using GooglePlacesApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Pastime.Models;
+using Pastime.Popups;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
 namespace Pastime.ViewModels
@@ -451,7 +453,7 @@ namespace Pastime.ViewModels
         public ICommand SubmitCommand { private set; get; }
         public ICommand AddEquipCommand { private set; get; }
         public ICommand ClearEquipCommand { private set; get; }
-        public ICommand Hello { private set; get; }
+        public ICommand LocationCommand { private set; get; }
 
 
         void OnPropertyChanged([CallerMemberName]string propertyName = "")
@@ -535,12 +537,14 @@ namespace Pastime.ViewModels
             }
         }
 
+      
+
         //Code for Google Places API
         public const string GooglePlacesApiAutoCompletePath = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key={0}&input={1}&components=country:au";
         public const string GooglePlacesDetailPath = "https://maps.googleapis.com/maps/api/place/details/json?place_id={0}&fields=geometry&key={1}";
 
         //TODO: store the key on the server
-        public const string GooglePlacesApiKey = "hello";
+        public const string GooglePlacesApiKey = "AIzaSyDDFR2YF0fWlWsayFkss5aYAL78230m_M0 ";
 
         private static HttpClient httpClientInstance;
         public static HttpClient HttpClientInstance => httpClientInstance ?? (httpClientInstance = new HttpClient());
