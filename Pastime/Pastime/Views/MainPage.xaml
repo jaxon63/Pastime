@@ -11,15 +11,19 @@
         <!-- <ToolbarItem Text="Logout" Command="{Binding LogoutCommand}"  /> -->
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <AbsoluteLayout >
+        <AbsoluteLayout>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand"/>
                 <ListView x:Name="listView" HasUnevenRows="True" ItemsSource="{Binding Events}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Frame Margin="10,10" Padding="15,5,5,5" BorderColor="Black" CornerRadius="5">
+                                <Frame BorderColor="Green" Padding="15,5,5,5" Margin="10" HasShadow="True" CornerRadius="5" >
                                     <StackLayout Orientation="Vertical">
-                                        <Label FontSize="12" Text="{Binding Activity.Name}" />
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image Source="soccer.png"/>
+                                            <Label FontSize="12" Text="{Binding Activity.Name}" Margin="0,0,0,10" />
+                                        </StackLayout>
                                         <Label TextColor="Black" Text="{Binding Name}" FontSize="20"  />
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Location: " />
@@ -42,7 +46,7 @@
                 </ListView>
             </StackLayout>
             <!--<Button Text="Hello" BackgroundColor="Pink" HeightRequest="60" WidthRequest="60" CornerRadius="30" /> -->
-            <Button BackgroundColor="#0d47a1" Command="{Binding CreateEventCommand}" AbsoluteLayout.LayoutFlags="PositionProportional" HorizontalOptions="Fill" AbsoluteLayout.LayoutBounds=".95, .95, 50, 50"  BorderRadius="25" />
+            <Button ImageSource="add.png" BackgroundColor="#27CF27" Command="{Binding CreateEventCommand}" AbsoluteLayout.LayoutFlags="PositionProportional" HorizontalOptions="Fill" AbsoluteLayout.LayoutBounds=".95, .95, 50, 50"  BorderRadius="25" />
             <!-- ImageSource="add.png" -->
         </AbsoluteLayout>
     </ContentPage.Content>

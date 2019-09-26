@@ -8,7 +8,7 @@
     <MasterDetailPage.Master>
         <ContentPage x:Name="masterPage" Title="Menu">
             <StackLayout Orientation="Vertical">
-                <StackLayout BackgroundColor="#2695F3" HeightRequest="75" Orientation="Horizontal">
+                <StackLayout BackgroundColor="#343333" HeightRequest="75" Orientation="Horizontal">
                     <Label FontSize="20" VerticalOptions="CenterAndExpand" TextColor="White" HorizontalOptions="CenterAndExpand" Text="Pastime" />
                 </StackLayout>
                 <ListView ItemSelected="ListView_ItemSelected" x:Name="listView" x:FieldModifier="public"  SeparatorVisibility="None" RowHeight="60" ItemsSource="{Binding MenuList}" >
@@ -20,7 +20,7 @@
                                         <ColumnDefinition Width="30"/>
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Image Source="{Binding Icon}"  VerticalOptions="Center" />
+                                    <Image Source="{Binding Icon}"  VerticalOptions="Center" BackgroundColor="#343333" />
                                     <Label Grid.Column="1" VerticalOptions="Center" TextColor="Black" Text="{Binding Title}" />
                                 </Grid>
                             </ViewCell>

@@ -8,7 +8,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="#263238" />
+                <Setter Property="BarBackgroundColor" Value="#343333" />
                 <Setter Property="BarTextColor" Value="White" />
             </Style>
         </ResourceDictionary>
