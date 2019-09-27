@@ -14,7 +14,7 @@ namespace Pastime.ViewModels
         private string email = string.Empty;
         private string password = string.Empty;
 
-        private bool invalidLogin;
+        private int loginCode;
         private string loginErrMsg = "Incorrent email or password";
 
         //The navigation is passed from the view to the viewmodel
@@ -57,14 +57,14 @@ namespace Pastime.ViewModels
             }
         }
 
-        public bool InvalidLogin
+        public int LoginCode
         {
-            get => invalidLogin;
+            get => loginCode;
             set
             {
-                if (invalidLogin == value)
+                if (loginCode == value)
                     return;
-                invalidLogin = value;
+                loginCode = value;
                 OnPropertyChanged();
             }
         }
@@ -94,19 +94,30 @@ namespace Pastime.ViewModels
 
         private async Task LogMeIn()
         {
-            InvalidLogin = !lm.LogMeIn(email, password, out string current_user);
-            if(!InvalidLogin)
+            LoginCode = lm.LogMeIn(email, password, out string current_user);
+
+            switch (LoginCode)
             {
-                Application.Current.Properties["IsLoggedIn"] = Boolean.TrueString;
-                var nextPage = new TestingPage
-                {
-                    CurrentUser = current_user
-                };
-                await nav.PushAsync(nextPage);
-            }
-            else
-            {
-                Password = string.Empty;
+                case 1:
+                    Application.Current.Properties["IsLoggedIn"] = Boolean.TrueString;
+                    var nextPage = new TestingPage
+                    {
+                        CurrentUser = current_user
+                    };
+                    await nav.PushAsync(nextPage);
+                    break;
+                case 2:
+                    var resendEmail = new ConfirmEmail
+                    {
+                        Email = email
+                    };
+                    await nav.PushAsync(resendEmail);
+                    break;
+                case 0:
+                    Password = string.Empty;
+                    break;
+                default:
+                    break;
             }
 
             //The original LogMeIn function, keeping it for now just in case

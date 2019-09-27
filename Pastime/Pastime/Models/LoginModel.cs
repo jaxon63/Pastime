@@ -50,7 +50,7 @@ namespace Pastime.Models
         }
 
         //Viet's LogMeIn function with some of its functionality moved to the view model
-        public bool LogMeIn(string email, string password, out string current_user)
+        public int LogMeIn(string email, string password, out string current_user)
         {
             List<string> response = Validate(email, password);
 
@@ -63,9 +63,15 @@ namespace Pastime.Models
                 //the next time they reopen it, they are still logged in
                 Application.Current.Properties["IsLoggedIn"] = Boolean.TrueString;
 
-                return true;
+                return 1;
             }
-            return false;
+
+            if (status == "unconfirmed")
+            {
+                return 2;
+            }
+
+            return 0;
         }
 
       
