@@ -40,6 +40,11 @@ namespace Pastime.Models
 
         }
 
+        public User()
+        {
+
+        }
+
         public int UserId
         {
             get
@@ -247,6 +252,11 @@ namespace Pastime.Models
                 throw ex;
             }
 
+        }
+
+        public double CalculateDistance (Location loc)
+        {
+            return Location.CalculateDistance(location, loc, DistanceUnits.Kilometers);
         }
     }
 }
