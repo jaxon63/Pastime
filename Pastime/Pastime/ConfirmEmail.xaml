@@ -35,7 +35,7 @@
             <Button Text="Resend" Clicked="ResendEmail"/>
 
             <Label
-               x:Name="Warning"
+               x:Name="Feedback"
                HorizontalOptions="Center"
                FontSize="13"/>
         </StackLayout>

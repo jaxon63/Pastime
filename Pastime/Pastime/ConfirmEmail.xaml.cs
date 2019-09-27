@@ -18,6 +18,9 @@ namespace Pastime
 
         void ResendEmail(object sender, EventArgs args)
         {
+            Label message = this.FindByName<Label>("Feedback");
+            message.Text = "SENT";
+
             string resend_api = "https://vietnguyen.me/pastime/resend.php";
             //create a client object
             var client = new RestClient(resend_api);
