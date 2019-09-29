@@ -74,6 +74,7 @@
     <Compile Remove="Views\LoginPage.cs" />
     <Compile Remove="Views\LoginPage.cs" />
 
-    <Compile Remove="ViewModels\EmptyClass.cs" />
+
+    <Compile Remove="Views\MainPage.xaml.cs" />
   </ItemGroup>
 </Project>

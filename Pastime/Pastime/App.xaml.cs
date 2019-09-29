@@ -11,10 +11,20 @@ namespace Pastime
     {
         public App()
         {
-            InitializeComponent();
-            MainPage = new NavigationPage(new CreateEventViewModalName());
-            
+            //Uncomment this line to test the IsLoggedIn property
+            //Application.Current.Properties["IsLoggedIn"] = Boolean.TrueString;
+            bool isLoggedIn = Current.Properties.ContainsKey("IsLoggedIn") ? Convert.ToBoolean(Current.Properties["IsLoggedIn"]) : false;
 
+            if (!isLoggedIn)
+            {
+                //Load login page is user is not logged in
+                MainPage = new NavigationPage(new LoginPage());
+            }
+            else
+            {
+                //Load mainpage if the user has previously logged in
+                MainPage = new NavigationPage(new MainPage());
+            }
         }
 
         protected override void OnStart()
