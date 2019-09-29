@@ -7,11 +7,11 @@ namespace Pastime.Models
     public class Activity
     {
         private string name;
-        private Uri iconImage;
+        private string iconImage;
         private List<string> equipment;
 
 
-        public Activity(string name, Uri icon, List<string> equipment)
+        public Activity(string name, string icon, List<string> equipment)
         {
             this.name = name;
             this.iconImage = icon;
@@ -26,7 +26,7 @@ namespace Pastime.Models
             }
         }
 
-        public Uri IconImage
+        public string IconImage
         {
             get
             {

@@ -19,9 +19,9 @@
                         <DataTemplate>
                             <ViewCell>
                                 <Frame BorderColor="Green" Padding="15,5,5,5" Margin="10" HasShadow="True" CornerRadius="5" >
-                                    <StackLayout Orientation="Vertical">
+                                    <StackLayout VerticalOptions="Center" Orientation="Vertical">
                                         <StackLayout Orientation="Horizontal">
-                                            <Image Source="soccer.png"/>
+                                            <Image Source="{Binding Activity.IconImage}"/>
                                             <Label FontSize="12" Text="{Binding Activity.Name}" Margin="0,0,0,10" />
                                         </StackLayout>
                                         <Label TextColor="Black" Text="{Binding Name}" FontSize="20"  />
