@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Essentials;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Pastime.Models
 {
@@ -32,6 +34,12 @@ namespace Pastime.Models
             this.startTime = startTime;
             this.endTime = endTime;
             active = true;
+        }
+
+        //For testing location of event
+        public Event (double lat, double lon)
+        {
+            location = new Location(lat, lon);
         }
 
         public int EventId
@@ -103,6 +111,7 @@ namespace Pastime.Models
                 location = value;
             }
         }
+
 
         public int MaxGuests
         {
@@ -187,6 +196,31 @@ namespace Pastime.Models
                 return true;
             }
             return false;
+        }
+
+        public async Task<string> getLocationLocality()
+        {
+            try
+            {
+                var placemarks = await Geocoding.GetPlacemarksAsync(location);
+                Placemark placemark = placemarks?.FirstOrDefault();
+                if (placemark != null)
+                {
+                    return placemark.Locality;
+                }
+                else
+                {
+                    return "Unknown Location";
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                throw fnsEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool CheckIfActive()
