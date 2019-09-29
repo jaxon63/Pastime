@@ -97,7 +97,7 @@ namespace Pastime.ViewModels
             InvalidLogin = !lm.LogMeIn(email, password, out string current_user);
             if(!InvalidLogin)
             {
-                Application.Current.Properties["IsLoggedIn"] = Boolean.TrueString;
+                Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
                 var nextPage = new TestingPage
                 {
                     CurrentUser = current_user

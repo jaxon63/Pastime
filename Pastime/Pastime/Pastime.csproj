@@ -22,9 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="ViewModels\" />
-
-    <Folder Include="Views\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,11 +41,13 @@
     <EmbeddedResource Update="Popups\ChangePasswordPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\MasterView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
 
     <Compile Remove="Views\LoginPage.cs" />
     <Compile Remove="Views\LoginPage.cs" />
     <Compile Remove="Views\LoginPage.cs" />
 
-    <Compile Remove="Views\MainPage.xaml.cs" />
   </ItemGroup>
 </Project>
