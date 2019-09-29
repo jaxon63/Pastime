@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -13,13 +15,16 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Pastime.Models;
 using Pastime.Popups;
+using Pastime.Views.CreateEventViewModal;
 using Rg.Plugins.Popup.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Pastime.ViewModels
 {
     public class CreateEventViewModel : INotifyPropertyChanged
     {
+
         //Fields that require validation also have an error message and a boolean
         private string name = string.Empty;
         private string nameErrMsg = string.Empty;
@@ -31,9 +36,11 @@ namespace Pastime.ViewModels
 
         //Address is the text used as a search string for the location search
         private string addressText;
+
         //Display address is bound to the seleced address
         private string displayAddress = string.Empty;
         private bool displayList;
+
         //The selected address stores the address string as well as the lat and long.
         //This data can be used to create a Xamarin Essentials Location object
         private AddressInfo selectedAddress;
@@ -63,8 +70,6 @@ namespace Pastime.ViewModels
         //equipmentListToString displays the list as a single string separated by commas
         private string equipmentListToString = string.Empty;
 
-        //TODO: Do we need this?
-        private string additionalNotes = string.Empty;
 
         //The default start time is set to one hour from the current time
         private TimeSpan startTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(0, 0, 0));
@@ -73,14 +78,38 @@ namespace Pastime.ViewModels
         //TODO: Make it default to 1 hour from the start time instead of the current time
         private TimeSpan endTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(0, 0, 0));
 
+        private static HttpClient httpClientInstance;
+        public static HttpClient HttpClientInstance => httpClientInstance ?? (httpClientInstance = new HttpClient());
+
+        private ObservableCollection<AddressInfo> addresses;
+
+        public const string GooglePlacesApiAutoCompletePath = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key={0}&input={1}&components=country:au";
+        public const string GooglePlacesDetailPath = "https://maps.googleapis.com/maps/api/place/details/json?place_id={0}&fields=geometry&key={1}";
+
+        //TODO: store the key on the server
+        public const string GooglePlacesApiKey = "AIzaSyDsUVMmz1WJif8OGXtJaHn3EN4-AGv3KnI ";
+
         //Event model used to handle all the business logic regarding events
         private readonly EventModel model;
 
+
+
         public CreateEventViewModel()
         {
-            SubmitCommand = new Command(PostEvent);
+            //SubmitCommand = new Command(PostEvent);
             AddEquipCommand = new Command(AddEquipmentToList);
             ClearEquipCommand = new Command(ClearEquipmentList);
+
+            //Modal commands
+            NameCommand = new Command(SubmitName);
+            SportCommand = new Command(SubmitSport);
+            DescCommand = new Command(SubmitDesc);
+            DateCommand = new Command(SubmitDate);
+            GuestsCommand = new Command(SubmitGuests);
+            EquipmentCommand = new Command(SubmitEquipment);
+            LocationCommand = new Command(SubmitLocation);
+            SubmitEventCommand = new Command(SubmitEvent);
+            GoBackCommand = new Command(NavigateGoBackAsync);
 
             //Instantiate the EventModel
             model = new EventModel();
@@ -98,8 +127,14 @@ namespace Pastime.ViewModels
 
         }
 
-        //Getters and setters
+        public INavigation Navigation
+        {
+            get;
+            set;
+        }
 
+
+        //Getters and setters
         public string Name
         {
             get => name;
@@ -220,6 +255,16 @@ namespace Pastime.ViewModels
             }
         }
 
+
+        public Xamarin.Essentials.Location Location
+        {
+            get
+            {
+                Xamarin.Essentials.Location loc = new Xamarin.Essentials.Location(double.Parse(selectedAddress.Latitude), double.Parse(selectedAddress.Longitue));
+                return loc;
+            }
+        }
+
         public bool InvalidLoc
         {
             get => invalidLoc;
@@ -318,7 +363,7 @@ namespace Pastime.ViewModels
 
         public DateTime EventDate
         {
-            get => eventDate;
+            get => eventDate + startTime;
 
             set
             {
@@ -331,11 +376,18 @@ namespace Pastime.ViewModels
             }
         }
 
+        public DateTime EventEndDate
+        {
+            get => eventDate + endTime;
+
+        }
+
         public TimeSpan StartTime
         {
             get => startTime;
             set
             {
+
                 if (startTime == value)
                     return;
 
@@ -423,17 +475,6 @@ namespace Pastime.ViewModels
             }
         }
 
-        public string AdditionalNotes
-        {
-            get => additionalNotes;
-            set
-            {
-                if (additionalNotes == value)
-                    return;
-                additionalNotes = value;
-                OnPropertyChanged();
-            }
-        }
 
         public int NumberOfGuests
         {
@@ -445,8 +486,125 @@ namespace Pastime.ViewModels
 
                 numberOfGuests = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(DisplayNumberOfGuests));
             }
         }
+
+        public string DisplayNumberOfGuests
+        {
+            get
+            {
+                if (NumberOfGuests > 1)
+                {
+                    return $"I would like  invite {NumberOfGuests} people";
+
+                }
+                else
+                {
+                    return $"I would like  invite {NumberOfGuests} person";
+
+                }
+            }
+        }
+
+        public string DisplayEventDateString
+        {
+
+            get
+            {
+                string monthString = string.Empty;
+                //I've used this switch statement instead of a formatter because the output would always be "MMMM" instead of the month string
+                switch (EventDate.Month)
+                {
+                    case (1):
+                        monthString = "January";
+                        break;
+                    case (2):
+                        monthString = "February";
+                        break;
+                    case (3):
+                        monthString = "March";
+                        break;
+                    case (4):
+                        monthString = "April";
+                        break;
+                    case (5):
+                        monthString = "May";
+                        break;
+                    case (6):
+                        monthString = "June";
+                        break;
+                    case (7):
+                        monthString = "July";
+                        break;
+                    case (8):
+                        monthString = "August";
+                        break;
+                    case (9):
+                        monthString = "September";
+                        break;
+                    case (10):
+                        monthString = "October";
+                        break;
+                    case (11):
+                        monthString = "November";
+                        break;
+                    case (12):
+                        monthString = "December";
+                        break;
+                }
+                if (EventDate.Day == 1 || EventDate.Day == 21 || EventDate.Day == 31)
+                {
+                    return $"{EventDate.DayOfWeek} the {EventDate.Day}st of {monthString}";
+                }
+                else if (EventDate.Day == 2 || EventDate.Day == 22)
+                {
+                    return $"{EventDate.DayOfWeek} the {EventDate.Day}nd of {monthString}";
+
+                }
+                else
+                {
+                    return $"{EventDate.DayOfWeek} the {EventDate.Day}th of {monthString}";
+                }
+
+            }
+        }
+
+        public string DisplayEventStartTimeString
+        {
+            get
+            {
+                string result = string.Empty;
+                result = EventDate.ToString("h:mm tt", CultureInfo.InvariantCulture);
+
+                return result;
+            }
+        }
+        public string DisplayEventEndTimeString
+        {
+            get
+            {
+                string result = string.Empty;
+                result = EventEndDate.ToString("h:mm tt", CultureInfo.InvariantCulture);
+
+                return result;
+            }
+        }
+
+        public ObservableCollection<AddressInfo> Addresses
+        {
+            get => addresses ?? (addresses = new ObservableCollection<AddressInfo>());
+            set
+            {
+                if (addresses != value)
+                {
+                    addresses = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -456,11 +614,141 @@ namespace Pastime.ViewModels
         public ICommand LocationCommand { private set; get; }
 
 
+        //Modal commands
+        public ICommand NameCommand { private set; get; }
+        public ICommand SportCommand { private set; get; }
+        public ICommand DescCommand { private set; get; }
+        public ICommand DateCommand { private set; get; }
+        public ICommand GuestsCommand { private set; get; }
+        public ICommand EquipmentCommand { private set; get; }
+        public ICommand SubmitEventCommand { private set; get; }
+        public ICommand GoBackCommand { private set; get; }
+
+
+        //Modal command functions
+
+        private async void NavigateGoBackAsync()
+        {
+            await Navigation.PopModalAsync();
+        }
+        private void SubmitName()
+        {
+            InvalidName = !model.ValidateName(Name, out string nameErrMsg);
+            NameErrMsg = nameErrMsg;
+
+            if (!InvalidName)
+            {
+                var nextPage = new CreateEventViewModalSport();
+                nextPage.BindingContext = this;
+                Navigation.PushModalAsync(nextPage, true);
+            }
+        }
+
+        private void SubmitSport()
+        {
+            if (selectedActivity == null)
+            {
+                InvalidSport = true;
+                SportErrMsg = "Please select a sport";
+            }
+            else
+            {
+                InvalidSport = false;
+            }
+            if (!InvalidSport)
+            {
+                var nextPage = new CreateEventViewModalDesc();
+                nextPage.BindingContext = this;
+                Navigation.PushModalAsync(nextPage, true);
+            }
+        }
+
+        private void SubmitDesc()
+        {
+            InvalidDesc = !model.ValidateDesc(Desc, out string descErrMsg);
+            DescErrMsg = descErrMsg;
+
+            if (!InvalidDesc)
+            {
+                var nextPage = new CreateEventViewModalDate();
+                nextPage.BindingContext = this;
+                Navigation.PushModalAsync(nextPage, true);
+            }
+        }
+
+        private void SubmitDate()
+        {
+
+            InvalidEventDate = !model.ValidateEventDate(EventDate, EndTime, out string eventDateErrMsg);
+            EventDateErrMsg = eventDateErrMsg;
+
+            if (!InvalidEventDate)
+            {
+                var nextPage = new CreateEventViewModalGuests();
+                nextPage.BindingContext = this;
+                Navigation.PushModalAsync(nextPage, true);
+                Console.WriteLine("hello: " + EventDate + " " + EndTime);
+            }
+
+        }
+
+        private void SubmitGuests()
+        {
+            var nextPage = new CreateEventViewModalEquipment();
+            nextPage.BindingContext = this;
+            Navigation.PushModalAsync(nextPage, true);
+        }
+
+        private void SubmitEquipment()
+        {
+            var nextPage = new CreateEventViewModalLocation();
+            nextPage.BindingContext = this;
+            Navigation.PushModalAsync(nextPage, true);
+        }
+
+        private async void SubmitLocation()
+        {
+            InvalidLoc = !model.ValidateLocationString(DisplayAddress, out string locErrMsg);
+            LocErrMsg = locErrMsg;
+            Xamarin.Essentials.Location loc = null;
+
+
+            if (!string.IsNullOrWhiteSpace(displayAddress))
+            {
+                if (!string.IsNullOrWhiteSpace(selectedAddress.Latitude) && !string.IsNullOrWhiteSpace(selectedAddress.Longitue))
+                {
+                    loc = new Xamarin.Essentials.Location(Double.Parse(selectedAddress.Latitude), Double.Parse(selectedAddress.Longitue));
+                    var nextPage = new CreateEventViewModalConfirm();
+                    nextPage.BindingContext = this;
+                    await Navigation.PushModalAsync(nextPage);
+                }
+                else
+                    LocErrMsg = "Location can not be empty";
+            }
+        }
+
+        private void SubmitEvent()
+        {
+            if (!invalidName && !invalidDesc && !invalidEventDate && !invalidLoc && !invalidSport)
+            {
+                Event newEvent = model.CreateEvent(name, selectedActivity, equipmentList, Location, numberOfGuests, desc, EventDate, EventEndDate);
+                Console.WriteLine(newEvent.StartTime);
+            }
+            else
+            {
+                //TODO: Handle this in the UI
+                Console.WriteLine("Event could not be created");
+            }
+        }
+
         void OnPropertyChanged([CallerMemberName]string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+
+        //TODO: Maybe delete
+        /*
         private void PostEvent(object obj)
         {
             //Calls Event Model which is responsible for validating the input
@@ -515,15 +803,19 @@ namespace Pastime.ViewModels
             else
                 Console.WriteLine("Failed");
 
-        }
+        } */
 
         //Add equipment to the list of equipment and clear the input
         //Also joins the list into a string to display to the user
         private void AddEquipmentToList()
         {
-            EquipmentList.Add(Equipment);
-            EquipmentListToString = String.Join(", ", EquipmentList);
-            Equipment = string.Empty;
+            if (!string.IsNullOrWhiteSpace(Equipment))
+            {
+                EquipmentList.Add(Equipment);
+                EquipmentListToString = String.Join(", ", EquipmentList);
+                Equipment = string.Empty;
+            }
+
         }
 
         //Clears the lears
@@ -537,30 +829,28 @@ namespace Pastime.ViewModels
             }
         }
 
-      
-
-        //Code for Google Places API
-        public const string GooglePlacesApiAutoCompletePath = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key={0}&input={1}&components=country:au";
-        public const string GooglePlacesDetailPath = "https://maps.googleapis.com/maps/api/place/details/json?place_id={0}&fields=geometry&key={1}";
-
-        //TODO: store the key on the server
-        public const string GooglePlacesApiKey = "AIzaSyDDFR2YF0fWlWsayFkss5aYAL78230m_M0 ";
-
-        private static HttpClient httpClientInstance;
-        public static HttpClient HttpClientInstance => httpClientInstance ?? (httpClientInstance = new HttpClient());
-
-        private ObservableCollection<AddressInfo> addresses;
-
-        public ObservableCollection<AddressInfo> Addresses
+        public async Task<string> GetLocationLocality(double latitude, double longitude)
         {
-            get => addresses ?? (addresses = new ObservableCollection<AddressInfo>());
-            set
+            try
             {
-                if (addresses != value)
+                var placemarks = await Geocoding.GetPlacemarksAsync(latitude, longitude);
+                Placemark placemark = placemarks?.FirstOrDefault();
+                if (placemark != null)
                 {
-                    addresses = value;
-                    OnPropertyChanged();
+                    return placemark.Locality;
                 }
+                else
+                {
+                    return "Unknown Location";
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                throw fnsEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -598,8 +888,10 @@ namespace Pastime.ViewModels
                                     };
                                     //Gets the lat and long for each address
                                     await GetPlaceDetails(address);
+                                    address.City = await GetLocationLocality(double.Parse(address.Latitude), double.Parse(address.Longitue));
 
                                     Addresses.Add(address);
+
 
                                     /*
                                     Addresses.Add(new AddressInfo
@@ -609,7 +901,7 @@ namespace Pastime.ViewModels
                                         
                                     });
                                     */
-                                    
+
                                 }
                             }
                         }

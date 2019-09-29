@@ -20,14 +20,14 @@ namespace Pastime.Models
         private int maxGuests;
         private string description;
         private DateTime startTime;
-        private TimeSpan endTime;
+        private DateTime endTime;
         private bool active;
 
         //TODO: add user to list of guests
 
        
 
-        public Event( string name, User host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests, string description, DateTime startTime, TimeSpan endTime)
+        public Event( string name, User host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests, string description, DateTime startTime, DateTime endTime)
         {
             this.name = name;
             this.host = host;
@@ -154,7 +154,7 @@ namespace Pastime.Models
             }
         }
 
-        public TimeSpan EndTime
+        public DateTime EndTime
         {
             get
             {

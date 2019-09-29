@@ -22,7 +22,6 @@ namespace Pastime.Models
         private bool active;
         private List<Activity> activities;
 
-
         public EventModel()
         {
             //TODO: Should eventually retrieve this from the database so it is more dynamic
@@ -36,8 +35,6 @@ namespace Pastime.Models
             Activity soccer = new Activity("Soccer");
             Activity hockey = new Activity("Hockey");
             Activity basketball = new Activity("Basketball");
-
-
 
             AddToActivitiesList(soccer);
             AddToActivitiesList(hockey);
@@ -140,7 +137,7 @@ namespace Pastime.Models
         {
             if (eventDate < DateTime.Now.Add(new TimeSpan((int)0.45, 0, 0)))
             {
-                errMsg = "Please choose a later time";
+                errMsg = "Please choose a later start time";
                 return false;
             }
             else if (eventDate.TimeOfDay > endTime)
@@ -157,7 +154,7 @@ namespace Pastime.Models
 
         public Event CreateEvent(string name, Activity activity,
             ObservableCollection<string> equipment, Location location,
-            int maxGuests, string desc, DateTime date, TimeSpan endTime)
+            int maxGuests, string desc, DateTime date, DateTime endTime)
         {
             //TODO: Validate before create event maybe
             //TODO: assign eventid to object once event is created in the database?

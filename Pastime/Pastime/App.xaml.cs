@@ -3,6 +3,7 @@ using Pastime.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.IO;
+using Pastime.Views.CreateEventViewModal;
 
 namespace Pastime
 {
@@ -11,7 +12,7 @@ namespace Pastime
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new CreateEventView());
+            MainPage = new NavigationPage(new CreateEventViewModalName());
             
 
         }
