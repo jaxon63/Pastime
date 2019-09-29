@@ -38,6 +38,11 @@ namespace Pastime.Models
             this.rating = rating;
         }
 
+        public User()
+        {
+
+        }
+
         public int UserId
         {
             get
@@ -251,6 +256,10 @@ namespace Pastime.Models
         {
             await SetCurrentLocation();
             await SetCurrentLocality();
+        }
+        public double CalculateDistance (Location loc)
+        {
+            return Location.CalculateDistance(location, loc, DistanceUnits.Kilometers);
         }
     }
 }

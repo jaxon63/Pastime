@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Xamarin.Essentials;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Pastime.Models
 {
@@ -42,6 +44,12 @@ namespace Pastime.Models
             this.guests = new List<User>();
             //Automatically add the host as a guest to the event
             this.guests.Add(host);
+        }
+
+        //For testing location of event
+        public Event (double lat, double lon)
+        {
+            location = new Location(lat, lon);
         }
 
         public int EventId
@@ -114,6 +122,7 @@ namespace Pastime.Models
                 location = value;
             }
         }
+
 
         public int MaxGuests
         {
@@ -202,10 +211,36 @@ namespace Pastime.Models
 
         public int getGuestCount()
         {
-            return guests.Count();
+            return guests.Count;
         }
 
-       /* public bool CheckIfActive()
+        public async Task<string> getLocationLocality()
+        {
+            try
+            {
+                var placemarks = await Geocoding.GetPlacemarksAsync(location);
+                Placemark placemark = placemarks?.FirstOrDefault();
+                if (placemark != null)
+                {
+                    return placemark.Locality;
+                }
+                else
+                {
+                    return "Unknown Location";
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                throw fnsEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public bool CheckIfActive()
         {
             if (DateTime.Now > endTime)
             {
@@ -217,6 +252,6 @@ namespace Pastime.Models
             }
 
             return active;
-        } */
+        } 
     }
 }
