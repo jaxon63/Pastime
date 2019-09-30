@@ -20,9 +20,9 @@ namespace Pastime.ViewModels
             List<string> list = new List<string>();
             list.Add("Hello");
             events = new ObservableCollection<Event>();
-            events.Add(new Event(1, "New Event", new User(1, "hello", "password", "steveny1", 2001, "Soccer", "hello", null, 1), new Activity("Soccer", "soccer.png", list), new Xamarin.Essentials.Location(100, 100), 4, "hello" , new DateTime(), new DateTime()));
-            events.Add(new Event(1, "New Event2", new User(1, "hello", "password", "steveny1", 2001, "Soccer", "hello", null, 1), new Activity("Soccer", "soccer.png", list), new Xamarin.Essentials.Location(100, 100), 4, "hello", new DateTime(), new DateTime()));
-            events.Add(new Event(1, "New Event3", new User(1, "hello", "password", "steveny1", 2001, "Soccer", "hello", null, 1), new Activity("Soccer", "soccer.png", list), new Xamarin.Essentials.Location(100, 100), 4, "hello", new DateTime(), new DateTime()));
+            //events.Add(new Event(1, "New Event", new User(1, "hello", "password", "steveny1", 2001, "Soccer", "hello", null, 1), new Activity("Soccer", "soccer.png", list), new Xamarin.Essentials.Location(100, 100), 4, "hello" , new DateTime(), new DateTime()));
+           // events.Add(new Event(1, "New Event2", new User(1, "hello", "password", "steveny1", 2001, "Soccer", "hello", null, 1), new Activity("Soccer", "soccer.png", list), new Xamarin.Essentials.Location(100, 100), 4, "hello", new DateTime(), new DateTime()));
+            //events.Add(new Event(1, "New Event3", new User(1, "hello", "password", "steveny1", 2001, "Soccer", "hello", null, 1), new Activity("Soccer", "soccer.png", list), new Xamarin.Essentials.Location(100, 100), 4, "hello", new DateTime(), new DateTime()));
 
             this.nav = nav;
 

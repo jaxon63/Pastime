@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalLocation">
+  <ContentPage.Content>
+    <StackLayout Orientation="Vertical">
+      <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Search for a location for your event" />
+      <Entry Text="{Binding AddressText}"
+                     x:Name="AddressText"
+                     TextChanged="OnTextChanged"
+                     Placeholder="Location" />
+      <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding DisplayAddress}" />
+
+      <Label
+          HorizontalOptions="Center"
+                  Text="{Binding LocErrMsg}"
+                  TextColor="Red"
+                  FontSize="Micro"
+                  IsVisible="{Binding InvalidLoc}" />
+            <Button Text="Back" Command="{Binding GoBackCommand}" />
+            <Button Text="Next" Command="{Binding LocationCommand}" />
+
+      <ListView Footer=""
+                        IsVisible="{Binding DisplayList }"
+                        ItemsSource="{Binding Addresses}"
+                        SelectedItem="{Binding SelectedAddress}">
+
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <TextCell Text="{Binding Address}" />
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

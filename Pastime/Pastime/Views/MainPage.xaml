@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="Pastime.MainPage">
 
+
     <ContentPage.Title>Dashboard</ContentPage.Title>
     <ContentPage.ToolbarItems>
         <!-- <ToolbarItem Text="Logout" Command="{Binding LogoutCommand}"  /> -->
@@ -45,9 +46,9 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackLayout>
-            <!--<Button Text="Hello" BackgroundColor="Pink" HeightRequest="60" WidthRequest="60" CornerRadius="30" /> -->
             <Button ImageSource="add.png" BackgroundColor="#27CF27" Command="{Binding CreateEventCommand}" AbsoluteLayout.LayoutFlags="PositionProportional" HorizontalOptions="Fill" AbsoluteLayout.LayoutBounds=".95, .95, 50, 50"  BorderRadius="25" />
-            <!-- ImageSource="add.png" -->
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
+    
+
