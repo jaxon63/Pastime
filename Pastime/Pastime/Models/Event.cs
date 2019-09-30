@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Pastime.Models
 {
-    public class Event
+   public class Event
     {
         private int eventId;
         private string name;

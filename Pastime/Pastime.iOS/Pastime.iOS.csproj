@@ -144,6 +144,7 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\sport.png.imageset\sport.png">
+
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\star.png.imageset\Contents.json">

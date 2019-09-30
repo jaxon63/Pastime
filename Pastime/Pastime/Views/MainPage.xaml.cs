@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.Generic;
+using Pastime.ViewModels;
 
 namespace Pastime
 {
@@ -16,9 +17,11 @@ namespace Pastime
         public MainPage()
         {
             InitializeComponent();
+            this.BindingContext = new MainPageViewModel(Navigation);
 
         }
 
+     
        
 
         
