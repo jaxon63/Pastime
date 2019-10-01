@@ -21,6 +21,7 @@ namespace Pastime.Models
         private DateTime startTime;
         private DateTime endTime;
         private bool active;
+        private string locality;
 
         public Event(int eventId, string name, User host, Activity activity, Location location, int maxGuests, string description, DateTime startTime, DateTime endTime)
         {
@@ -202,7 +203,7 @@ namespace Pastime.Models
         {
             try
             {
-                var placemarks = await Geocoding.GetPlacemarksAsync(location);
+                var placemarks = await Geocoding.GetPlacemarksAsync(this.location);
                 Placemark placemark = placemarks?.FirstOrDefault();
                 if (placemark != null)
                 {
@@ -236,5 +237,7 @@ namespace Pastime.Models
 
             return active;
         }
+
+       
     }
 }

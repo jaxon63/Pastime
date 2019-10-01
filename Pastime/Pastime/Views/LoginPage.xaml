@@ -30,7 +30,7 @@
                 <Label Text="If you're new to Pastime, click here!"
                        Margin="0, 40, 0, 0"
                        HorizontalOptions="Center" />
-                <Button Text="Create Account" />
+                <Button Text="Create Account" Command="{Binding CreateAccountCommand}" />
             </StackLayout>
 
         </StackLayout>

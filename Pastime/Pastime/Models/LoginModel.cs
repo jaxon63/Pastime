@@ -67,9 +67,5 @@ namespace Pastime.Models
             }
             return false;
         }
-
-      
-
-
     }
 }

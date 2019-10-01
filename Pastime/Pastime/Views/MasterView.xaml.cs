@@ -25,8 +25,10 @@ namespace Pastime.Views
 
             //Create the data ojects for the pages listed in the menu
             var mainPage = new MasterPageItem() { Title = "Dashboard", Icon = "homeicon.png", TargetType = typeof(MainPage) };
+            var editAccount = new MasterPageItem() { Title = "Edit Account", Icon = "useredit.png", TargetType = typeof(EditAccountView) };
             var loginPage = new MasterPageItem() { Title = "Logout", Icon = "logouticon.png", TargetType = typeof(LoginPage) };
             MenuList.Add(mainPage);
+            MenuList.Add(editAccount);
             MenuList.Add(loginPage);
 
             //Sets the detail portion of the master detail page. Defaults to the first in the list (MainPage)

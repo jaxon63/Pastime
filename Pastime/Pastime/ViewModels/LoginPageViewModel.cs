@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Pastime.Models;
+using Pastime.Views;
 using Xamarin.Forms;
 
 namespace Pastime.ViewModels
@@ -25,8 +26,8 @@ namespace Pastime.ViewModels
 
         public LoginPageViewModel(INavigation nav)
         {
-            //TODO: Fix this problem
-            LoginCommand = new Command(async () => await LogMeIn());
+            LoginCommand = new Command(LogMeIn);
+            CreateAccountCommand = new Command(CreateAccountNavAsync);
 
             lm = new LoginModel();
             this.nav = nav;
@@ -84,25 +85,30 @@ namespace Pastime.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand LoginCommand { private set; get; }
+        public ICommand CreateAccountCommand { private set; get; }
 
         void OnPropertyChanged([CallerMemberName]string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-       
+        private void CreateAccountNavAsync()
+        {
+            Application.Current.MainPage = new NavigationPage(new RegisterPage());
+        }
 
-        private async Task LogMeIn()
+
+
+
+        private void LogMeIn()
         {
             InvalidLogin = !lm.LogMeIn(email, password, out string current_user);
             if(!InvalidLogin)
             {
                 Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
-                var nextPage = new TestingPage
-                {
-                    CurrentUser = current_user
-                };
-                await nav.PushAsync(nextPage);
+                Application.Current.MainPage = new MasterView();
+                
+                //await nav.PushAsync(nextPage);
             }
             else
             {
