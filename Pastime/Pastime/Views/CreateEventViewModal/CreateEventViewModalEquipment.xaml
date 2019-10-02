@@ -6,20 +6,28 @@
              mc:Ignorable="d"
              x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalEquipment">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="10,10">
+        <StackLayout Orientation="Vertical"  Margin="70,0" VerticalOptions="Center">
+            <Image Source="equipment_big.png" HeightRequest="50"/>
+            <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand"/>
+            
             <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" Text="{Binding Name}" />
 
             <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="What equipment would you like to ask the others to bring?" />
             <Entry Text="{Binding Equipment}" />
 
             <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                <Button Text="Add" Command="{Binding AddEquipCommand}" />
+                <Button Command="{Binding AddEquipCommand}" ImageSource="add.png"/>
                 <Button Text="Clear" Command="{Binding ClearEquipCommand}" />
             </StackLayout>
 
-            <Button Text="Back" Command="{Binding GoBackCommand}" />
-            <Button HorizontalOptions="Center" Text="Next" Command="{Binding EquipmentCommand}" />
-
+            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                <Button Command="{Binding GoBackCommand}" 
+                        WidthRequest="60" HeightRequest="60" 
+                        BorderRadius="30" ImageSource="back.png" BackgroundColor="White" />
+                <Button Command="{Binding EquipmentCommand}" 
+                        WidthRequest="60" HeightRequest="60" 
+                        BorderRadius="30" ImageSource="next.png" BackgroundColor="White"/>
+            </StackLayout>
 
             <ListView  ItemsSource="{Binding EquipmentList}" >
                 <ListView.ItemTemplate>

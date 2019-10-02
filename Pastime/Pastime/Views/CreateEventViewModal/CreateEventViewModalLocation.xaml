@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalLocation">
   <ContentPage.Content>
-    <StackLayout Orientation="Vertical">
+    <StackLayout Orientation="Vertical" VerticalOptions="Center">
       <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Search for a location for your event" />
       <Entry Text="{Binding AddressText}"
                      x:Name="AddressText"
@@ -20,10 +20,15 @@
                   TextColor="Red"
                   FontSize="Micro"
                   IsVisible="{Binding InvalidLoc}" />
-            <Button Text="Back" Command="{Binding GoBackCommand}" />
-            <Button Text="Next" Command="{Binding LocationCommand}" />
-
-      <ListView Footer=""
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Command="{Binding GoBackCommand}" 
+                        WidthRequest="60" HeightRequest="60" 
+                        BorderRadius="30" ImageSource="back.png" BackgroundColor="White"/>
+                <Button Command="{Binding LocationCommand}" 
+                        WidthRequest="60" HeightRequest="60" 
+                        BorderRadius="30" ImageSource="next.png" BackgroundColor="White"/>
+            </StackLayout>
+            <ListView Footer=""
                         IsVisible="{Binding DisplayList }"
                         ItemsSource="{Binding Addresses}"
                         SelectedItem="{Binding SelectedAddress}">

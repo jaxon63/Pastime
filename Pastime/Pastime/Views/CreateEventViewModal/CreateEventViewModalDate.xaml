@@ -7,6 +7,10 @@
              x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalDate">
     <ContentPage.Content>
         <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Image Source="calendar_big.png" HeightRequest="50"/>
+            <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand"/>
+
+
             <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" Text="{Binding Name}" />
 
             <Label HorizontalOptions="CenterAndExpand" Text="When will the event be held?"/>
@@ -33,8 +37,14 @@
                    TextColor="Red"
                    FontSize="Micro"
                    Text="{Binding EventDateErrMsg}" />
-            <Button Text="Back" Command="{Binding GoBackCommand}" />
-            <Button Text="Next" Command="{Binding DateCommand}" />
+            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                <Button Command="{Binding GoBackCommand}" 
+                        WidthRequest="60" HeightRequest="60" 
+                        BorderRadius="30" ImageSource="back.png" BackgroundColor="White" />
+                <Button Command="{Binding DateCommand}" 
+                        WidthRequest="60" HeightRequest="60" 
+                        BorderRadius="30" ImageSource="next.png" BackgroundColor="White"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

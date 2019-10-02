@@ -7,6 +7,7 @@
              x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalConfirm">
     <ContentPage.Content>
         <StackLayout Padding="10,10" Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center">
+            
             <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" Text="{Binding Name}" />
 
             <Label HorizontalOptions="Center" HorizontalTextAlignment="Center">

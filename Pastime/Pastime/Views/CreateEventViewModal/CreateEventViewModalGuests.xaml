@@ -6,16 +6,28 @@
              mc:Ignorable="d"
              x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalGuests">
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+        <StackLayout Margin="75,0" VerticalOptions="Center">
+            <Image Source="attendees_big.png" HeightRequest="50"/>
+            <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand"/>
+
             <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" Text="{Binding Name}" />
-            
+
+            <Label Text="Please select a number of attendees" FontSize="Medium" HorizontalOptions="Center" FontAttributes="Bold"/>
+
             <Label HorizontalOptions="CenterAndExpand" Text="{Binding DisplayNumberOfGuests}" />
 
             <Stepper HorizontalOptions="CenterAndExpand" Minimum="1"
                                  Maximum="10"
                                  Value="{Binding NumberOfGuests}" />
-            <Button Text="Back" Command="{Binding GoBackCommand}" />
-            <Button Text="Next" Command="{Binding GuestsCommand}" />
+            
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Command="{Binding GoBackCommand}"
+                        WidthRequest="60" HeightRequest="60" 
+                        BorderRadius="30" ImageSource="back.png" BackgroundColor="White"/>
+                <Button Command="{Binding GuestsCommand}" 
+                        WidthRequest="60" HeightRequest="60" 
+                        BorderRadius="30" ImageSource="next.png" BackgroundColor="White"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

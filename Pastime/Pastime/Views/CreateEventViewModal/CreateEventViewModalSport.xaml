@@ -6,11 +6,13 @@
              mc:Ignorable="d"
              x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalSport">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <StackLayout VerticalOptions="Center" Margin="75,0">
+            <Image Source="sport_big.png" HeightRequest="50"/>
+            <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand"/>
             <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" Text="{Binding Name}" />
-            <Label Text="Please select an activity" />
+            <Label Text="Please select an activity" FontSize="Medium" HorizontalOptions="Center" FontAttributes="Bold"/>
+            
             <StackLayout Orientation="Horizontal" Margin="10,0,0,0">
-                <Image HorizontalOptions="CenterAndExpand" Source="sport.png"/>
                 <Picker x:Name="SportPicker"
                             ItemsSource="{Binding Activities}"
                             ItemDisplayBinding="{Binding Name}"
@@ -24,8 +26,14 @@
                            TextColor="Red"
                            FontSize="Micro"
                    HorizontalOptions="CenterAndExpand"/>
-            <Button Text="Back" Command="{Binding GoBackCommand}" />
-            <Button Text="Next" Command="{Binding SportCommand}" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Command="{Binding GoBackCommand}"
+                        WidthRequest="60" HeightRequest="60" 
+                        BorderRadius="30" ImageSource="back.png" BackgroundColor="White"/>
+                <Button Command="{Binding SportCommand}" 
+                        WidthRequest="60" HeightRequest="60" 
+                        BorderRadius="30" ImageSource="next.png" BackgroundColor="White"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
