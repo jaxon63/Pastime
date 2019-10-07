@@ -24,12 +24,12 @@ namespace Pastime
             if (!isLoggedIn)
             {
                 //Load login page is user is not logged in
-                MainPage = new LoginPage();
+                MainPage = new CreateEventViewModalName();
             }
             else
             {
                 //Load mainpage if the user has previously logged in
-                MainPage = new LoginPage();
+                MainPage = new CreateEventViewModalName();
             }
         }
 

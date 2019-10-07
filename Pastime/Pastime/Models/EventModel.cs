@@ -32,13 +32,13 @@ namespace Pastime.Models
 
         private void InitializeActivityList()
         {
-            //Activity soccer = new Activity("Soccer");
-            //Activity hockey = new Activity("Hockey");
-            //Activity basketball = new Activity("Basketball");
+            Activity soccer = new Activity("Soccer", "soccer.png");
+            Activity hockey = new Activity("Hockey", "soccer.png");
+            Activity basketball = new Activity("Basketball", "soccer.png");
 
-           // AddToActivitiesList(soccer);
-          //  AddToActivitiesList(hockey);
-           // AddToActivitiesList(basketball);
+            AddToActivitiesList(soccer);
+            AddToActivitiesList(hockey);
+            AddToActivitiesList(basketball);
         }
 
 

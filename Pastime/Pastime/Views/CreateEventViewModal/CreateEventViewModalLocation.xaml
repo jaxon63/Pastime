@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalLocation">
   <ContentPage.Content>
-    <StackLayout Orientation="Vertical" VerticalOptions="Center">
+    <StackLayout Orientation="Vertical">
       <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Search for a location for your event" />
       <Entry Text="{Binding AddressText}"
                      x:Name="AddressText"

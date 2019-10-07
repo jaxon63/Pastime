@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalGuests">
     <ContentPage.Content>
-        <StackLayout Margin="75,0" VerticalOptions="Center">
+        <StackLayout Margin="30,0" VerticalOptions="Center">
             <Image Source="attendees_big.png" HeightRequest="50"/>
             <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand"/>
 
