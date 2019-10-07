@@ -1,37 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using Xamarin.Essentials;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Pastime.Models
 {
-    class Event
+   public class Event
     {
         private int eventId;
         private string name;
         private User host;
         private List<User> guests;
         private Activity activity;
-        private List<string> equipmentNeeded;
+        private ObservableCollection<string> equipmentNeeded;
         private Location location;
+        private int numOfGuests;
         private int maxGuests;
         private string description;
         private DateTime startTime;
         private DateTime endTime;
         private bool active;
 
-        public Event(int eventId, string name, User host, Activity activity, Location location, int maxGuests, string description, DateTime startTime, DateTime endTime)
+        //TODO: add user to list of guests
+
+       
+
+        public Event( string name, User host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests, string description, DateTime startTime, DateTime endTime)
         {
-            this.eventId = eventId;
             this.name = name;
             this.host = host;
             this.activity = activity;
+            this.equipmentNeeded = equipment;
             this.location = location;
             this.maxGuests = maxGuests;
             this.description = description;
             this.startTime = startTime;
             this.endTime = endTime;
-            active = true;
+            this.active = true;
+            this.guests = new List<User>();
+            //Automatically add the host as a guest to the event
+            this.guests.Add(host);
+        }
+
+        //For testing location of event
+        public Event (double lat, double lon)
+        {
+            location = new Location(lat, lon);
         }
 
         public int EventId
@@ -63,6 +81,7 @@ namespace Pastime.Models
             }
         }
 
+
         public List<User> Guests
         {
             get
@@ -71,7 +90,7 @@ namespace Pastime.Models
             }
         }
 
-        public List<string> EquipmentNeeded
+        public ObservableCollection<string> EquipmentNeeded
         {
             get
             {
@@ -103,6 +122,7 @@ namespace Pastime.Models
                 location = value;
             }
         }
+
 
         public int MaxGuests
         {
@@ -170,7 +190,7 @@ namespace Pastime.Models
 
         public bool AddGuest(User guest)
         {
-            if(guests.Count < maxGuests && !guests.Contains(guest) && active)
+            if (guests.Count < maxGuests && !guests.Contains(guest) && active)
             {
                 guests.Add(guest);
                 return true;
@@ -189,9 +209,40 @@ namespace Pastime.Models
             return false;
         }
 
+        public int getGuestCount()
+        {
+            return guests.Count;
+        }
+
+        public async Task<string> getLocationLocality()
+        {
+            try
+            {
+                var placemarks = await Geocoding.GetPlacemarksAsync(location);
+                Placemark placemark = placemarks?.FirstOrDefault();
+                if (placemark != null)
+                {
+                    return placemark.Locality;
+                }
+                else
+                {
+                    return "Unknown Location";
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                throw fnsEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         public bool CheckIfActive()
         {
-            if(DateTime.Now > endTime)
+            if (DateTime.Now > endTime)
             {
                 active = false;
             }
@@ -201,6 +252,6 @@ namespace Pastime.Models
             }
 
             return active;
-        }
+        } 
     }
 }

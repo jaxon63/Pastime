@@ -24,7 +24,7 @@ namespace Pastime.iOS
         {
             Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            LoadApplication(new Pastime.Application());
 
             return base.FinishedLaunching(app, options);
         }
