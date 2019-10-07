@@ -8,18 +8,13 @@ namespace Pastime.Models
     {
         private string name;
         private string iconImage;
-        private List<string> equipment;
 
-        //Add this stuff later
-        //private Uri iconImage;
-        //private List<string> equipment;
+        
 
-
-        public Activity(string name, string icon, List<string> equipment)
+        public Activity(string name, string icon)
         {
             this.name = name;
-            //this.iconImage = icon;
-            //this.equipment = equipment;
+            this.iconImage = icon;
         }
 
         public string Name

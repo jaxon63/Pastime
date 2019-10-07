@@ -6,11 +6,15 @@
              mc:Ignorable="d"
              x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalName">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-            <Label Text="Please enter a name for the event" />
-            <Entry Text="{Binding Name}" />
+        <StackLayout VerticalOptions="Center" Margin="30,0" >
+            <Image Source="description_big.png" HeightRequest="50"/>
+            <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand"/>
+            <Label Text="Please enter a name for the event" FontSize="Medium" HorizontalOptions="Center" FontAttributes="Bold"/>
+            <Entry Text="{Binding Name}" Placeholder="Name" HorizontalTextAlignment="Center"/>
             <Label FontSize="Micro" TextColor="Red" HorizontalOptions="Center" Text="{Binding NameErrMsg}" />
-            <Button Text="Next" Command="{Binding NameCommand}" />
+            <Button HorizontalOptions="Center" WidthRequest="60" HeightRequest="60" 
+                    BorderRadius="30" Command="{Binding NameCommand}" 
+                    ImageSource="next.png" BackgroundColor="Transparent"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
