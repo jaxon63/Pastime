@@ -100,7 +100,7 @@ namespace Pastime.ViewModels
             {
                 Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
                 Application.Current.MainPage = new MasterView();
-            
+
             }
             else
             {
