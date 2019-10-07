@@ -11,10 +11,10 @@ namespace Pastime.Models
 
         
 
-        public Activity(string name, string icon)
+        public Activity(string name, string iconImage)
         {
             this.name = name;
-            this.iconImage = icon;
+            this.iconImage = iconImage;
         }
 
         public string Name
@@ -23,6 +23,11 @@ namespace Pastime.Models
             {
                 return name;
             }
+        }
+
+        public string IconImage
+        {
+            get => iconImage;
         }
 
         /*

@@ -79,6 +79,5 @@
     <Compile Remove="Views\LoginPage.cs" />
 
 
-    <Compile Remove="Views\MainPage.xaml.cs" />
   </ItemGroup>
 </Project>

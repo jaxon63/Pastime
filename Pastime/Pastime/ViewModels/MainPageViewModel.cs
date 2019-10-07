@@ -17,12 +17,13 @@ namespace Pastime.ViewModels
 
         public MainPageViewModel(INavigation nav)
         {
-            List<string> list = new List<string>();
-            list.Add("Hello");
+            ObservableCollection<string> list = new ObservableCollection<string>();
+            list.Add("hello");
+
             events = new ObservableCollection<Event>();
-            //events.Add(new Event(1, "New Event", new User(1, "hello", "password", "steveny1", 2001, "Soccer", "hello", null, 1), new Activity("Soccer", "soccer.png", list), new Xamarin.Essentials.Location(100, 100), 4, "hello" , new DateTime(), new DateTime()));
-           // events.Add(new Event(1, "New Event2", new User(1, "hello", "password", "steveny1", 2001, "Soccer", "hello", null, 1), new Activity("Soccer", "soccer.png", list), new Xamarin.Essentials.Location(100, 100), 4, "hello", new DateTime(), new DateTime()));
-            //events.Add(new Event(1, "New Event3", new User(1, "hello", "password", "steveny1", 2001, "Soccer", "hello", null, 1), new Activity("Soccer", "soccer.png", list), new Xamarin.Essentials.Location(100, 100), 4, "hello", new DateTime(), new DateTime()));
+            events.Add(new Event("Soccer Event!", null, new Activity("Soccer", "soccer.png"), list, new Xamarin.Essentials.Location(100, 100), 3, "This is a description of this event its long enough", new DateTime(), new DateTime()));
+            events.Add(new Event("Basketball Event!", null, new Activity("Basketball", "basketball.png"), list, new Xamarin.Essentials.Location(100, 100), 3, "This is a description of this event its long enough", new DateTime(), new DateTime()));
+            events.Add(new Event("Hockey Event!", null, new Activity("Hockey", "hockey.png"), list, new Xamarin.Essentials.Location(100, 100), 3, "This is a description of this event its long enough", new DateTime(), new DateTime()));
 
             this.nav = nav;
 

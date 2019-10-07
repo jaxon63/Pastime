@@ -22,7 +22,7 @@
                                 <Frame BorderColor="Green" Padding="15,5,5,5" Margin="10" HasShadow="True" CornerRadius="5" >
                                     <StackLayout VerticalOptions="Center" Orientation="Vertical">
                                         <StackLayout Orientation="Horizontal">
-                                            <Image Source="{Binding Activity.IconImage}"/>
+                                            <Image Source="{Binding Activity.IconImage}" HeightRequest="20"/>
                                             <Label FontSize="12" Text="{Binding Activity.Name}" Margin="0,0,0,10" />
                                         </StackLayout>
                                         <Label TextColor="Black" Text="{Binding Name}" FontSize="20"  />
