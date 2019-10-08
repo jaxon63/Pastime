@@ -18,11 +18,8 @@ namespace Pastime.Models
         private Activity activity;
         private ObservableCollection<string> equipmentNeeded;
         private Location location;
-<<<<<<< HEAD
         private string locality;
-=======
         private int numOfGuests;
->>>>>>> master
         private int maxGuests;
         private string description;
         private DateTime startTime;

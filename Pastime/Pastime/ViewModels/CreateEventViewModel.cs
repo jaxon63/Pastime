@@ -70,6 +70,8 @@ namespace Pastime.ViewModels
         //equipmentListToString displays the list as a single string separated by commas
         private string equipmentListToString = string.Empty;
 
+        private Event finalEvent;
+
 
         //The default start time is set to one hour from the current time
         private TimeSpan startTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(0, 0, 0));
@@ -87,7 +89,7 @@ namespace Pastime.ViewModels
         public const string GooglePlacesDetailPath = "https://maps.googleapis.com/maps/api/place/details/json?place_id={0}&fields=geometry&key={1}";
 
         //TODO: store the key on the server
-        public const string GooglePlacesApiKey = "AIzaSyAZKgNbAV9XPFJOdmMX0x8SZbGcCYojQFQ ";
+        public const string GooglePlacesApiKey = "AIzaSyCMXRnxUE03DeetlVW-CrjCO2OmTxVOPww ";
 
         //Event model used to handle all the business logic regarding events
         private readonly EventModel model;
@@ -108,7 +110,7 @@ namespace Pastime.ViewModels
             GuestsCommand = new Command(SubmitGuests);
             EquipmentCommand = new Command(SubmitEquipment);
             LocationCommand = new Command(SubmitLocation);
-            SubmitEventCommand = new Command(SubmitEvent);
+            SubmitEventCommand = new Command(async () => await SubmitEvent());
             GoBackCommand = new Command(NavigateGoBackAsync);
 
             //Instantiate the EventModel
@@ -605,6 +607,18 @@ namespace Pastime.ViewModels
         }
 
 
+        public Event FinalEvent
+        {
+            get => finalEvent;
+            set
+            {
+                if (finalEvent == value)
+                    return;
+                finalEvent = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -727,12 +741,14 @@ namespace Pastime.ViewModels
             }
         }
 
-        private void SubmitEvent()
+        private async Task SubmitEvent()
         {
             if (!invalidName && !invalidDesc && !invalidEventDate && !invalidLoc && !invalidSport)
             {
                 Event newEvent = model.CreateEvent(name, selectedActivity, equipmentList, Location, numberOfGuests, desc, EventDate, EventEndDate);
-                Console.WriteLine(newEvent.StartTime);
+                await  newEvent.getLocationLocality();
+                this.finalEvent = newEvent;
+                Console.WriteLine("Locality: " + newEvent.Locality);
             }
             else
             {
