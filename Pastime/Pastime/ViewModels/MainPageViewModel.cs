@@ -1,10 +1,12 @@
 ﻿using Pastime.Models;
+using Pastime.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -30,6 +32,7 @@ namespace Pastime.ViewModels
             this.nav = nav;
 
             CreateEventCommand = new Command(CreateEventNavigate);
+            ViewCommand = new Command(async () => await NavigateViewEventAsync());
         }
 
 
@@ -52,8 +55,15 @@ namespace Pastime.ViewModels
         public void CreateEventNavigate()
         {
             Console.WriteLine("Hello there");
-        }      
+        }
 
+        private async Task NavigateViewEventAsync()
+        {
+            
+            await nav.PushAsync(new EventView());
+        }
+
+        public ICommand ViewCommand { private set; get; }
         public ICommand CreateEventCommand { private set; get; }
 
         public event PropertyChangedEventHandler PropertyChanged;

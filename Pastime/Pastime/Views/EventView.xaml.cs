@@ -1,4 +1,5 @@
-﻿using Pastime.ViewModels;
+﻿using Pastime.Models;
+using Pastime.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

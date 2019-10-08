@@ -24,12 +24,13 @@ namespace Pastime.ViewModels
             ObservableCollection<String> list = new ObservableCollection<string>();
             list.Add("Soccer ball");
 
+
             //TODO: pass the event to the page when the event is clicked on
             //Create a new testing event object just temporarily
             this.viewEvent = new Event("New Event", null, new Activity("Soccer", "soccer.png"), 
                 list, new Xamarin.Essentials.Location(100, 100), 4, 
                 "This is a description of the event. It has to be 50 characters long or something like that", new DateTime(), new DateTime());
-
+                
             //Commands
             BackCommand = new Command(async () => await NavigateBackAsync());
         }

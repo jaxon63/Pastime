@@ -33,7 +33,7 @@
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
                                             <Button Text="Dismiss"  />
-                                            <Button  Text="View"  />
+                                            <Button  Text="View" Command="{Binding ViewCommand}" />
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>
