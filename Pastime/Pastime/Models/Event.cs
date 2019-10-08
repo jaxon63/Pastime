@@ -18,6 +18,7 @@ namespace Pastime.Models
         private Activity activity;
         private ObservableCollection<string> equipmentNeeded;
         private Location location;
+        private string locality;
         private int numOfGuests;
         private int maxGuests;
         private string description;
@@ -123,6 +124,14 @@ namespace Pastime.Models
             }
         }
 
+        public string Locality
+        {
+            get
+            {
+                return locality;
+            }
+        }
+
 
         public int MaxGuests
         {
@@ -222,12 +231,13 @@ namespace Pastime.Models
                 Placemark placemark = placemarks?.FirstOrDefault();
                 if (placemark != null)
                 {
-                    return placemark.Locality;
+                    locality = placemark.Locality;
                 }
                 else
                 {
-                    return "Unknown Location";
+                    locality = "Unknown Location";
                 }
+                return locality;
             }
             catch (FeatureNotSupportedException fnsEx)
             {
