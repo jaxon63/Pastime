@@ -36,8 +36,6 @@ namespace Pastime.Models
             this.bio = bio;
             this.dpUri = dpUri;
             this.rating = rating;
-
-
         }
 
         public User()
@@ -203,10 +201,10 @@ namespace Pastime.Models
         {
             try
             {
-                Location location = await Geolocation.GetLocationAsync(new GeolocationRequest(GeolocationAccuracy.Medium)); //Can set to be more accurate if necessary
+                Location loc = await Geolocation.GetLocationAsync(new GeolocationRequest(GeolocationAccuracy.Medium)); //Can set to be more accurate if necessary
                 if (location != null)
                 {
-                    this.location = location;
+                    this.location = loc;
                 }
             }
             catch (FeatureNotSupportedException fnsEx)
@@ -240,7 +238,7 @@ namespace Pastime.Models
                 Placemark placemark = placemarks?.FirstOrDefault();
                 if (placemark != null)
                 {
-                    locality = placemark.Locality;
+                    this.locality = placemark.Locality;
                 }
             }
             catch (FeatureNotSupportedException fnsEx)
@@ -254,6 +252,11 @@ namespace Pastime.Models
 
         }
 
+        async Task SetLocations()
+        {
+            await SetCurrentLocation();
+            await SetCurrentLocality();
+        }
         public double CalculateDistance (Location loc)
         {
             return Location.CalculateDistance(location, loc, DistanceUnits.Kilometers);

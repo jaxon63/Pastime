@@ -3,6 +3,7 @@ using Pastime.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.IO;
+using Pastime.Views.CreateEventViewModal;
 using Pastime.ViewModels;
 
 namespace Pastime

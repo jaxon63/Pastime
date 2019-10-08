@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using Xamarin.Essentials;
 using System.Linq;
@@ -14,8 +16,9 @@ namespace Pastime.Models
         private User host;
         private List<User> guests;
         private Activity activity;
-        private List<string> equipmentNeeded;
+        private ObservableCollection<string> equipmentNeeded;
         private Location location;
+        private int numOfGuests;
         private int maxGuests;
         private string description;
         private DateTime startTime;
@@ -23,18 +26,25 @@ namespace Pastime.Models
         private bool active;
         private string locality;
 
-        public Event(int eventId, string name, User host, Activity activity, Location location, int maxGuests, string description, DateTime startTime, DateTime endTime)
+        //TODO: add user to list of guests
+
+       
+
+        public Event( string name, User host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests, string description, DateTime startTime, DateTime endTime)
         {
-            this.eventId = eventId;
             this.name = name;
             this.host = host;
             this.activity = activity;
+            this.equipmentNeeded = equipment;
             this.location = location;
             this.maxGuests = maxGuests;
             this.description = description;
             this.startTime = startTime;
             this.endTime = endTime;
-            active = true;
+            this.active = true;
+            this.guests = new List<User>();
+            //Automatically add the host as a guest to the event
+            this.guests.Add(host);
         }
 
         //For testing location of event
@@ -72,6 +82,7 @@ namespace Pastime.Models
             }
         }
 
+
         public List<User> Guests
         {
             get
@@ -80,7 +91,7 @@ namespace Pastime.Models
             }
         }
 
-        public List<string> EquipmentNeeded
+        public ObservableCollection<string> EquipmentNeeded
         {
             get
             {
@@ -180,7 +191,7 @@ namespace Pastime.Models
 
         public bool AddGuest(User guest)
         {
-            if(guests.Count < maxGuests && !guests.Contains(guest) && active)
+            if (guests.Count < maxGuests && !guests.Contains(guest) && active)
             {
                 guests.Add(guest);
                 return true;
@@ -197,6 +208,11 @@ namespace Pastime.Models
                 return true;
             }
             return false;
+        }
+
+        public int getGuestCount()
+        {
+            return guests.Count;
         }
 
         public async Task<string> getLocationLocality()
@@ -224,9 +240,10 @@ namespace Pastime.Models
             }
         }
 
+
         public bool CheckIfActive()
         {
-            if(DateTime.Now > endTime)
+            if (DateTime.Now > endTime)
             {
                 active = false;
             }
@@ -236,8 +253,7 @@ namespace Pastime.Models
             }
 
             return active;
-        }
 
-       
+        } 
     }
 }

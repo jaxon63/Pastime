@@ -35,7 +35,6 @@ namespace Pastime.Views
         private void EditEmailPopup(object o, EventArgs e)
         {
             PopupNavigation.Instance.PushAsync(new ChangeEmailPopup());
-
         }
         
     }

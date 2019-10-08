@@ -20,7 +20,7 @@
                                         <ColumnDefinition Width="30"/>
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Image Source="{Binding Icon}"  VerticalOptions="Center" BackgroundColor="#343333" />
+                                    <Image Source="{Binding Icon}"  VerticalOptions="Center" BackgroundColor="Transparent" />
                                     <Label Grid.Column="1" VerticalOptions="Center" TextColor="Black" Text="{Binding Title}" />
                                 </Grid>
                             </ViewCell>

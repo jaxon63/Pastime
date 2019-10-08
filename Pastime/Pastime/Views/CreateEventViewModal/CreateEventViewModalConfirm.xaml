@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalConfirm">
+    <ContentPage.Content>
+        <StackLayout Padding="10,10" Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center">
+            
+            <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" Text="{Binding Name}" />
+
+            <Label HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                
+                <!-- Formatted string used to style the data bound parts of the string -->
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Almost done! Your " />
+                        <Span FontAttributes="Bold" TextColor="Blue" Text="{Binding SelectedActivity.Name}" />
+                        <Span Text=" event will be held on " />
+                        <Span FontAttributes="Bold" TextColor="Blue" Text="{Binding DisplayEventDateString}" />
+                        <Span Text=" in " />
+                        <Span FontAttributes="Bold" TextColor="Blue" Text="{Binding SelectedAddress.City}" />
+                        <Span Text=". It will begin at " />
+                        <Span FontAttributes="Bold"  TextColor="Blue" Text="{Binding DisplayEventStartTimeString }" />
+                        <Span Text=" and will end at " />
+                        <Span FontAttributes="Bold" TextColor="Blue" Text="{Binding DisplayEventEndTimeString}" />
+                        <Span Text="." />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="If you're happy with the details you have provided, press next to create your event."/>
+            <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Have fun!" />
+            <Button Text="Back" Command="{Binding GoBackCommand}" />
+            <Button Text="Cancel" Command="{Binding CancelCommand}"/>
+            <Button Text="Next" Command="{Binding SubmitEventCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
