@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Pastime.Models;
+using Pastime.Views;
 using Xamarin.Forms;
 
 namespace Pastime.ViewModels
@@ -97,12 +98,9 @@ namespace Pastime.ViewModels
             InvalidLogin = !lm.LogMeIn(email, password, out string current_user);
             if(!InvalidLogin)
             {
-                Application.Current.Properties["IsLoggedIn"] = Boolean.TrueString;
-                var nextPage = new TestingPage
-                {
-                    CurrentUser = current_user
-                };
-                await nav.PushAsync(nextPage);
+                Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
+                Application.Current.MainPage = new MasterView();
+
             }
             else
             {

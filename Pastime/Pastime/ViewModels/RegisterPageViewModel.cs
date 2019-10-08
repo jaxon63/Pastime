@@ -226,7 +226,7 @@ namespace Pastime.ViewModels
             {
                 Console.WriteLine("Account created");
                 SubmitErrMsg = string.Empty;
-                Application.Current.Properties["IsLoggedIn"] = Boolean.TrueString;
+                Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
                 
                 //TODO: navigate to main page
                 //TODO: Maybe set current user like in the logged in function?

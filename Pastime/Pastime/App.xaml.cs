@@ -3,14 +3,18 @@ using Pastime.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.IO;
+using Pastime.Views.CreateEventViewModal;
+using Pastime.ViewModels;
 
 namespace Pastime
 {
-    public partial class App : Application
+    public partial class Application : Xamarin.Forms.Application
     {
-        public App()
+        public Application()
         {
+
             InitializeComponent();
+
 
 
             //Uncomment this line to test the IsLoggedIn property
@@ -20,12 +24,12 @@ namespace Pastime
             if (!isLoggedIn)
             {
                 //Load login page is user is not logged in
-                MainPage = new NavigationPage(new LoginPage());
+                MainPage = new MasterView();
             }
             else
             {
                 //Load mainpage if the user has previously logged in
-                MainPage = new NavigationPage(new MainPage());
+                MainPage = new MasterView();
             }
         }
 

@@ -4,18 +4,17 @@ using System.Text;
 
 namespace Pastime.Models
 {
-    class Activity
+    public class Activity
     {
         private string name;
-        private Uri iconImage;
-        private List<string> equipment;
+        private string iconImage;
 
+        
 
-        public Activity(string name, Uri icon, List<string> equipment)
+        public Activity(string name, string iconImage)
         {
             this.name = name;
-            this.iconImage = icon;
-            this.equipment = equipment;
+            this.iconImage = iconImage;
         }
 
         public string Name
@@ -26,14 +25,22 @@ namespace Pastime.Models
             }
         }
 
+        public string IconImage
+        {
+            get => iconImage;
+        }
+
+        /*
         public Uri IconImage
+        public string IconImage
         {
             get
             {
                 return iconImage;
             }
-        }
+        } */
 
+            /*
         public List<string> Equipment
         {
             get
@@ -41,5 +48,6 @@ namespace Pastime.Models
                 return equipment;
             }
         }
+        */
     }
 }
