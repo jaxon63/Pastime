@@ -113,7 +113,7 @@ namespace Pastime.ViewModels
             LocationCommand = new Command(SubmitLocation);
             SubmitEventCommand = new Command(async () => await SubmitEvent());
             GoBackCommand = new Command(NavigateGoBackAsync);
-            CancelCommand = new Command(BackToHomeScreenAsync);
+            CancelCommand = new Command(BackToHomeScreen);
 
             //Instantiate the EventModel
             model = new EventModel();
@@ -649,7 +649,7 @@ namespace Pastime.ViewModels
             await Navigation.PopModalAsync();
         }
 
-        private async void BackToHomeScreenAsync()
+        private void BackToHomeScreen()
         {
             Application.Current.MainPage = new MasterView();
         }
