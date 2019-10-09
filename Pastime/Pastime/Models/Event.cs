@@ -25,7 +25,6 @@ namespace Pastime.Models
         private DateTime startTime;
         private DateTime endTime;
         private bool active;
-        private string locality;
 
         //TODO: add user to list of guests
 
@@ -131,6 +130,10 @@ namespace Pastime.Models
             {
                 return locality;
             }
+            set
+            {
+                locality = value;
+            }
         }
 
 
@@ -228,15 +231,20 @@ namespace Pastime.Models
         {
             try
             {
-                var placemarks = await Geocoding.GetPlacemarksAsync(this.location);
+                var placemarks = await Geocoding.GetPlacemarksAsync(location);                
                 Placemark placemark = placemarks?.FirstOrDefault();
                 if (placemark != null)
                 {
                     locality = placemark.Locality;
+                    if(string.IsNullOrWhiteSpace(placemark.Locality))
+                    {
+                        locality = "Unknown Location";
+                    }
                 }
                 else
                 {
                     locality = "Unknown Location";
+
                 }
                 return locality;
             }

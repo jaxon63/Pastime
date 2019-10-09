@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Pastime.Models;
 using Pastime.Popups;
+using Pastime.Views;
 using Pastime.Views.CreateEventViewModal;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Essentials;
@@ -112,6 +113,7 @@ namespace Pastime.ViewModels
             LocationCommand = new Command(SubmitLocation);
             SubmitEventCommand = new Command(async () => await SubmitEvent());
             GoBackCommand = new Command(NavigateGoBackAsync);
+            CancelCommand = new Command(BackToHomeScreenAsync);
 
             //Instantiate the EventModel
             model = new EventModel();
@@ -637,6 +639,7 @@ namespace Pastime.ViewModels
         public ICommand EquipmentCommand { private set; get; }
         public ICommand SubmitEventCommand { private set; get; }
         public ICommand GoBackCommand { private set; get; }
+        public ICommand CancelCommand { private set; get; }
 
 
         //Modal command functions
@@ -644,6 +647,11 @@ namespace Pastime.ViewModels
         private async void NavigateGoBackAsync()
         {
             await Navigation.PopModalAsync();
+        }
+
+        private async void BackToHomeScreenAsync()
+        {
+            Application.Current.MainPage = new MasterView();
         }
         private void SubmitName()
         {

@@ -15,6 +15,7 @@
             <Button HorizontalOptions="Center" WidthRequest="60" HeightRequest="60" 
                     BorderRadius="30" Command="{Binding NameCommand}" 
                     ImageSource="next.png" BackgroundColor="Transparent"/>
+            <Button Text="Cancel" Command="{Binding CancelCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

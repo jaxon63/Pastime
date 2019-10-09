@@ -39,23 +39,27 @@ namespace Pastime.Views
         public List<MasterPageItem> MenuList { get; set; }
 
         //Click listener for the menu
-        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void MenuItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = e.SelectedItem as MasterPageItem;
 
             //Log the user out by setting the current main page to LoginPage and setting IsLoggedIn to false
             if (item.Title == "Logout")
             {
-                Application.Current.MainPage = new LoginPage();
+                IsBusy = true;
                 Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.FalseString;
+                Application.Current.MainPage = new LoginPage();
+                IsBusy = false;
             }
             else
             {
+                IsBusy = true;
                 Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));   //Other items in the list will trigger the detail to change
 
                 item = null;    //Sets the item to null. I don't know if this makes any difference
                
                 IsPresented = false;  //Hides the menu when clicked
+                IsBusy = false;
             }
 
         }

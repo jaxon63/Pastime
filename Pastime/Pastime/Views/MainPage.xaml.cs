@@ -14,16 +14,25 @@ namespace Pastime
 
     public partial class MainPage : ContentPage
     {
+        private MainPageViewModel vm;
         public MainPage()
         {
             InitializeComponent();
-            this.BindingContext = new MainPageViewModel(Navigation);
+            this.vm = new MainPageViewModel(Navigation);
+            this.BindingContext = vm;
+
 
         }
 
-     
-       
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await vm.GetEventsAsync();
+        }
 
-        
+
+
+
+
     }
 }

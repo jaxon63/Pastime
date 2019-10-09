@@ -15,7 +15,7 @@ namespace Pastime.Views
             InitializeComponent();
 
             //Fake user data
-          
+            
 
             this.BindingContext = new EditAccountViewModel();   
         }
