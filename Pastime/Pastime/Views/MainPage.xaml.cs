@@ -21,13 +21,13 @@ namespace Pastime
             this.vm = new MainPageViewModel(Navigation);
             this.BindingContext = vm;
 
+
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
             await vm.GetEventsAsync();
-
         }
 
 

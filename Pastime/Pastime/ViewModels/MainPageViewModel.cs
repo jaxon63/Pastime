@@ -1,8 +1,11 @@
 ﻿using Pastime.Models;
+using Pastime.Views;
+using Pastime.Views.CreateEventViewModal;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -15,6 +18,7 @@ namespace Pastime.ViewModels
     {
         private ObservableCollection<Event> events;
         private INavigation nav;
+        private bool isBusy;
 
         public MainPageViewModel(INavigation nav)
         {
@@ -31,16 +35,29 @@ namespace Pastime.ViewModels
 
             this.nav = nav;
 
-            CreateEventCommand = new Command(CreateEventNavigate);
-            LogoutCommand = new Command(Logout);
+            CreateEventCommand = new Command(async () => await CreateEventNavigateAsync());
+            ViewCommand = new Command(async () => await NavigateViewEventAsync());
         }
 
-        
+        public bool IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                if (isBusy == value)
+                    return;
+                isBusy = value;
+                OnPropertyChanged();
+            }
+        }
 
+       
         //This method will need to retrieve the events from the database
         //For now it just initialises the list with dummy data
+        //There is a bug when a user returns from the "create event" page, 
         public async Task GetEventsAsync()
         {
+            IsBusy = true;
             ObservableCollection<string> list = new ObservableCollection<string>();
             list.Add("hello");
 
@@ -53,6 +70,8 @@ namespace Pastime.ViewModels
             events.Add(newEvent);
             events.Add(newEvent2);
 
+            IsBusy = false;
+
         }
 
    
@@ -62,25 +81,43 @@ namespace Pastime.ViewModels
             get => events;
             set
             {
+                if (events == value)
+                    return;
+
                 events = value;
+                OnPropertyChanged();
             }
         }
+        
 
         //TODO
-        public void CreateEventNavigate()
+        private async Task CreateEventNavigateAsync()
         {
-            Console.WriteLine("Hello there");
+            IsBusy = true;
+            try
+            {
+                await nav.PushModalAsync(new CreateEventViewModalName());
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
+            }
+
+        private async Task NavigateViewEventAsync()
+        {
+            Console.WriteLine("Testing");
+            await nav.PushAsync(new EventView());
         }
 
-        //TODO
-        public void Logout()
-        {
-            Console.WriteLine("Logout!");
-        }
-
-        public ICommand LogoutCommand { private set; get; }
+        public ICommand ViewCommand { private set; get; }
         public ICommand CreateEventCommand { private set; get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        void OnPropertyChanged([CallerMemberName]string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

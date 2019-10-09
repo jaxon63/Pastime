@@ -155,13 +155,27 @@
     <ImageAsset Include="Assets.xcassets\sport_big.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
+<<<<<<< HEAD
+    <ImageAsset Include="Assets.xcassets\useredit.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\logouticon.imageset\Contents.json">
+=======
     <ImageAsset Include="Assets.xcassets\next.png.imageset\Contents.json">
+>>>>>>> master
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\next.png.imageset\next.png">
       <Visible>false</Visible>
     </ImageAsset>
+<<<<<<< HEAD
+    <ImageAsset Include="Assets.xcassets\useredit.imageset\useredit.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\vertical-menu.imageset\Contents.json">
+=======
     <ImageAsset Include="Assets.xcassets\sport_big.png.imageset\sport_big.png">
+>>>>>>> master
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\title.png.imageset\Contents.json">

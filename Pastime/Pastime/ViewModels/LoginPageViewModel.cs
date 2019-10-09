@@ -15,6 +15,8 @@ namespace Pastime.ViewModels
         private string email = string.Empty;
         private string password = string.Empty;
 
+        private bool isBusy;
+
         private bool invalidLogin;
         private string loginErrMsg = "Incorrent email or password";
 
@@ -26,11 +28,23 @@ namespace Pastime.ViewModels
 
         public LoginPageViewModel(INavigation nav)
         {
-            //TODO: Fix this problem
-            LoginCommand = new Command(async () => await LogMeIn());
+            LoginCommand = new Command(LogMeIn);
+            CreateAccountCommand = new Command(CreateAccountNavAsync);
 
             lm = new LoginModel();
             this.nav = nav;
+        }
+
+        public bool IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                if (isBusy == value)
+                    return;
+                isBusy = value;
+                OnPropertyChanged();
+            }
         }
 
         public string Email
@@ -85,26 +99,33 @@ namespace Pastime.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand LoginCommand { private set; get; }
+        public ICommand CreateAccountCommand { private set; get; }
 
         void OnPropertyChanged([CallerMemberName]string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-       
-
-        private async Task LogMeIn()
+        private void CreateAccountNavAsync()
         {
+            Application.Current.MainPage = new NavigationPage(new RegisterPage());
+        }
+
+        private void LogMeIn()
+        {
+            IsBusy = true;
             InvalidLogin = !lm.LogMeIn(email, password, out string current_user);
             if(!InvalidLogin)
             {
                 Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
                 Application.Current.MainPage = new MasterView();
 
+                IsBusy = false;
             }
             else
             {
                 Password = string.Empty;
+                IsBusy = false;
             }
 
             //The original LogMeIn function, keeping it for now just in case
