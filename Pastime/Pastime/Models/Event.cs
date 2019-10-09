@@ -130,6 +130,10 @@ namespace Pastime.Models
             {
                 return locality;
             }
+            set
+            {
+                locality = value;
+            }
         }
 
 
@@ -227,15 +231,20 @@ namespace Pastime.Models
         {
             try
             {
-                var placemarks = await Geocoding.GetPlacemarksAsync(location);
+                var placemarks = await Geocoding.GetPlacemarksAsync(location);                
                 Placemark placemark = placemarks?.FirstOrDefault();
                 if (placemark != null)
                 {
                     locality = placemark.Locality;
+                    if(string.IsNullOrWhiteSpace(placemark.Locality))
+                    {
+                        locality = "Unknown Location";
+                    }
                 }
                 else
                 {
                     locality = "Unknown Location";
+
                 }
                 return locality;
             }
