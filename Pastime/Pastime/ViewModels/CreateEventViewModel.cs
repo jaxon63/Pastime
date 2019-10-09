@@ -90,7 +90,7 @@ namespace Pastime.ViewModels
         public const string GooglePlacesDetailPath = "https://maps.googleapis.com/maps/api/place/details/json?place_id={0}&fields=geometry&key={1}";
 
         //TODO: store the key on the server
-        public const string GooglePlacesApiKey = "AIzaSyCMXRnxUE03DeetlVW-CrjCO2OmTxVOPww ";
+        public const string GooglePlacesApiKey = "AIzaSyAFbgcXQwR_QvM85bI0HEdjQKGNbOvf-UM";
 
         //Event model used to handle all the business logic regarding events
         private readonly EventModel model;
@@ -756,7 +756,9 @@ namespace Pastime.ViewModels
                 Event newEvent = model.CreateEvent(name, selectedActivity, equipmentList, Location, numberOfGuests, desc, EventDate, EventEndDate);
                 await  newEvent.getLocationLocality();
                 this.finalEvent = newEvent;
-                Console.WriteLine("Locality: " + newEvent.Locality);
+                //Handle this differently when the database is involved
+                //Probably messaging center to tell the main page to update to display the new event
+                Xamarin.Forms.Application.Current.MainPage = new MasterView();
             }
             else
             {

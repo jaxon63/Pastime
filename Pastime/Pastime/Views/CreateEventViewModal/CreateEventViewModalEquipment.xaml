@@ -35,6 +35,9 @@
                         <TextCell Text="{Binding}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <Label/>
+                </ListView.Footer>
             </ListView>
         </StackLayout>
     </ContentPage.Content>

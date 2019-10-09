@@ -246,6 +246,8 @@ namespace Pastime.Models
                     locality = "Unknown Location";
 
                 }
+                Console.WriteLine(placemark);
+
                 return locality;
             }
             catch (FeatureNotSupportedException fnsEx)

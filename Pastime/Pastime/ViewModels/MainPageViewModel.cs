@@ -61,7 +61,7 @@ namespace Pastime.ViewModels
             ObservableCollection<string> list = new ObservableCollection<string>();
             list.Add("hello");
 
-            Event newEvent =  new Event("Soccer Event!", null, new Activity("Soccer", "soccer.png"), list, new Xamarin.Essentials.Location(38, -144), 3, "This is a description of this event its long enough", new DateTime(), new DateTime());
+            Event newEvent =  new Event("Soccer Event!", null, new Activity("Soccer", "soccer.png"), list, new Xamarin.Essentials.Location(-37.8226, 145.0354), 3, "This is a description of this event its long enough", new DateTime(), new DateTime());
             Event newEvent2 = new Event("Basketball Event!", null, new Activity("Basketball", "basketball.png"), list, new Xamarin.Essentials.Location(0, 0), 3, "This is a description of this event its long enough", new DateTime(), new DateTime());
 
             await newEvent.getLocationLocality();
@@ -69,6 +69,8 @@ namespace Pastime.ViewModels
 
             events.Add(newEvent);
             events.Add(newEvent2);
+
+            
 
             IsBusy = false;
 
