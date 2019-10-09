@@ -23,14 +23,36 @@ namespace Pastime.ViewModels
 
             events = new ObservableCollection<Event>();
 
-            events.Add(new Event("Soccer Event!", null, new Activity("Soccer", "soccer.png"), list, new Xamarin.Essentials.Location(100, 100), 3, "This is a description of this event its long enough", new DateTime(), new DateTime()));
+            /*events.Add(new Event("Soccer Event!", null, new Activity("Soccer", "soccer.png"), list, new Xamarin.Essentials.Location(100, 100), 3, "This is a description of this event its long enough", new DateTime(), new DateTime()));
             events.Add(new Event("Basketball Event!", null, new Activity("Basketball", "basketball.png"), list, new Xamarin.Essentials.Location(100, 100), 3, "This is a description of this event its long enough", new DateTime(), new DateTime()));
             events.Add(new Event("Hockey Event!", null, new Activity("Hockey", "hockey.png"), list, new Xamarin.Essentials.Location(100, 100), 3, "This is a description of this event its long enough", new DateTime(), new DateTime()));
+
+    */
 
             this.nav = nav;
 
             CreateEventCommand = new Command(CreateEventNavigate);
             LogoutCommand = new Command(Logout);
+        }
+
+        
+
+        //This method will need to retrieve the events from the database
+        //For now it just initialises the list with dummy data
+        public async Task GetEventsAsync()
+        {
+            ObservableCollection<string> list = new ObservableCollection<string>();
+            list.Add("hello");
+
+            Event newEvent =  new Event("Soccer Event!", null, new Activity("Soccer", "soccer.png"), list, new Xamarin.Essentials.Location(38, -144), 3, "This is a description of this event its long enough", new DateTime(), new DateTime());
+            Event newEvent2 = new Event("Basketball Event!", null, new Activity("Basketball", "basketball.png"), list, new Xamarin.Essentials.Location(0, 0), 3, "This is a description of this event its long enough", new DateTime(), new DateTime());
+
+            await newEvent.getLocationLocality();
+            await newEvent2.getLocationLocality();
+
+            events.Add(newEvent);
+            events.Add(newEvent2);
+
         }
 
    
