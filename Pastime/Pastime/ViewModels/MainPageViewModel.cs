@@ -35,8 +35,6 @@ namespace Pastime.ViewModels
             ViewCommand = new Command(async () => await NavigateViewEventAsync());
         }
 
-
-
         public ObservableCollection<Event> Events
         {
             get => events;

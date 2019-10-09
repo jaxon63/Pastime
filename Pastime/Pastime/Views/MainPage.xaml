@@ -25,7 +25,7 @@
                                         <Label TextColor="Black" Text="{Binding Name}" FontSize="20"  />
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Location: " />
-                                            <Label Text="TODO: get suburb?" />
+                                            <Label Text="{Binding FinalEvent.Locality}" />
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Date: " />
