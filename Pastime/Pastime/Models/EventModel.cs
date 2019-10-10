@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using RestSharp;
 using Xamarin.Essentials;
 
 
@@ -161,13 +162,48 @@ namespace Pastime.Models
             Event result = new Event(name, null, activity, equipment,
                 location, maxGuests, desc, date, endTime);
 
+            string eqipment_raw = "";
+            for (int i = 0; i < equipment.Count; i++)
+            {
+                if (i < equipment.Count - 1)
+                {
+                    eqipment_raw += equipment[i] + ", ";
+                }
+                else
+                {
+                    eqipment_raw += equipment[i];
+                }
+            }
 
-            Console.WriteLine("Event name: " + result.Name +
-                "Activity: " + result.Activity.Name + "equipment: " +
-                result.EquipmentNeeded + " Location: " + result.Location.Longitude +
-                result.Location.Latitude + " Max guests: " + result.MaxGuests +
-                " Description: " + result.Description + " Date: " + result.StartTime +
-                " End time: " + result.EndTime);
+            //todo: move this to another function
+            //api link
+            string create_event = "https://vietnguyen.me/pastime/create_event.php";
+            //create a client object
+            var client = new RestClient(create_event);
+            //create a request
+            var request = new RestRequest(Method.GET);
+            //add the parameters to APIs
+            request.AddParameter("name", name);
+            request.AddParameter("activity", activity.Name);
+            request.AddParameter("equipment", eqipment_raw);
+            request.AddParameter("latitude", location.Latitude);
+            request.AddParameter("longitude", location.Longitude);
+            request.AddParameter("max_guests", maxGuests);
+            request.AddParameter("description", desc);
+            request.AddParameter("date", date); //format: YYYY-MM-DD
+            request.AddParameter("end_time", endTime); //format: hh:mm:ss
+            //add new event to the table
+            var requestResult =  client.Execute(request);
+
+            Console.WriteLine(requestResult.Content);
+
+            //to check if new event is recorded (testing purpose)
+            //goto: https://vietnguyen.me/pastime/event_table.php
+
+            Console.WriteLine($"Name: {result.Name} Activity: {result.Activity.Name} Equipment: {result.EquipmentNeeded.ToString()} Latitude: {result.Location.Latitude} Longitude: {result.Location.Longitude} Max guests: {result.MaxGuests} Description: {result.Description} Start time/date: {result.StartTime} Endtime: {result.EndTime}");
+
+
+            
             return result;
         }
 
