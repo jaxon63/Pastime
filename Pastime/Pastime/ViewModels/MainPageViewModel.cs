@@ -61,14 +61,19 @@ namespace Pastime.ViewModels
             ObservableCollection<string> list = new ObservableCollection<string>();
             list.Add("hello");
 
-            Event newEvent =  new Event("Soccer Event!", null, new Activity("Soccer", "soccer.png"), list, new Xamarin.Essentials.Location(-37.8226, 145.0354), 3, "This is a description of this event its long enough", new DateTime(), new DateTime());
-            Event newEvent2 = new Event("Basketball Event!", null, new Activity("Basketball", "basketball.png"), list, new Xamarin.Essentials.Location(0, 0), 3, "This is a description of this event its long enough", new DateTime(), new DateTime());
+            
+            Event newEvent =  new Event("Soccer Event!", null, new Activity("Soccer", "soccer.png"), list, new Xamarin.Essentials.Location(-37.8226, 145.0354), 3, "I'm looking for some people to play soccer with. I have all the equipment!", DateTime.Now, DateTime.Now.Add(new TimeSpan(2,0,0)));
+            Event newEvent2 = new Event("Basketball Event!", null, new Activity("Basketball", "basketball.png"), list, new Xamarin.Essentials.Location(-37.8136, 144.9631), 2, "I don't have a basketball and I don't really know how to play, but I'm new here and looking to meet some new people.", new DateTime(), new DateTime());
+            Event newEvent3 = new Event("Hockey Event!", null, new Activity("Hockey", "hockey.png"), list, new Xamarin.Essentials.Location(-37.8640, 144.9820), 1, "Looking for people to play some hockey with. I'm garbage though.", new DateTime(), new DateTime());
+
 
             await newEvent.getLocationLocality();
             await newEvent2.getLocationLocality();
+            await newEvent3.getLocationLocality();
 
             events.Add(newEvent);
             events.Add(newEvent2);
+            events.Add(newEvent3);
 
             
 
