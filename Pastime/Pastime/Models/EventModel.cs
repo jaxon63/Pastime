@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Newtonsoft.Json;
 using RestSharp;
 using Xamarin.Essentials;
 
@@ -193,9 +194,19 @@ namespace Pastime.Models
             request.AddParameter("date", date); //format: YYYY-MM-DD
             request.AddParameter("end_time", endTime); //format: hh:mm:ss
             //add new event to the table
-            var requestResult =  client.Execute(request);
 
-            Console.WriteLine(requestResult.Content);
+
+
+            //get the JSON response
+            var response = client.Execute<EventJSON>(request).Content;
+            var status = JsonConvert.DeserializeObject<EventJSON>(response).event_json[0].status;
+            if (status != "success")
+            {
+                var reason = JsonConvert.DeserializeObject<EventJSON>(response).event_json[0].reason;
+                Console.WriteLine(reason);
+            }
+
+            //TODO: Add event id to event object
 
             //to check if new event is recorded (testing purpose)
             //goto: https://vietnguyen.me/pastime/event_table.php
