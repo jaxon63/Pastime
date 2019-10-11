@@ -74,6 +74,23 @@ namespace Pastime.ViewModels
             return items;
         }
 
+
+        private async Task NavigateViewEventAsync(string eventId)
+        {
+            IsBusy = true;
+            try
+            {
+                EventView eventView = new EventView(eventId);
+                await nav.PushAsync(eventView);
+
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
+        }
+
         //This method will need to retrieve the events from the database
         //For now it just initialises the list with dummy data
         //There is a bug when a user returns from the "create event" page, 
@@ -144,21 +161,7 @@ namespace Pastime.ViewModels
 
             }
 
-        private async Task NavigateViewEventAsync(string eventId)
-        {
-            IsBusy = true;
-            try
-            {
-                EventView eventView = new EventView(eventId);
-                await nav.PushAsync(eventView);
-
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-            
-        }
+        
 
         public ICommand ViewCommand { private set; get; }
         public ICommand CreateEventCommand { private set; get; }
