@@ -30,16 +30,10 @@ namespace Pastime.ViewModels
 
             events = new ObservableCollection<Event>();
 
-            /*events.Add(new Event("Soccer Event!", null, new Activity("Soccer", "soccer.png"), list, new Xamarin.Essentials.Location(100, 100), 3, "This is a description of this event its long enough", new DateTime(), new DateTime()));
-            events.Add(new Event("Basketball Event!", null, new Activity("Basketball", "basketball.png"), list, new Xamarin.Essentials.Location(100, 100), 3, "This is a description of this event its long enough", new DateTime(), new DateTime()));
-            events.Add(new Event("Hockey Event!", null, new Activity("Hockey", "hockey.png"), list, new Xamarin.Essentials.Location(100, 100), 3, "This is a description of this event its long enough", new DateTime(), new DateTime()));
-
-            */
-
             this.nav = nav;
 
             CreateEventCommand = new Command(async () => await CreateEventNavigateAsync());
-            ViewCommand = new Command<string>(async (s) => await NavigateViewEventAsync(s));
+            ViewCommand = new Command<Event>(async (e) => await NavigateViewEventAsync(e));
         }
 
         public bool IsBusy
@@ -75,12 +69,12 @@ namespace Pastime.ViewModels
         }
 
 
-        private async Task NavigateViewEventAsync(string eventId)
+        private async Task NavigateViewEventAsync(Event e)
         {
             IsBusy = true;
             try
             {
-                EventView eventView = new EventView(eventId);
+                EventView eventView = new EventView(e);
                 await nav.PushAsync(eventView);
 
             }
@@ -91,9 +85,6 @@ namespace Pastime.ViewModels
 
         }
 
-        //This method will need to retrieve the events from the database
-        //For now it just initialises the list with dummy data
-        //There is a bug when a user returns from the "create event" page, 
         public async Task GetEventsAsync()
         {
             IsBusy = true;
@@ -110,7 +101,7 @@ namespace Pastime.ViewModels
                 Activity activity = new Activity(str_activity, str_activity.ToLower() + ".png");
                 var eqipments = item["equipment"];
                 ObservableCollection<string> list = new ObservableCollection<string>();
-                foreach(string element in eqipments)
+                foreach (string element in eqipments)
                 {
                     list.Add(element);
                 }
@@ -146,7 +137,7 @@ namespace Pastime.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
         private async Task CreateEventNavigateAsync()
         {
             IsBusy = true;
@@ -158,10 +149,7 @@ namespace Pastime.ViewModels
             {
                 IsBusy = false;
             }
-
-            }
-
-        
+        }
 
         public ICommand ViewCommand { private set; get; }
         public ICommand CreateEventCommand { private set; get; }

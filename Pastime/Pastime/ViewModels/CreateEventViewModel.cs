@@ -754,7 +754,7 @@ namespace Pastime.ViewModels
             if (!invalidName && !invalidDesc && !invalidEventDate && !invalidLoc && !invalidSport)
             {
                 Event newEvent = model.CreateEvent(name, selectedActivity, equipmentList, Location, numberOfGuests, desc, EventDate, EventEndDate);
-                await  newEvent.getLocationLocality();
+                await newEvent.getLocationLocality();
                 this.finalEvent = newEvent;
                 //Handle this differently when the database is involved
                 //Probably messaging center to tell the main page to update to display the new event

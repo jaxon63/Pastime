@@ -15,13 +15,15 @@ namespace Pastime.Views
     public partial class EventView : ContentPage
     {
         private EventViewModel viewModel;
-        public EventView(string eventId)
+        public EventView(Event e)
         {
             InitializeComponent();
-            viewModel = new EventViewModel(Navigation, eventId);
+            viewModel = new EventViewModel(Navigation, e);
             this.BindingContext = viewModel;
         }
-
-        
+        public EventViewModel ViewModel
+        {
+            get => viewModel;
+        }
     }
 }

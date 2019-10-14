@@ -8,7 +8,7 @@
              x:Name="ParentView">
 
 
-    <ContentPage.Title>Dashboard</ContentPage.Title>
+    <ContentPage.Title>Pastime</ContentPage.Title>
     <ContentPage.Content>
         <AbsoluteLayout>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
@@ -34,7 +34,7 @@
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
                                             <Button Text="Dismiss"  />
-                                            <Button  Text="View" Command="{Binding BindingContext.ViewCommand, Source={x:Reference ParentView}}" CommandParameter="{Binding EventId}"/>
+                                            <Button  Text="View" Command="{Binding BindingContext.ViewCommand, Source={x:Reference ParentView}}" CommandParameter="{Binding .}" />
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>
