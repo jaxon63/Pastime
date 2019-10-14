@@ -25,7 +25,6 @@ namespace Pastime.ViewModels
 {
     public class CreateEventViewModel : INotifyPropertyChanged
     {
-
         //Fields that require validation also have an error message and a boolean
         private string name = string.Empty;
         private string nameErrMsg = string.Empty;
@@ -46,7 +45,6 @@ namespace Pastime.ViewModels
         //This data can be used to create a Xamarin Essentials Location object
         private AddressInfo selectedAddress;
 
-        //TODO: activities need to be retrieved from the database
         private List<Activity> activities;
 
         private string locErrMsg = string.Empty;
@@ -64,15 +62,16 @@ namespace Pastime.ViewModels
         //Number of guests is 1 by default and can't be lower than 1 or higher than 10
         private int numberOfGuests = 1;
 
-        //TODO: maybe some validation to make sure only alphanumeric is used
-        //User added equipment gets stored in the ObservableCollection
         private ObservableCollection<string> equipmentList = new ObservableCollection<string>();
         private string equipment = string.Empty;
+
         //equipmentListToString displays the list as a single string separated by commas
         private string equipmentListToString = string.Empty;
 
         private Event finalEvent;
 
+        private string createEventErrMsg = string.Empty;
+        private bool displayEventErrMsg;
 
         //The default start time is set to one hour from the current time
         private TimeSpan startTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(0, 0, 0));
@@ -95,12 +94,9 @@ namespace Pastime.ViewModels
         //Event model used to handle all the business logic regarding events
         private readonly EventModel model;
 
-
-
         public CreateEventViewModel()
         {
             //SubmitCommand = new Command(PostEvent);
-            AddEquipCommand = new Command(AddEquipmentToList);
             ClearEquipCommand = new Command(ClearEquipmentList);
 
             //Modal commands
@@ -110,9 +106,9 @@ namespace Pastime.ViewModels
             DateCommand = new Command(SubmitDate);
             GuestsCommand = new Command(SubmitGuests);
             EquipmentCommand = new Command(SubmitEquipment);
-            LocationCommand = new Command(SubmitLocation);
+            LocationCommand = new Command(async () => await SubmitLocation());
             SubmitEventCommand = new Command(async () => await SubmitEvent());
-            GoBackCommand = new Command(NavigateGoBackAsync);
+            GoBackCommand = new Command(async () => await NavigateGoBackAsync());
             CancelCommand = new Command(BackToHomeScreen);
 
             //Instantiate the EventModel
@@ -136,7 +132,6 @@ namespace Pastime.ViewModels
             get;
             set;
         }
-
 
         //Getters and setters
         public string Name
@@ -479,7 +474,6 @@ namespace Pastime.ViewModels
             }
         }
 
-
         public int NumberOfGuests
         {
             get => numberOfGuests;
@@ -513,7 +507,6 @@ namespace Pastime.ViewModels
 
         public string DisplayEventDateString
         {
-
             get
             {
                 string monthString = string.Empty;
@@ -578,20 +571,15 @@ namespace Pastime.ViewModels
         {
             get
             {
-                string result = string.Empty;
-                result = EventDate.ToString("h:mm tt", CultureInfo.InvariantCulture);
-
-                return result;
+                return EventDate.ToString("h:mm tt", CultureInfo.InvariantCulture);
             }
         }
+
         public string DisplayEventEndTimeString
         {
             get
             {
-                string result = string.Empty;
-                result = EventEndDate.ToString("h:mm tt", CultureInfo.InvariantCulture);
-
-                return result;
+                return EventEndDate.ToString("h:mm tt", CultureInfo.InvariantCulture);
             }
         }
 
@@ -608,7 +596,6 @@ namespace Pastime.ViewModels
             }
         }
 
-
         public Event FinalEvent
         {
             get => finalEvent;
@@ -621,6 +608,29 @@ namespace Pastime.ViewModels
             }
         }
 
+        public string CreateEventErrMsg
+        {
+            get => createEventErrMsg;
+            set
+            {
+                if (createEventErrMsg == value)
+                    return;
+                createEventErrMsg = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool DisplayEventErrMsg
+        {
+            get => displayEventErrMsg;
+            set
+            {
+                if (displayEventErrMsg == value)
+                    return;
+                displayEventErrMsg = value;
+                OnPropertyChanged();
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -644,7 +654,7 @@ namespace Pastime.ViewModels
 
         //Modal command functions
 
-        private async void NavigateGoBackAsync()
+        private async Task NavigateGoBackAsync()
         {
             await Navigation.PopModalAsync();
         }
@@ -653,6 +663,7 @@ namespace Pastime.ViewModels
         {
             Application.Current.MainPage = new MasterView();
         }
+
         private void SubmitName()
         {
             InvalidName = !model.ValidateName(Name, out string nameErrMsg);
@@ -728,12 +739,11 @@ namespace Pastime.ViewModels
             Navigation.PushModalAsync(nextPage, true);
         }
 
-        private async void SubmitLocation()
+        private async Task SubmitLocation()
         {
             InvalidLoc = !model.ValidateLocationString(DisplayAddress, out string locErrMsg);
             LocErrMsg = locErrMsg;
             Xamarin.Essentials.Location loc = null;
-
 
             if (!string.IsNullOrWhiteSpace(displayAddress))
             {
@@ -756,14 +766,13 @@ namespace Pastime.ViewModels
                 Event newEvent = model.CreateEvent(name, selectedActivity, equipmentList, Location, numberOfGuests, desc, EventDate, EventEndDate);
                 await newEvent.getLocationLocality();
                 this.finalEvent = newEvent;
-                //Handle this differently when the database is involved
                 //Probably messaging center to tell the main page to update to display the new event
                 Xamarin.Forms.Application.Current.MainPage = new MasterView();
             }
             else
             {
-                //TODO: Handle this in the UI
-                Console.WriteLine("Event could not be created");
+                DisplayEventErrMsg = true;
+                CreateEventErrMsg = "Something went wrong and the event could not be created";
             }
         }
 
@@ -771,65 +780,6 @@ namespace Pastime.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
-        //TODO: Maybe delete
-        /*
-        private void PostEvent(object obj)
-        {
-            //Calls Event Model which is responsible for validating the input
-            //The view is then updated to reflect any errors in the input
-
-            //Assign result of validation to public properties, which triggers the display of the error messages in the UI
-            //The value of the error message is generated in EventModel, depening on the validation (too long, too short, empty ect.)
-            InvalidName = !model.ValidateName(Name, out string nameErrMsg);
-            NameErrMsg = nameErrMsg;
-
-            InvalidDesc = !model.ValidateDesc(Desc, out string descErrMsg);
-            DescErrMsg = descErrMsg;
-
-            InvalidLoc = !model.ValidateLocationString(DisplayAddress, out string locErrMsg);
-            LocErrMsg = locErrMsg;
-            Xamarin.Essentials.Location loc = null;
-
-
-            if (!string.IsNullOrWhiteSpace(displayAddress))
-            {
-                if (!string.IsNullOrWhiteSpace(selectedAddress.Latitude) && !string.IsNullOrWhiteSpace(selectedAddress.Longitue))
-                {
-                    loc = new Xamarin.Essentials.Location(Double.Parse(selectedAddress.Latitude), Double.Parse(selectedAddress.Longitue));
-
-                }
-                else
-                    LocErrMsg = "Location can not be empty";
-
-            }
-
-            if (selectedActivity == null)
-            {
-                InvalidSport = true;
-                SportErrMsg = "Please select an activity";
-            }
-            else
-            {
-                InvalidSport = false;
-            }
-
-            DateTime combinedDate = EventDate + StartTime;
-            InvalidEventDate = !model.ValidateEventDate(combinedDate, EndTime, out string eventDateErrMsg);
-            EventDateErrMsg = eventDateErrMsg;
-
-
-            //Create event if all data validates
-            //TODO: 
-            if (!invalidName && !invalidDesc && !invalidLoc && loc != null && !invalidSport && !invalidEventDate)
-            {
-                Event newEvent = model.CreateEvent(name, selectedActivity, equipmentList, loc, numberOfGuests, desc, combinedDate, EndTime);
-            }
-            else
-                Console.WriteLine("Failed");
-
-        } */
 
         //Add equipment to the list of equipment and clear the input
         //Also joins the list into a string to display to the user
@@ -917,23 +867,12 @@ namespace Pastime.ViewModels
                                     address.City = await GetLocationLocality(double.Parse(address.Latitude), double.Parse(address.Longitue));
 
                                     Addresses.Add(address);
-
-
-                                    /*
-                                    Addresses.Add(new AddressInfo
-                                    {
-                                        Address = prediction.Description,
-                                        Id = prediction.PlaceId,
-                                        
-                                    });
-                                    */
-
                                 }
                             }
                         }
                         else
                         {
-                            Console.WriteLine("No results found");
+                            LocErrMsg = "No results found";
                             //throw new Exception(predictionList.Status);
                         }
                     }
@@ -946,7 +885,6 @@ namespace Pastime.ViewModels
             //Get the addres details
             //Store the lat and long in the Addresses List
             CancellationToken cancellationToken = new CancellationTokenSource(TimeSpan.FromMinutes(2)).Token;
-
 
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, string.Format(GooglePlacesDetailPath, address.Id, GooglePlacesApiKey)))
             {

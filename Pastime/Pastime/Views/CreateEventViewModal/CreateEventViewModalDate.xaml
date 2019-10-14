@@ -1,49 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalDate">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalDate">
     <ContentPage.Content>
         <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-            <Image Source="calendar_big.png" HeightRequest="50"/>
-            <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand"/>
+            <Image Source="calendar_big.png" HeightRequest="50" />
+            <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand" />
 
 
             <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" Text="{Binding Name}" />
 
-            <Label HorizontalOptions="CenterAndExpand" Text="When will the event be held?"/>
+            <Label HorizontalOptions="CenterAndExpand" Text="When will the event be held?" />
 
-            <DatePicker Date="{Binding EventDate}"
-                                HorizontalOptions="FillAndExpand"
-                                Format="D" />
+            <DatePicker Date="{Binding EventDate}" HorizontalOptions="FillAndExpand" Format="D" />
 
             <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
                 <StackLayout Orientation="Vertical">
                     <Label HorizontalOptions="FillAndExpand" Text="From" />
-                    <TimePicker Time="{Binding StartTime}"
-                                HorizontalOptions="FillAndExpand"
-                                Format="t" />
+                    <TimePicker Time="{Binding StartTime}" HorizontalOptions="FillAndExpand" Format="t" />
                 </StackLayout>
                 <StackLayout Orientation="Vertical">
                     <Label HorizontalOptions="FillAndExpand" Text="To" />
-                    <TimePicker Time="{Binding EndTime}"
-                                HorizontalOptions="FillAndExpand"
-                                Format="t" />
+                    <TimePicker Time="{Binding EndTime}" HorizontalOptions="FillAndExpand" Format="t" />
                 </StackLayout>
             </StackLayout >
-            <Label HorizontalOptions="Center"
-                   TextColor="Red"
-                   FontSize="Micro"
-                   Text="{Binding EventDateErrMsg}" />
+            <Label HorizontalOptions="Center" TextColor="Red" FontSize="Micro" Text="{Binding EventDateErrMsg}" />
             <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                <Button Command="{Binding GoBackCommand}" 
-                        WidthRequest="60" HeightRequest="60" 
-                        BorderRadius="30" ImageSource="back.png" BackgroundColor="White" />
-                <Button Command="{Binding DateCommand}" 
-                        WidthRequest="60" HeightRequest="60" 
-                        BorderRadius="30" ImageSource="next.png" BackgroundColor="White"/>
+                <Button Command="{Binding GoBackCommand}" WidthRequest="60" HeightRequest="60" BorderRadius="30" ImageSource="back.png" BackgroundColor="White" />
+                <Button Command="{Binding DateCommand}" WidthRequest="60" HeightRequest="60" BorderRadius="30" ImageSource="next.png" BackgroundColor="White" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

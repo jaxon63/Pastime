@@ -14,7 +14,6 @@ namespace Pastime.Models
         public string ZipCode { get; set; }
         public string Longitue { get; set; }
         public string Latitude { get; set; }
-
     }
 }
 
@@ -35,36 +34,10 @@ public class PlacesTerm
 
     [Newtonsoft.Json.JsonProperty("value")]
     public string Value { get; set; }
-
 }
-
-/*public class Prediction
-{
-    [Newtonsoft.Json.JsonProperty("id")]
-    public string Id { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("description")]
-    public string Description { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("matched_substrings")]
-    public List<PlacesMatchedSubstring> MatchedSubstrings { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("place_id")]
-    public string PlaceId { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("reference")]
-    public string Reference { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("terms")]
-    public List<PlacesTerm> Terms { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("types")]
-    public List<string> Types { get; set; }
-} */
 
 public class PlacesLocationPredictions
 {
-
     [Newtonsoft.Json.JsonProperty("predictions")]
     public List<Prediction> Predictions { get; set; }
 

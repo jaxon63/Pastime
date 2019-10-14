@@ -12,7 +12,5 @@
                 <Setter Property="BarTextColor" Value="White" />
             </Style>
         </ResourceDictionary>
-       
-
     </Application.Resources>
 </Application>

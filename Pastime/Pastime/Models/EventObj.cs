@@ -24,11 +24,4 @@ namespace Pastime
         public List<EventJSONObj> Event { get; set; }
     }
 
-    //The login JSON response may include multiple objects
-    /*
-    public class EventsJSON
-    {
-        public List<EventJSON> Events { get; set; }
-    }
-    */
 }

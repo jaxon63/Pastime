@@ -20,8 +20,6 @@ namespace Pastime
             InitializeComponent();
             this.vm = new MainPageViewModel(Navigation);
             this.BindingContext = vm;
-
-
         }
 
         protected override async void OnAppearing()

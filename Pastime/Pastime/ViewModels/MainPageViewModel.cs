@@ -48,19 +48,48 @@ namespace Pastime.ViewModels
             }
         }
 
+        public ObservableCollection<Event> Events
+        {
+            get => events;
+            set
+            {
+                if (events == value)
+                    return;
+
+                events = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private async Task CreateEventNavigateAsync()
+        {
+            IsBusy = true;
+            try
+            {
+                await nav.PushModalAsync(new CreateEventViewModalName());
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
         //use the parameter to limit the number of retrieved events
         private JArray RetrieveAllEvents(int limit)
         {
             //api link
             string retrive_all_event = "https://vietnguyen.me/pastime/retrieve_all_events.php";
+            
             //create a client object
             var client = new RestClient(retrive_all_event);
+
             //create a request
             var request = new RestRequest(Method.GET);
+
             //add the parameters to APIs
             request.AddParameter("limit", limit);
-            //get the JSON response
 
+            //get the JSON response
             var response = client.Execute<EventJSON>(request).Content;
             var json_response = JObject.Parse(response);
             JArray items = (JArray)json_response["Events"];
@@ -123,32 +152,6 @@ namespace Pastime.ViewModels
 
             IsBusy = false;
 
-        }
-
-        public ObservableCollection<Event> Events
-        {
-            get => events;
-            set
-            {
-                if (events == value)
-                    return;
-
-                events = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private async Task CreateEventNavigateAsync()
-        {
-            IsBusy = true;
-            try
-            {
-                await nav.PushModalAsync(new CreateEventViewModalName());
-            }
-            finally
-            {
-                IsBusy = false;
-            }
         }
 
         public ICommand ViewCommand { private set; get; }

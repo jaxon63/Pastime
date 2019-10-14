@@ -60,7 +60,7 @@ namespace Pastime.Models
             activities.Add(activity);
         }
 
-        //validation methods.
+        //Client side validation
         //output parameter will be the error message displayed on the UI
         public bool ValidateName(string name, out string errMsg)
         {
@@ -120,7 +120,6 @@ namespace Pastime.Models
             }
         }
 
-
         public bool ValidateSport(string sport, out string errMsg)
         {
             if (string.IsNullOrWhiteSpace(sport))
@@ -148,7 +147,6 @@ namespace Pastime.Models
                 errMsg = "Please choose a later end time";
                 return false;
             }
-
             errMsg = string.Empty;
             return true;
         }
@@ -161,10 +159,13 @@ namespace Pastime.Models
 
             //api link
             string create_event = "https://vietnguyen.me/pastime/create_event.php";
+
             //create a client object
             var client = new RestClient(create_event);
+
             //create a request
             var request = new RestRequest(Method.GET);
+
             //add the parameters to APIs
             request.AddParameter("name", name);
             request.AddParameter("activity", activity);
@@ -174,9 +175,7 @@ namespace Pastime.Models
             request.AddParameter("max_guests", maxGuests);
             request.AddParameter("description", desc);
             request.AddParameter("date", date);
-            request.AddParameter("end_time", endTime);
-            //add new event to the table
-            //client.Execute(request);
+            request.AddParameter("end_time", endTime);          
 
             //get the JSON response
             var response = client.Execute<CreateEventJSON>(request).Content;
@@ -187,12 +186,12 @@ namespace Pastime.Models
             {
                 var unique_code = JsonConvert.DeserializeObject<CreateEventJSON>(response).create_event[0].event_code;
                 results.Add(unique_code);
-            } else
+            }
+            else
             {
                 var reason = JsonConvert.DeserializeObject<CreateEventJSON>(response).create_event[0].reason;
                 results.Add(reason);
             }
-
             return results;
         }
 
@@ -212,14 +211,10 @@ namespace Pastime.Models
                     eqipment_raw += equipment[i];
                 }
             }
-            //todo: move this to another function
-
-            //TODO: Add event id to event object
             //to check if new event is recorded (testing purpose)
             //goto: https://vietnguyen.me/pastime/event_table.php
 
             //TODO: Validate before create event maybe
-            //TODO: assign eventid to object once event is created in the database?
             Event result = new Event(null, name, null, activity, equipment,
                 location, maxGuests, desc, date, endTime);
 
@@ -232,13 +227,12 @@ namespace Pastime.Models
 
             if (status == "success")
             {
-                Console.WriteLine("EventID: " + response[1]);
+                return result;
             }
-
-            Console.WriteLine($"Name: {result.Name} Activity: {result.Activity.Name} Equipment: {result.EquipmentNeeded.ToString()} Latitude: {result.Location.Latitude} Longitude: {result.Location.Longitude} Max guests: {result.MaxGuests} Description: {result.Description} Start time/date: {result.StartTime} Endtime: {result.EndTime}");
-
-            return result;
+            else
+            {
+                return null;
+            }
         }
-
     }
 }
