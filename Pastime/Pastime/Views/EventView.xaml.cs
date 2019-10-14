@@ -14,10 +14,16 @@ namespace Pastime.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EventView : ContentPage
     {
-        public EventView()
+        private EventViewModel viewModel;
+        public EventView(Event e)
         {
             InitializeComponent();
-            this.BindingContext = new EventViewModel(Navigation);
+            viewModel = new EventViewModel(Navigation, e);
+            this.BindingContext = viewModel;
+        }
+        public EventViewModel ViewModel
+        {
+            get => viewModel;
         }
     }
 }

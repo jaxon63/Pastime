@@ -90,7 +90,7 @@ namespace Pastime.ViewModels
         public const string GooglePlacesDetailPath = "https://maps.googleapis.com/maps/api/place/details/json?place_id={0}&fields=geometry&key={1}";
 
         //TODO: store the key on the server
-        public const string GooglePlacesApiKey = "AIzaSyAFbgcXQwR_QvM85bI0HEdjQKGNbOvf-UM";
+        public const string GooglePlacesApiKey = "";
 
         //Event model used to handle all the business logic regarding events
         private readonly EventModel model;
@@ -754,7 +754,7 @@ namespace Pastime.ViewModels
             if (!invalidName && !invalidDesc && !invalidEventDate && !invalidLoc && !invalidSport)
             {
                 Event newEvent = model.CreateEvent(name, selectedActivity, equipmentList, Location, numberOfGuests, desc, EventDate, EventEndDate);
-                await  newEvent.getLocationLocality();
+                await newEvent.getLocationLocality();
                 this.finalEvent = newEvent;
                 //Handle this differently when the database is involved
                 //Probably messaging center to tell the main page to update to display the new event

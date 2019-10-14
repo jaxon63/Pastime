@@ -1,4 +1,8 @@
-﻿using Pastime.Models;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Pastime.Models;
+using Pastime.Views;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,35 +18,28 @@ namespace Pastime.ViewModels
     public class EventViewModel : INotifyPropertyChanged
     {
         private INavigation nav;
-        private Event viewEvent;
+        private Event displayEvent;
         private int guestsAttending;
-        public EventViewModel(INavigation nav)
+
+        public EventViewModel(INavigation nav, Event e)
         {
             this.nav = nav;
 
-            //TODO: Delete this later
-            ObservableCollection<String> list = new ObservableCollection<string>();
-            list.Add("Soccer ball");
+            this.displayEvent = e;
 
-
-            //TODO: pass the event to the page when the event is clicked on
-            //Create a new testing event object just temporarily
-            this.viewEvent = new Event("New Event", null, new Activity("Soccer", "soccer.png"), 
-                list, new Xamarin.Essentials.Location(100, 100), 4, 
-                "This is a description of the event. It has to be 50 characters long or something like that", new DateTime(), new DateTime());
-                
             //Commands
-            BackCommand = new Command(async () => await NavigateBackAsync());
+            BackCommand = new Command(NavigateBack);
+            JoinCommand = new Command(async () => await JoinEventAsync());
         }
 
-        public Event ViewEvent
+        public Event DisplayEvent
         {
-            get => viewEvent;
+            get => displayEvent;
             set
             {
-                if (viewEvent == value)
+                if (displayEvent == value)
                     return;
-                viewEvent = value;
+                displayEvent = value;
                 OnPropertyChanged();
             }
         }
@@ -51,17 +48,19 @@ namespace Pastime.ViewModels
         {
             get
             {
-                return viewEvent.getGuestCount();
+                return displayEvent.getGuestCount();
             }
         }
 
         //Methods
-        private async Task NavigateBackAsync()
+        private void NavigateBack()
         {
-            await nav.PopAsync();
+            Application.Current.MainPage = new MasterView();
         }
+        private async Task JoinEventAsync()
+        {
 
-
+        }
 
         public ICommand BackCommand { private set; get; }
         public ICommand JoinCommand { private set; get; }

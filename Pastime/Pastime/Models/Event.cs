@@ -11,7 +11,7 @@ namespace Pastime.Models
 {
    public class Event
     {
-        private int eventId;
+        private string eventId;
         private string name;
         private User host;
         private List<User> guests;
@@ -30,8 +30,9 @@ namespace Pastime.Models
 
        
 
-        public Event( string name, User host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests, string description, DateTime startTime, DateTime endTime)
+        public Event(string eventId, string name, User host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests, string description, DateTime startTime, DateTime endTime)
         {
+            this.eventId = eventId;
             this.name = name;
             this.host = host;
             this.activity = activity;
@@ -53,7 +54,7 @@ namespace Pastime.Models
             location = new Location(lat, lon);
         }
 
-        public int EventId
+        public string EventId
         {
             get
             {

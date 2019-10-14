@@ -1,31 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="Pastime.Views.EventView">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Pastime.Views.EventView">
     <ContentPage.Title>View Event</ContentPage.Title>
-        <ContentPage.Content>
-            <StackLayout>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10,0,10">
-                    <Image Source="{Binding ViewEvent.Activity.IconImage}" />
-                    <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" Text="{Binding ViewEvent.Name}" />
-                </StackLayout>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10,0,10">
+                <Image Source="{Binding DisplayEvent.Activity.IconImage}" HeightRequest="20" />
+                <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" Text="{Binding DisplayEvent.Name}" />
+            </StackLayout>
 
             <Label Text="About this event" FontAttributes="Bold" />
-            <Label Text="{Binding ViewEvent.Description}" />
+            <Label Text="{Binding DisplayEvent.Description}" />
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Host: " />
+                <Label Text="{Binding DisplayEvent.Host}" />
+
+            </StackLayout>
 
             <Label Text="When and where?" FontAttributes="Bold" />
-            <Label Text="TODO: get locality maybe" />
+            <Label Text="{Binding DisplayEvent.Locality}" />
+
             <StackLayout Orientation="Horizontal">
                 <Label>
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Attendees: "/>
+                            <Span Text="Attendees: " />
                             <Span Text="{Binding GuestsAttending}" />
                             <Span Text=" / " />
-                            <Span Text="{Binding ViewEvent.MaxGuests}" />
+                            <Span Text="{Binding DisplayEvent.MaxGuests}" />
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
@@ -35,9 +36,6 @@
                 <Button Text="Back" Command="{Binding BackCommand}" />
                 <Button Text="Join" />
             </StackLayout>
-
-
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

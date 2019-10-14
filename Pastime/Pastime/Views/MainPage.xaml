@@ -4,10 +4,11 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Pastime.MainPage">
+             x:Class="Pastime.MainPage"
+             x:Name="ParentView">
 
 
-    <ContentPage.Title>Dashboard</ContentPage.Title>
+    <ContentPage.Title>Pastime</ContentPage.Title>
     <ContentPage.Content>
         <AbsoluteLayout>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
@@ -33,7 +34,7 @@
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
                                             <Button Text="Dismiss"  />
-                                            <Button  Text="View" Command="{Binding ViewCommand}" />
+                                            <Button  Text="View" Command="{Binding BindingContext.ViewCommand, Source={x:Reference ParentView}}" CommandParameter="{Binding .}" />
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>

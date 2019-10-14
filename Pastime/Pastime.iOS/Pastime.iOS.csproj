@@ -155,14 +155,12 @@
     <ImageAsset Include="Assets.xcassets\sport_big.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-
     <ImageAsset Include="Assets.xcassets\next.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\next.png.imageset\next.png">
       <Visible>false</Visible>
     </ImageAsset>
-
     <ImageAsset Include="Assets.xcassets\sport_big.png.imageset\sport_big.png">
       <Visible>false</Visible>
     </ImageAsset>
@@ -269,8 +267,12 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\soccer.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\soccer.png.imageset\soccer.png" />
+    <ImageAsset Include="Assets.xcassets\soccer.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\soccer.png.imageset\soccer.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
