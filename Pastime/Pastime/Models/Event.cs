@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Pastime.Models
 {
-   public class Event
+    public class Event
     {
         private string eventId;
         private string name;
@@ -25,10 +25,6 @@ namespace Pastime.Models
         private DateTime startTime;
         private DateTime endTime;
         private bool active;
-
-        //TODO: add user to list of guests
-
-       
 
         public Event(string eventId, string name, User host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests, string description, DateTime startTime, DateTime endTime)
         {
@@ -48,27 +44,14 @@ namespace Pastime.Models
             this.guests.Add(host);
         }
 
-        //For testing location of event
-        public Event (double lat, double lon)
-        {
-            location = new Location(lat, lon);
-        }
-
         public string EventId
         {
-            get
-            {
-                return eventId;
-            }
+            get => eventId;
         }
 
         public string Name
         {
-            get
-            {
-                return name;
-            }
-
+            get => name;
             set
             {
                 name = value;
@@ -77,27 +60,18 @@ namespace Pastime.Models
 
         public User Host
         {
-            get
-            {
-                return host;
-            }
+            get => host;
         }
 
 
         public List<User> Guests
         {
-            get
-            {
-                return guests;
-            }
+            get => guests;
         }
 
         public ObservableCollection<string> EquipmentNeeded
         {
-            get
-            {
-                return equipmentNeeded;
-            }
+            get => equipmentNeeded;
             set
             {
                 equipmentNeeded = value;
@@ -106,19 +80,12 @@ namespace Pastime.Models
 
         public Activity Activity
         {
-            get
-            {
-                return activity;
-            }
+            get => activity;
         }
 
         public Location Location
         {
-            get
-            {
-                return location;
-            }
-
+            get => location;
             set
             {
                 location = value;
@@ -127,24 +94,16 @@ namespace Pastime.Models
 
         public string Locality
         {
-            get
-            {
-                return locality;
-            }
+            get => locality;
             set
             {
                 locality = value;
             }
         }
 
-
         public int MaxGuests
         {
-            get
-            {
-                return maxGuests;
-            }
-
+            get => maxGuests;
             set
             {
                 maxGuests = value;
@@ -153,11 +112,7 @@ namespace Pastime.Models
 
         public string Description
         {
-            get
-            {
-                return description;
-            }
-
+            get => description;
             set
             {
                 description = value;
@@ -166,11 +121,7 @@ namespace Pastime.Models
 
         public DateTime StartTime
         {
-            get
-            {
-                return startTime;
-            }
-
+            get => startTime;
             set
             {
                 startTime = value;
@@ -179,11 +130,7 @@ namespace Pastime.Models
 
         public DateTime EndTime
         {
-            get
-            {
-                return endTime;
-            }
-
+            get => endTime;
             set
             {
                 endTime = value;
@@ -192,10 +139,7 @@ namespace Pastime.Models
 
         public bool Active
         {
-            get
-            {
-                return active;
-            }
+            get => active;
             set
             {
                 active = value;
@@ -209,7 +153,6 @@ namespace Pastime.Models
                 guests.Add(guest);
                 return true;
             }
-
             return false;
         }
 
@@ -232,12 +175,12 @@ namespace Pastime.Models
         {
             try
             {
-                var placemarks = await Geocoding.GetPlacemarksAsync(location);                
+                var placemarks = await Geocoding.GetPlacemarksAsync(location);
                 Placemark placemark = placemarks?.FirstOrDefault();
                 if (placemark != null)
                 {
                     locality = placemark.Locality;
-                    if(string.IsNullOrWhiteSpace(placemark.Locality))
+                    if (string.IsNullOrWhiteSpace(placemark.Locality))
                     {
                         locality = "Unknown Location";
                     }
@@ -247,8 +190,6 @@ namespace Pastime.Models
                     locality = "Unknown Location";
 
                 }
-                Console.WriteLine(placemark);
-
                 return locality;
             }
             catch (FeatureNotSupportedException fnsEx)
@@ -261,7 +202,6 @@ namespace Pastime.Models
             }
         }
 
-
         public bool CheckIfActive()
         {
             if (DateTime.Now > endTime)
@@ -272,9 +212,7 @@ namespace Pastime.Models
             {
                 active = true;
             }
-
             return active;
-
-        } 
+        }
     }
 }

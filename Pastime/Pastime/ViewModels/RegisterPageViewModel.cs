@@ -40,8 +40,6 @@ namespace Pastime.ViewModels
             CancelCommand = new Command(CancelCreateAccount);
         }
 
-
-
         public string Email
         {
             get => email;
@@ -77,8 +75,6 @@ namespace Pastime.ViewModels
                 OnPropertyChanged();
             }
         }
-
-
 
         public string Username
         {
@@ -207,8 +203,6 @@ namespace Pastime.ViewModels
             set;
         }
 
-     
-
         //Client side validation from the RegisterModel
         //This function updates the UI with appropriate error messages based on their input
         private void ValidateInput()
@@ -230,7 +224,6 @@ namespace Pastime.ViewModels
             }
         }
 
-
         private void Submit()
         {
             IsBusy = true;
@@ -241,8 +234,6 @@ namespace Pastime.ViewModels
                 SubmitErrMsg = string.Empty;
                 Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
                 
-                //Instead of navigating to the home page of the application, set the current main page to the master view
-                //The login/create account pages shouldn't be on the navigation stack
                 Application.Current.MainPage = new MasterView();
             } else
             {

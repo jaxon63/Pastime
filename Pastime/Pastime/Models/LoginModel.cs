@@ -37,6 +37,7 @@ namespace Pastime.Models
 
             //get the JSON response
             var response = client.Execute<LoginJSON>(request).Content;
+
             //my JSON response only have 1 JSON object
             //that's why I used .login[0] (index 0 object)
             var status = JsonConvert.DeserializeObject<LoginJSON>(response).login[0].status;

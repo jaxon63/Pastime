@@ -115,7 +115,7 @@ namespace Pastime.ViewModels
         {
             IsBusy = true;
             InvalidLogin = !lm.LogMeIn(email, password, out string current_user);
-            if(!InvalidLogin)
+            if (!InvalidLogin)
             {
                 Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
                 Application.Current.MainPage = new MasterView();
@@ -127,29 +127,6 @@ namespace Pastime.ViewModels
                 Password = string.Empty;
                 IsBusy = false;
             }
-
-            //The original LogMeIn function, keeping it for now just in case
-
-            /*
-            //get the response by calling Validate() method in the LoginModel
-            List<string> response = lm.Validate(email, password);
-
-            string status = response[0];
-            string current_user = response[1];
-
-            if (status == "success")
-            {
-                InvalidLogin = false;
-                Application.Current.Properties["IsLoggedIn"] = Boolean.TrueString;
-
-                var nextPage = new TestingPage
-                {
-                    CurrentUser = current_user
-                };
-                await nav.PushAsync(nextPage);
-            }
-            else
-                InvalidLogin = true; */
-        } 
+        }
     }
 }

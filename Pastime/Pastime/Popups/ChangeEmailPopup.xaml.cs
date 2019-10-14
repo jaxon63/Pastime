@@ -23,6 +23,6 @@ namespace Pastime.Popups
             await PopupNavigation.Instance.PopAsync();
         }
 
-        
+
     }
 }

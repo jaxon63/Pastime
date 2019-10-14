@@ -16,7 +16,6 @@ namespace Pastime.Views
     {
         public MasterView()
         {
-
             InitializeComponent();
 
             //This should be in a view model but I couldn't get it to work
@@ -57,7 +56,7 @@ namespace Pastime.Views
                 Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));   //Other items in the list will trigger the detail to change
 
                 item = null;    //Sets the item to null. I don't know if this makes any difference
-               
+
                 IsPresented = false;  //Hides the menu when clicked
                 IsBusy = false;
             }

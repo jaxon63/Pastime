@@ -22,6 +22,6 @@ namespace Pastime.Views.CreateEventViewModal
             this.BindingContext = vm;
         }
 
-       
+
     }
 }

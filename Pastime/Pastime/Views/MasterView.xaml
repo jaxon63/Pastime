@@ -1,10 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="Pastime.Views.MasterView">
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Pastime.Views.MasterView">
     <MasterDetailPage.Master>
         <ContentPage x:Name="masterPage" Title="Menu">
             <AbsoluteLayout>
@@ -12,16 +7,16 @@
                     <StackLayout BackgroundColor="#343333" HeightRequest="75" Orientation="Horizontal">
                         <Label FontSize="20" VerticalOptions="CenterAndExpand" TextColor="White" HorizontalOptions="CenterAndExpand" Text="Pastime" />
                     </StackLayout>
-                    <ListView ItemSelected="MenuItemSelected" x:Name="listView" x:FieldModifier="public"  SeparatorVisibility="None" RowHeight="60" ItemsSource="{Binding MenuList}" >
+                    <ListView ItemSelected="MenuItemSelected" x:Name="listView" x:FieldModifier="public" SeparatorVisibility="None" RowHeight="60" ItemsSource="{Binding MenuList}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <Grid Padding="5,10">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="30" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <Image Source="{Binding Icon}"  VerticalOptions="Center" BackgroundColor="Transparent" />
+                                        <Image Source="{Binding Icon}" VerticalOptions="Center" BackgroundColor="Transparent" />
                                         <Label Grid.Column="1" VerticalOptions="Center" TextColor="Black" Text="{Binding Title}" />
                                     </Grid>
                                 </ViewCell>
@@ -33,13 +28,9 @@
                     <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" IsRunning="{Binding IsBusy}" />
                 </StackLayout>
             </AbsoluteLayout>
-            
         </ContentPage>
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
         <NavigationPage></NavigationPage>
     </MasterDetailPage.Detail>
-
-
-
 </MasterDetailPage>
