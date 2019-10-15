@@ -233,6 +233,9 @@ namespace Pastime.ViewModels
             {
                 SubmitErrMsg = string.Empty;
                 Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
+                Xamarin.Forms.Application.Current.Properties["current_user"] = "insert current user name here. " +
+                    "It can then be retrieved from anywhere in the app using an api call." +
+                    "When the user is logged out, current user will be cleared.";
                 
                 Application.Current.MainPage = new MasterView();
             } else

@@ -124,6 +124,7 @@ namespace Pastime.ViewModels
             }
             else
             {
+                LoginErrMsg = current_user;
                 Password = string.Empty;
                 IsBusy = false;
             }

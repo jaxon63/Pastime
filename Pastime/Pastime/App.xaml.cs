@@ -22,7 +22,7 @@ namespace Pastime
             if (!isLoggedIn)
             {
                 //Load login page is user is not logged in
-                MainPage = new MasterView();
+                MainPage = new LoginPage();
             }
             else
             {

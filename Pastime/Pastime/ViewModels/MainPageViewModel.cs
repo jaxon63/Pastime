@@ -22,11 +22,15 @@ namespace Pastime.ViewModels
         private ObservableCollection<Event> events;
         private INavigation nav;
         private bool isBusy;
+        private User current_user;
 
         public MainPageViewModel(INavigation nav)
         {
             ObservableCollection<string> list = new ObservableCollection<string>();
             list.Add("hello");
+            Console.WriteLine(Xamarin.Forms.Application.Current.Properties["Hello"]);
+
+            
 
             events = new ObservableCollection<Event>();
 
