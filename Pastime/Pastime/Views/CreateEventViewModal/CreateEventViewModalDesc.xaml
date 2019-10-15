@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalDesc">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Pastime.Views.CreateEventViewModal.CreateEventViewModalDesc">
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+        <StackLayout Margin="30,0" VerticalOptions="Center">
+            <Image Source="description_big.png" HeightRequest="50" />
+            <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand" />
             <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" Text="{Binding Name}" />
-            <Label HorizontalOptions="CenterAndExpand" Text="Give your event a description"/>
-            <Entry  Text="{Binding Desc}" />
-            <Label Text="{Binding DescErrMsg}" FontSize="Micro" TextColor="Red" HorizontalOptions="CenterAndExpand"/>
-            <Button Text="Back" Command="{Binding GoBackCommand}" />
-            <Button Text="Next" Command="{Binding DescCommand}" />
+            <Label HorizontalOptions="CenterAndExpand" Text="Give your event a description" FontSize="Large" />
+            <Entry  Text="{Binding Desc}" Placeholder="Description" />
+            <Label Text="{Binding DescErrMsg}" FontSize="Micro" TextColor="Red" HorizontalOptions="CenterAndExpand" />
+            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                <Button Command="{Binding GoBackCommand}" WidthRequest="60" HeightRequest="60" BorderRadius="30" ImageSource="back.png" BackgroundColor="White" />
+                <Button Command="{Binding DescCommand}" WidthRequest="60" HeightRequest="60" BorderRadius="30" ImageSource="next.png" BackgroundColor="White" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

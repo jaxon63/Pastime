@@ -11,13 +11,15 @@ namespace Pastime
             // Define a regular expression for repeated words.
             Regex rx = new Regex(@"/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/",
                 RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
             // Find matches.
             MatchCollection matches = rx.Matches(text);
 
             if (matches.Count < 1)
             {
                 return false;
-            } else
+            }
+            else
             {
                 return true;
             }

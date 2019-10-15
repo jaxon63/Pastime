@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Pastime.Models;
+using Pastime.Views;
 using Xamarin.Forms;
 
 namespace Pastime.ViewModels
@@ -33,10 +34,11 @@ namespace Pastime.ViewModels
         {
             model = new RegisterModel();
 
+            this.IsBusy = false;
+
             SubmitCommand = new Command(ValidateInput);
+            CancelCommand = new Command(CancelCreateAccount);
         }
-
-
 
         public string Email
         {
@@ -73,8 +75,6 @@ namespace Pastime.ViewModels
                 OnPropertyChanged();
             }
         }
-
-
 
         public string Username
         {
@@ -197,6 +197,12 @@ namespace Pastime.ViewModels
             }
         }
 
+        public bool IsBusy
+        {
+            get;
+            set;
+        }
+
         //Client side validation from the RegisterModel
         //This function updates the UI with appropriate error messages based on their input
         private void ValidateInput()
@@ -218,18 +224,17 @@ namespace Pastime.ViewModels
             }
         }
 
-
         private void Submit()
         {
+            IsBusy = true;
             var status = model.SubmitRegister(email, username, password, cPassword);
+
             if(status == "success")
             {
-                Console.WriteLine("Account created");
                 SubmitErrMsg = string.Empty;
                 Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
                 
-                //TODO: navigate to main page
-                //TODO: Maybe set current user like in the logged in function?
+                Application.Current.MainPage = new MasterView();
             } else
             {
                 SubmitErrMsg = status;
@@ -237,9 +242,15 @@ namespace Pastime.ViewModels
 
         }
 
+        private void CancelCreateAccount()
+        {
+            Application.Current.MainPage = new LoginPage();
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand SubmitCommand { private set; get; }
+        public ICommand CancelCommand { private set; get; }
 
         void OnPropertyChanged([CallerMemberName]string propertyName = "")
         {

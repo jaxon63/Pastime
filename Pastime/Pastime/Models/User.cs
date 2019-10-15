@@ -22,9 +22,6 @@ namespace Pastime.Models
         private Uri dpUri;
         private int rating;
 
-       // private Image displayPicture;
-        
-
         public User(int userId, string email, string password, string username, int yearJoined, string faveSport, string bio, Uri dpUri, int rating)
         {
             this.userId = userId;
@@ -38,25 +35,14 @@ namespace Pastime.Models
             this.rating = rating;
         }
 
-        public User()
-        {
-
-        }
-
         public int UserId
         {
-            get
-            {
-                return userId;
-            }
+            get => userId;
         }
 
         public string Email
         {
-            get
-            {
-                return email;
-            }
+            get => email;
             set
             {
                 email = value;
@@ -65,10 +51,7 @@ namespace Pastime.Models
 
         public string Password
         {
-            get
-            {
-                return password;
-            }
+            get => password;
             set
             {
                 password = value;
@@ -77,10 +60,7 @@ namespace Pastime.Models
 
         public string Username
         {
-            get
-            {
-                return username;
-            }
+            get => username;
             set
             {
                 username = value;
@@ -89,26 +69,17 @@ namespace Pastime.Models
 
         public int YearJoined
         {
-            get
-            {
-                return yearJoined;
-            }
+            get => yearJoined;
         }
 
         public string Locality
         {
-            get
-            {
-                return locality;
-            }
+            get => locality;
         }
 
         public string FaveSport
         {
-            get
-            {
-                return faveSport;
-            }
+            get => faveSport;
             set
             {
                 faveSport = value;
@@ -117,86 +88,14 @@ namespace Pastime.Models
 
         public string Bio
         {
-            get
-            {
-                return bio;
-            }
+            get => bio;
             set
             {
                 bio = value;
             }
         }
 
-        public Uri DpUri
-        {
-            get
-            {
-                return dpUri;
-            }
-            set
-            {
-                dpUri = value;
-            }
-        }
-
-        /*public Image DisplayPicture
-        {
-            get
-            {
-                return displayPicture;
-            }
-        }*/
-
-        public int Rating
-        {
-            get
-            {
-                return rating;
-            }
-            set
-            {
-                rating = value;
-            }
-        }
-
-        /// <summary>
-        /// DOESN'T WORK. Sets the user's display picture as a Xamarin Forms Image object. Propbably not needed as you can just use
-        /// the URI as the image source to the image on a form.
-        /// </summary>
-        /*public void getPictureFromUri()
-        {
-            try
-            {
-                if (ImageSource.FromUri(dpUri) != null)
-                    displayPicture.Source = ImageSource.FromUri(dpUri);
-            } catch (NullReferenceException nEx)
-            {
-                Console.WriteLine(nEx.StackTrace);
-            }
-        }*/
-
-
-        //TODO
-        public bool validateBio()
-        {
-            return true;
-        }
-
-        //TODO
-        public bool validateEmail() { 
-            return true;
-
-        }
-
-        //TODO
-        public bool validatePass() {
-            return true;
-        }
-
-        /// <summary>
-        /// Gets the user's current geographical location and sets it to a Location object.
-        /// </summary>
-        /// <returns></returns>
+        // Gets the user's current geographical location and sets it to a Location object.
         public async Task SetCurrentLocation()
         {
             try
@@ -225,11 +124,7 @@ namespace Pastime.Models
             }
         }
 
-        /// <summary>
         /// Finds the locality of the user based off their current location. Only needs to be done when showing a user profile.
-        /// Could not get it to work on emulator but works on physical device
-        /// </summary>
-        /// <returns></returns>
         public async Task SetCurrentLocality()
         {
             try
@@ -252,12 +147,7 @@ namespace Pastime.Models
 
         }
 
-        async Task SetLocations()
-        {
-            await SetCurrentLocation();
-            await SetCurrentLocality();
-        }
-        public double CalculateDistance (Location loc)
+        public double CalculateDistance(Location loc)
         {
             return Location.CalculateDistance(location, loc, DistanceUnits.Kilometers);
         }

@@ -11,23 +11,17 @@ namespace Pastime.Models
         {
         }
 
-        //TODO: Should check if email already exists in database
         public bool ValidateEmail(string email, out string emailErrMsg)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
                 emailErrMsg = "Email cannot be empty";
                 return false;
-
             }
-
-            //TODO: insert other email validation above
-
             emailErrMsg = string.Empty;
             return true;
         }
 
-        //TODO: should check if username exists in database
         public bool ValidateUsername(string username, out string usernameErrMsg)
         {
             if (string.IsNullOrWhiteSpace(username))
@@ -35,12 +29,8 @@ namespace Pastime.Models
                 usernameErrMsg = "Username cannot be empty";
                 return false;
             }
-
-            //TODO: other username validation above
-
             usernameErrMsg = string.Empty;
             return true;
-
         }
 
         public bool ValidatePassword(string password, out string passwordErrMsg)
@@ -50,13 +40,10 @@ namespace Pastime.Models
                 passwordErrMsg = "Password cannot be empty";
                 return false;
             }
-
-            //TODO: insert other password validation here
-
             passwordErrMsg = string.Empty;
             return true;
-
         }
+
         public bool ValidateCPassword(string password, string cPassword)
         {
             if (password == cPassword)

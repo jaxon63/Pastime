@@ -2,7 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Newtonsoft.Json;
+using RestSharp;
 using Xamarin.Essentials;
+using System.Threading.Tasks;
 
 
 namespace Pastime.Models
@@ -32,13 +35,13 @@ namespace Pastime.Models
 
         private void InitializeActivityList()
         {
-            //Activity soccer = new Activity("Soccer");
-            //Activity hockey = new Activity("Hockey");
-            //Activity basketball = new Activity("Basketball");
+            Activity soccer = new Activity("Soccer", "soccer.png");
+            Activity hockey = new Activity("Hockey", "soccer.png");
+            Activity basketball = new Activity("Basketball", "soccer.png");
 
-           // AddToActivitiesList(soccer);
-          //  AddToActivitiesList(hockey);
-           // AddToActivitiesList(basketball);
+            AddToActivitiesList(soccer);
+            AddToActivitiesList(hockey);
+            AddToActivitiesList(basketball);
         }
 
 
@@ -57,7 +60,7 @@ namespace Pastime.Models
             activities.Add(activity);
         }
 
-        //validation methods.
+        //Client side validation
         //output parameter will be the error message displayed on the UI
         public bool ValidateName(string name, out string errMsg)
         {
@@ -117,7 +120,6 @@ namespace Pastime.Models
             }
         }
 
-
         public bool ValidateSport(string sport, out string errMsg)
         {
             if (string.IsNullOrWhiteSpace(sport))
@@ -145,31 +147,92 @@ namespace Pastime.Models
                 errMsg = "Please choose a later end time";
                 return false;
             }
-
             errMsg = string.Empty;
             return true;
         }
 
+        public List<string> SaveEvent(string name, string activity, string equipment,
+            double latitude, double longitude, int maxGuests, string desc,
+            DateTime date, DateTime endTime)
+        {
+            List<string> results = new List<string>();
 
+            //api link
+            string create_event = "https://vietnguyen.me/pastime/create_event.php";
+
+            //create a client object
+            var client = new RestClient(create_event);
+
+            //create a request
+            var request = new RestRequest(Method.GET);
+
+            //add the parameters to APIs
+            request.AddParameter("name", name);
+            request.AddParameter("activity", activity);
+            request.AddParameter("equipment", equipment);
+            request.AddParameter("latitude", latitude);
+            request.AddParameter("longitude", longitude);
+            request.AddParameter("max_guests", maxGuests);
+            request.AddParameter("description", desc);
+            request.AddParameter("date", date);
+            request.AddParameter("end_time", endTime);          
+
+            //get the JSON response
+            var response = client.Execute<CreateEventJSON>(request).Content;
+            var status = JsonConvert.DeserializeObject<CreateEventJSON>(response).create_event[0].status;
+            results.Add(status);
+
+            if (status == "success")
+            {
+                var unique_code = JsonConvert.DeserializeObject<CreateEventJSON>(response).create_event[0].event_code;
+                results.Add(unique_code);
+            }
+            else
+            {
+                var reason = JsonConvert.DeserializeObject<CreateEventJSON>(response).create_event[0].reason;
+                results.Add(reason);
+            }
+            return results;
+        }
 
         public Event CreateEvent(string name, Activity activity,
             ObservableCollection<string> equipment, Location location,
             int maxGuests, string desc, DateTime date, DateTime endTime)
         {
+            string eqipment_raw = "";
+            for (int i = 0; i < equipment.Count; i++)
+            {
+                if (i < equipment.Count - 1)
+                {
+                    eqipment_raw += equipment[i] + ", ";
+                }
+                else
+                {
+                    eqipment_raw += equipment[i];
+                }
+            }
+            //to check if new event is recorded (testing purpose)
+            //goto: https://vietnguyen.me/pastime/event_table.php
+
             //TODO: Validate before create event maybe
-            //TODO: assign eventid to object once event is created in the database?
-            Event result = new Event(name, null, activity, equipment,
+            Event result = new Event(null, name, null, activity, equipment,
                 location, maxGuests, desc, date, endTime);
 
+            //CREATE EVENT JSON OBJECT RETURNED VALUES
+            List<String> response = SaveEvent(name, activity.Name, eqipment_raw,
+                location.Latitude, location.Longitude,
+                maxGuests, desc, date, endTime);
 
-            Console.WriteLine("Event name: " + result.Name +
-                "Activity: " + result.Activity.Name + "equipment: " +
-                result.EquipmentNeeded + " Location: " + result.Location.Longitude +
-                result.Location.Latitude + " Max guests: " + result.MaxGuests +
-                " Description: " + result.Description + " Date: " + result.StartTime +
-                " End time: " + result.EndTime);
-            return result;
+            string status = response[0];
+
+            if (status == "success")
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
         }
-
     }
 }
