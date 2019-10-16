@@ -118,7 +118,6 @@ namespace Pastime.ViewModels
             if (!InvalidLogin)
             {
                 Application.Current.MainPage = new MasterView();
-                Console.WriteLine(Application.Current.Properties["current_user"]);
 
                 IsBusy = false;
             }

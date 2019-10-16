@@ -18,7 +18,6 @@ namespace Pastime.ViewModels
             model = new UserModel();
             user = model.User;
 
-            Console.WriteLine(user.Username);
         }
 
         public string Name

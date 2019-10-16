@@ -14,9 +14,9 @@ namespace Pastime.Views
         public EditAccountView()
         {
             InitializeComponent();
-            this.vm = new EditAccountViewModel();
-
+            vm = new EditAccountViewModel();
             this.BindingContext = vm;
+
         }
 
         private void EditNamePopup(object o, EventArgs e)

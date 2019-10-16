@@ -11,11 +11,13 @@ namespace Pastime.Models
         public UserModel()
         {
             current_user = Application.Current.Properties["current_user"].ToString();
-            user = getUser();
-            Console.WriteLine("Username: " + user.Username);
+            user = new User("Unknown", "Unknown", "Unknown");
+
+            getUser();
+
         }
 
-        private User getUser()
+        private bool getUser()
         {
             var request_api = "https://vietnguyen.me/pastime/retrieve_user.php";
             var client = new RestClient(request_api);
@@ -26,12 +28,12 @@ namespace Pastime.Models
 
             var response = client.Execute<UserJson>(request).Content;
 
+            //This causes the crash
+            var something = JsonConvert.DeserializeObject<UserJson>(response).user_json[0].email;
+
             Console.WriteLine(response);
 
-            User returnUser = new User(JsonConvert.DeserializeObject<UserJson>(response).user_json[0].email, JsonConvert.DeserializeObject<UserJson>(response).user_json[0].username, JsonConvert.DeserializeObject<UserJson>(response).user_json[0].password);
-
-
-            return returnUser;
+            return true;
         }
 
         public User User

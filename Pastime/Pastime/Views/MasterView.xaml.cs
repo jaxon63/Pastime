@@ -55,7 +55,6 @@ namespace Pastime.Views
             {
                 IsBusy = true;
                 Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));   //Other items in the list will trigger the detail to change
-
                 item = null;    //Sets the item to null. I don't know if this makes any difference
 
                 IsPresented = false;  //Hides the menu when clicked
