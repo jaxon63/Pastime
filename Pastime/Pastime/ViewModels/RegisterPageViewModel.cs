@@ -227,20 +227,22 @@ namespace Pastime.ViewModels
         private void Submit()
         {
             IsBusy = true;
-            var status = model.SubmitRegister(email, username, password, cPassword);
+            var response = model.SubmitRegister(email, username, password, cPassword);
 
-            if(status == "success")
+            string status = response[0];
+
+            if (status == "success")
             {
                 SubmitErrMsg = string.Empty;
                 Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
-                Xamarin.Forms.Application.Current.Properties["current_user"] = "insert current user name here. " +
-                    "It can then be retrieved from anywhere in the app using an api call." +
-                    "When the user is logged out, current user will be cleared.";
+                Xamarin.Forms.Application.Current.Properties["current_user"] = response[1];
                 
                 Application.Current.MainPage = new MasterView();
             } else
             {
-                SubmitErrMsg = status;
+                string reason = response[1];
+                SubmitErrMsg = reason;
+                //SubmitErrMsg = status;
             }
 
         }

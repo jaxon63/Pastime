@@ -78,18 +78,26 @@ namespace Pastime.Models
             {
                 var reason = JsonConvert.DeserializeObject<RegisterJSON>(response).register[0].reason;
                 results.Add(reason);
+            } else
+            {
+                var current_user = JsonConvert.DeserializeObject<RegisterJSON>(response).register[0].current_user;
+                results.Add(current_user);
             }
 
             //return the status
             return results;
         }
 
-        public string SubmitRegister(string email, string username, string password, string cPassword)
+        public List<string> SubmitRegister(string email, string username, string password, string cPassword)
         {
             //get the response by calling Validate() method
             List<string> response = CreateUser(email, username, password, cPassword);
 
+            return response;
+
+            /*
             string status = response[0];
+
             if (status == "success")
             {
                 return status;
@@ -99,6 +107,7 @@ namespace Pastime.Models
                 string reason = response[1];
                 return reason;
             }
+            */
         }
     }
 }
