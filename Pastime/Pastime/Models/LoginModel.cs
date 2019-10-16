@@ -58,10 +58,13 @@ namespace Pastime.Models
             string status = response[0];
             current_user = response[1];
 
+            
+
             if (status == "success")
             {
-                //This should store the users logged in status, so when the app is closed,
-                //the next time they reopen it, they are still logged in
+                Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
+                
+                Xamarin.Forms.Application.Current.Properties["current_user"] = response[1];
                 return true;
             }
             return false;

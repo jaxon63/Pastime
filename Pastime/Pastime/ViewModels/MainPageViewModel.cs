@@ -27,10 +27,7 @@ namespace Pastime.ViewModels
         public MainPageViewModel(INavigation nav)
         {
             ObservableCollection<string> list = new ObservableCollection<string>();
-            list.Add("hello");
-            Console.WriteLine(Xamarin.Forms.Application.Current.Properties["Hello"]);
-
-            
+            list.Add("hello");            
 
             events = new ObservableCollection<Event>();
 

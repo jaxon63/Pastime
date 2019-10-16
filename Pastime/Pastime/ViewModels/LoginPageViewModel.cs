@@ -117,14 +117,13 @@ namespace Pastime.ViewModels
             InvalidLogin = !lm.LogMeIn(email, password, out string current_user);
             if (!InvalidLogin)
             {
-                Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
                 Application.Current.MainPage = new MasterView();
+                Console.WriteLine(Application.Current.Properties["current_user"]);
 
                 IsBusy = false;
             }
             else
             {
-                LoginErrMsg = current_user;
                 Password = string.Empty;
                 IsBusy = false;
             }

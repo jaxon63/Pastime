@@ -10,14 +10,13 @@ namespace Pastime.Views
 {
     public partial class EditAccountView : ContentPage
     {
+        private EditAccountViewModel vm;
         public EditAccountView()
         {
             InitializeComponent();
+            this.vm = new EditAccountViewModel();
 
-            //Fake user data
-
-
-            this.BindingContext = new EditAccountViewModel();
+            this.BindingContext = vm;
         }
 
         private void EditNamePopup(object o, EventArgs e)
@@ -32,6 +31,8 @@ namespace Pastime.Views
 
         private void EditEmailPopup(object o, EventArgs e)
         {
+            ChangeEmailPopup newPopup = new ChangeEmailPopup();
+            newPopup.BindingContext = this.vm;
             PopupNavigation.Instance.PushAsync(new ChangeEmailPopup());
         }
     }

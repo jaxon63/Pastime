@@ -92,6 +92,8 @@ namespace Pastime.Models
         {
             //get the response by calling Validate() method
             List<string> response = CreateUser(email, username, password, cPassword);
+            Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
+            Xamarin.Forms.Application.Current.Properties["current_user"] = response[1];
 
             return response;
 

@@ -47,6 +47,7 @@ namespace Pastime.Views
             {
                 IsBusy = true;
                 Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.FalseString;
+                Xamarin.Forms.Application.Current.Properties["current_user"] = string.Empty;
                 Application.Current.MainPage = new LoginPage();
                 IsBusy = false;
             }

@@ -234,15 +234,13 @@ namespace Pastime.ViewModels
             if (status == "success")
             {
                 SubmitErrMsg = string.Empty;
-                Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
-                Xamarin.Forms.Application.Current.Properties["current_user"] = response[1];
+                Console.WriteLine(Application.Current.Properties["current_user"]);
                 
                 Application.Current.MainPage = new MasterView();
             } else
             {
                 string reason = response[1];
                 SubmitErrMsg = reason;
-                //SubmitErrMsg = status;
             }
 
         }
