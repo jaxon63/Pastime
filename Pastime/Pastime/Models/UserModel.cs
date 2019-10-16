@@ -28,7 +28,7 @@ namespace Pastime.Models
 
             Console.WriteLine(response);
 
-            User returnUser = new User(JsonConvert.DeserializeObject<UserJson>(response).email, JsonConvert.DeserializeObject<UserJson>(response).username, JsonConvert.DeserializeObject<UserJson>(response).password);
+            User returnUser = new User(JsonConvert.DeserializeObject<UserJson>(response).user_json[0].email, JsonConvert.DeserializeObject<UserJson>(response).user_json[0].username, JsonConvert.DeserializeObject<UserJson>(response).user_json[0].password);
 
 
             return returnUser;
