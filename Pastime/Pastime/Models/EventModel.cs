@@ -20,7 +20,7 @@ namespace Pastime.Models
         private Xamarin.Essentials.Location location;
         private int maxGuests;
         private string description;
-        private TimeSpan startTime;
+        private DateTime startTime;
         private DateTime endTime;
         private bool active;
         private List<Activity> activities;
@@ -175,7 +175,17 @@ namespace Pastime.Models
             request.AddParameter("max_guests", maxGuests);
             request.AddParameter("description", desc);
             request.AddParameter("date", date);
-            request.AddParameter("end_time", endTime);          
+            request.AddParameter("end_time", endTime);
+
+            Console.WriteLine(name);
+            Console.WriteLine(activity);
+            Console.WriteLine(equipment);
+            Console.WriteLine(latitude);
+            Console.WriteLine(longitude);
+            Console.WriteLine(maxGuests);
+            Console.WriteLine(desc);
+            Console.WriteLine(date);
+            Console.WriteLine(endTime);
 
             //get the JSON response
             var response = client.Execute<CreateEventJSON>(request).Content;
