@@ -17,7 +17,11 @@ namespace Pastime.ViewModels
         {
             model = new UserModel();
             user = model.User;
+        }
 
+        public string DisplayInitial
+        {
+            get => user.Username[0].ToString();
         }
 
         public string Name

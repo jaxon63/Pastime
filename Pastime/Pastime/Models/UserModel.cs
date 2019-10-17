@@ -12,13 +12,18 @@ namespace Pastime.Models
         public UserModel()
         {
             current_user = Application.Current.Properties["current_user"].ToString();
-            user = new User("Unknown", "Unknown", "Unknown");
 
-            getUser();
-
+            if (getUser() != null)
+            {
+                user = getUser();
+            }
+            else
+            {
+                user = new User("Unknown", "Unknown", "Unknown");
+            }
         }
 
-        private bool getUser()
+        private User getUser()
         {
             var request_api = "https://vietnguyen.me/pastime/retrieve_user.php";
             var client = new RestClient(request_api);
@@ -34,11 +39,17 @@ namespace Pastime.Models
             JArray items = (JArray)json_response["User"];
             var item = (JObject)items[0];
 
-            var something = (string)item["username"];
+            string username = (string)item["username"];
+            string email = (string)item["email"];
+            string password = (string)item["password"];
 
-            Console.WriteLine(something);
+            User returnUser = new User(email, password, username);
 
-            return true;
+            if (returnUser != null)
+            {
+                return returnUser;
+            }
+            return null;
         }
 
         public User User

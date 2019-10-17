@@ -13,7 +13,7 @@
                     <!-- "Profile picture" frame -->
                     <Frame CornerRadius="30" HeightRequest="60" WidthRequest="60" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Margin="0" Padding="0" BorderColor="black" HasShadow="False">
 
-                        <Label Text="SM" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold" />
+                        <Label Text="{Binding DisplayInitial}" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold" />
                     </Frame>
                     <!-- Label for the User's name-->
                     <Label Text="{Binding Name}" HorizontalTextAlignment="Center" FontSize="20" />
