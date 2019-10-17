@@ -175,7 +175,7 @@ namespace Pastime.Models
             request.AddParameter("max_guests", maxGuests);
             request.AddParameter("description", desc);
             request.AddParameter("date", date);
-            request.AddParameter("end_time", endTime);          
+            request.AddParameter("end_time", endTime);
 
             //get the JSON response
             var response = client.Execute<CreateEventJSON>(request).Content;

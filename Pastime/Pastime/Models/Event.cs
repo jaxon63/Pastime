@@ -40,8 +40,6 @@ namespace Pastime.Models
             this.endTime = endTime;
             this.active = true;
             this.guests = new List<User>();
-            //Automatically add the host as a guest to the event
-            this.guests.Add(host);
         }
 
         public string EventId
@@ -204,8 +202,9 @@ namespace Pastime.Models
 
         public bool CheckIfActive()
         {
-            if (DateTime.Now > endTime)
+            if (DateTime.Compare(DateTime.Now,  endTime) > 0)
             {
+                
                 active = false;
             }
             else

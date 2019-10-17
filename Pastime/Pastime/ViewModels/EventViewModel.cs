@@ -18,28 +18,28 @@ namespace Pastime.ViewModels
     public class EventViewModel : INotifyPropertyChanged
     {
         private INavigation nav;
-        private Event displayEvent;
+        private Event selectedEvent;
         private int guestsAttending;
 
         public EventViewModel(INavigation nav, Event e)
         {
             this.nav = nav;
 
-            this.displayEvent = e;
+            this.selectedEvent = e;
 
             //Commands
             BackCommand = new Command(NavigateBack);
-            JoinCommand = new Command(async () => await JoinEventAsync());
+            JoinCommand = new Command( JoinEventAsync);
         }
 
-        public Event DisplayEvent
+        public Event SelectedEvent
         {
-            get => displayEvent;
+            get => selectedEvent;
             set
             {
-                if (displayEvent == value)
+                if (selectedEvent == value)
                     return;
-                displayEvent = value;
+                selectedEvent = value;
                 OnPropertyChanged();
             }
         }
@@ -48,7 +48,7 @@ namespace Pastime.ViewModels
         {
             get
             {
-                return displayEvent.getGuestCount();
+                return selectedEvent.getGuestCount();
             }
         }
 
@@ -57,9 +57,13 @@ namespace Pastime.ViewModels
         {
             Application.Current.MainPage = new MasterView();
         }
-        private async Task JoinEventAsync()
+        private void JoinEventAsync()
         {
-
+            MessagingCenter.Send<EventViewModel>(this, "openJoinDialog");
+            MessagingCenter.Subscribe<EventView>(this, "join", (sender) =>
+            {
+                Console.WriteLine("TODO: Add current_user to this event");
+            });
         }
 
         public ICommand BackCommand { private set; get; }

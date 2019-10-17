@@ -4,20 +4,20 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10,0,10">
-                <Image Source="{Binding DisplayEvent.Activity.IconImage}" HeightRequest="20" />
-                <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" Text="{Binding DisplayEvent.Name}" />
+                <Image Source="{Binding SelectedEvent.Activity.IconImage}" HeightRequest="20" />
+                <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" Text="{Binding SelectedEvent.Name}" />
             </StackLayout>
 
             <Label Text="About this event" FontAttributes="Bold" />
-            <Label Text="{Binding DisplayEvent.Description}" />
+            <Label Text="{Binding SelectedEvent.Description}" />
             <StackLayout Orientation="Horizontal">
                 <Label Text="Host: " />
-                <Label Text="{Binding DisplayEvent.Host}" />
+                <Label Text="{Binding SelectedEvent.Host}" />
 
             </StackLayout>
 
             <Label Text="When and where?" FontAttributes="Bold" />
-            <Label Text="{Binding DisplayEvent.Locality}" />
+            <Label Text="{Binding SelectedEvent.Locality}" />
 
             <StackLayout Orientation="Horizontal">
                 <Label>
@@ -26,7 +26,7 @@
                             <Span Text="Attendees: " />
                             <Span Text="{Binding GuestsAttending}" />
                             <Span Text=" / " />
-                            <Span Text="{Binding DisplayEvent.MaxGuests}" />
+                            <Span Text="{Binding SelectedEvent.MaxGuests}" />
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
@@ -34,7 +34,7 @@
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                 <Button Text="Back" Command="{Binding BackCommand}" />
-                <Button Text="Join" />
+                <Button Text="Join" Command="{Binding JoinCommand}"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

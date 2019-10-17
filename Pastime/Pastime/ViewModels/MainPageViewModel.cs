@@ -147,7 +147,15 @@ namespace Pastime.ViewModels
                 date, end_time);
 
                 await newEvent.getLocationLocality();
-                events.Add(newEvent);
+                newEvent.CheckIfActive();
+
+
+
+                //Check if date has passed
+                if (newEvent.Active)
+                {
+                    events.Add(newEvent);
+                }
             }
 
             IsBusy = false;

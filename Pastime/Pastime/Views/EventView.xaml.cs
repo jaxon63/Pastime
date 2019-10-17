@@ -20,6 +20,18 @@ namespace Pastime.Views
             InitializeComponent();
             viewModel = new EventViewModel(Navigation, e);
             this.BindingContext = viewModel;
+
+            MessagingCenter.Subscribe<EventViewModel>(this, "openJoinDialog", async (sender) =>
+            {
+                bool join = await DisplayAlert("Join event", "Would you like to join this event?", "Yes", "No");
+                if (join)
+                {
+                    MessagingCenter.Send<EventView>(this, "join");
+                }
+            });
+
+
+
         }
         public EventViewModel ViewModel
         {
