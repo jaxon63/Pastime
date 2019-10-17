@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using RestSharp;
+using Newtonsoft.Json.Linq;
 
 namespace Pastime.Models
 {
@@ -26,12 +27,16 @@ namespace Pastime.Models
 
             request.AddParameter("username", current_user);
 
+
+            //get the JSON response
             var response = client.Execute<UserJson>(request).Content;
+            var json_response = JObject.Parse(response);
+            JArray items = (JArray)json_response["User"];
+            var item = (JObject)items[0];
 
-            //This causes the crash
-            var something = JsonConvert.DeserializeObject<UserJson>(response).user_json[0].email;
+            var something = (string)item["username"];
 
-            Console.WriteLine(response);
+            Console.WriteLine(something);
 
             return true;
         }
