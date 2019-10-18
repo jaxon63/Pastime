@@ -15,8 +15,11 @@ namespace Pastime.ViewModels
         private string email;
         private string sendEmail; //this will be the email sent to the model to update the current email of the user
         private string password;
-        private string sendPassword;
+        private string sendCurrentPassword;
+        private string sendNewPassword;
+        private string sendCPassword;
         private string emailErrMsg = string.Empty;
+        private string passwordErrMsg = string.Empty;
         private string displaySuccessMessage = string.Empty;
 
         public EditAccountViewModel()
@@ -24,6 +27,8 @@ namespace Pastime.ViewModels
             model = new UserModel();
             user = model.User;
             SaveNewEmailCommand = new Command(SaveEmail);
+            SaveNewPasswordCommand = new Command(SavePassword);
+            SaveNewUsernameCommand = new Command(SaveUsername);
         }
 
         public string DisplayInitial
@@ -34,7 +39,7 @@ namespace Pastime.ViewModels
         public string Name
         {
             get => user.Username;
-           
+
             set
             {
                 if (name == value)
@@ -82,19 +87,43 @@ namespace Pastime.ViewModels
             }
         }
 
-        public string SendPassword
+        public string SendCurrentPassword
         {
-            get => sendPassword;
+            get => sendCurrentPassword;
             set
             {
-                if (sendPassword == value)
+                if (sendCurrentPassword == value)
                     return;
-                sendPassword = value;
+                sendCurrentPassword = value;
                 OnPropertyChanged();
             }
         }
 
-        
+        public string SendNewPassword
+        {
+            get => sendNewPassword;
+            set
+            {
+                if (sendNewPassword == value)
+                    return;
+                sendNewPassword = value;
+                OnPropertyChanged();
+            }
+        }
+        public string SendCPassword
+        {
+            get => sendCPassword;
+            set
+            {
+                if (sendCPassword == value)
+                    return;
+                sendCPassword = value;
+                OnPropertyChanged();
+            }
+
+        }
+
+
 
         public string EmailErrMsg
         {
@@ -104,6 +133,18 @@ namespace Pastime.ViewModels
                 if (emailErrMsg == value)
                     return;
                 emailErrMsg = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string PasswordErrMsg
+        {
+            get => passwordErrMsg;
+            set
+            {
+                if (passwordErrMsg == value)
+                    return;
+                passwordErrMsg = value;
                 OnPropertyChanged();
             }
         }
@@ -121,12 +162,14 @@ namespace Pastime.ViewModels
         }
 
         public ICommand SaveNewEmailCommand { private set; get; }
+        public ICommand SaveNewPasswordCommand { private set; get; }
+        public ICommand SaveNewUsernameCommand { private set; get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void SaveEmail()
         {
-            if(!model.SaveNewEmail(SendEmail, SendPassword, out string errMsg))
+            if (!model.SaveNewEmail(SendEmail, SendCurrentPassword, out string errMsg))
             {
                 EmailErrMsg = errMsg;
                 Password = string.Empty;
@@ -135,14 +178,37 @@ namespace Pastime.ViewModels
             {
                 EmailErrMsg = string.Empty;
                 SendEmail = string.Empty;
-                SendPassword = string.Empty;
+                SendCurrentPassword = string.Empty;
                 Email = user.Email;
                 DisplaySuccessMessage = "Email changed successfully!";
                 MessagingCenter.Send<EditAccountViewModel>(this, "updated");
             }
-
         }
 
+        private void SavePassword()
+        {
+            if (!model.SaveNewPassword(SendCurrentPassword, SendNewPassword, SendCPassword, out string errMsg))
+            {
+                SendCurrentPassword = string.Empty;
+                SendNewPassword = string.Empty;
+                SendCPassword = string.Empty;
+                PasswordErrMsg = errMsg;
+            }
+            else
+            {
+                PasswordErrMsg = string.Empty;
+                SendCurrentPassword = string.Empty;
+                SendNewPassword = string.Empty;
+                SendCPassword = string.Empty;
+                DisplaySuccessMessage = "Password changed successfully!";
+                MessagingCenter.Send<EditAccountViewModel>(this, "updated");
+            }
+        }
+
+        private void SaveUsername()
+        {
+            Console.WriteLine("Save username");
+        }
         void OnPropertyChanged([CallerMemberName]string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

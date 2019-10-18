@@ -16,8 +16,6 @@ namespace Pastime
             InitializeComponent();
 
             bool isLoggedIn = Current.Properties.ContainsKey("IsLoggedIn") ? Convert.ToBoolean(Current.Properties["IsLoggedIn"]) : false;
-            Console.WriteLine(Application.Current.Properties["current_user"]);
-            Console.WriteLine(Application.Current.Properties["IsLoggedIn"]);
             if (!isLoggedIn)
             {
                 //Load login page is user is not logged in

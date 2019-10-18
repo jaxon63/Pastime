@@ -177,16 +177,7 @@ namespace Pastime.Models
             request.AddParameter("date", date);
             request.AddParameter("end_time", endTime);
 
-            Console.WriteLine(name);
-            Console.WriteLine(activity);
-            Console.WriteLine(equipment);
-            Console.WriteLine(latitude);
-            Console.WriteLine(longitude);
-            Console.WriteLine(maxGuests);
-            Console.WriteLine(desc);
-            Console.WriteLine(date);
-            Console.WriteLine(endTime);
-
+            
             //get the JSON response
             var response = client.Execute<CreateEventJSON>(request).Content;
             var status = JsonConvert.DeserializeObject<CreateEventJSON>(response).create_event[0].status;

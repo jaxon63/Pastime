@@ -28,9 +28,6 @@ namespace Pastime.Views
                 await Task.WhenAll(taskAnimation, taskDelay);
                 await label.FadeTo(0, 1000);
 
-                               
-                
-
             });
 
         }
@@ -42,7 +39,9 @@ namespace Pastime.Views
 
         private void EditPasswordPopup(object o, EventArgs e)
         {
-            PopupNavigation.Instance.PushAsync(new ChangePasswordPopup());
+            ChangePasswordPopup newPopup = new ChangePasswordPopup();
+            newPopup.BindingContext = this.vm;
+            PopupNavigation.Instance.PushAsync(newPopup);
         }
 
         private void EditEmailPopup(object o, EventArgs e)

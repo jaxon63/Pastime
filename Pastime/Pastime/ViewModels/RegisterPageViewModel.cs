@@ -233,9 +233,7 @@ namespace Pastime.ViewModels
 
             if (status == "success")
             {
-                SubmitErrMsg = string.Empty;
-                Console.WriteLine(Application.Current.Properties["current_user"]);
-                
+                SubmitErrMsg = string.Empty;                
                 Application.Current.MainPage = new MasterView();
             } else
             {

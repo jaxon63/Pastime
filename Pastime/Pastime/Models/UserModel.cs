@@ -11,6 +11,7 @@ namespace Pastime.Models
         private string current_user;
         public UserModel()
         {
+            //TODO: At the moment, when a user changes their email, the TargetInvocation exception occurs again
             current_user = Application.Current.Properties["current_user"].ToString();
 
             if (getUser() != null)
@@ -74,7 +75,6 @@ namespace Pastime.Models
                 else
                 {
                     errMsg = string.Empty;
-                    User.Email = email;
                     var request_api = "https://vietnguyen.me/pastime/profile.php";
                     var client = new RestClient(request_api);
 
@@ -82,7 +82,7 @@ namespace Pastime.Models
 
                     request.AddParameter("current_user", current_user);
                     request.AddParameter("action", "change_email");
-                    request.AddParameter("email", User.Email);
+                    request.AddParameter("email", email);
 
                     var response = client.Execute(request).Content;
 
@@ -97,9 +97,64 @@ namespace Pastime.Models
                     }
                     else
                     {
+                        User.Email = email;
                         //Once the user changes their email, they need to log in again
                         Application.Current.Properties["IsLoggedIn"] = bool.FalseString;
                         Application.Current.Properties["current_user"] = string.Empty;
+                        return true;
+                    }
+                }
+            }
+        }
+
+        public bool SaveNewPassword(string currentPassword, string newPassword, string cPassword, out string errMsg)
+        {
+            if (string.IsNullOrWhiteSpace(currentPassword) || string.IsNullOrWhiteSpace(cPassword) || string.IsNullOrWhiteSpace(cPassword))
+            {
+                errMsg = "Please enter and confirm your current password";
+                return false;
+            }
+            else
+            {
+                if (currentPassword != User.Password)
+                {
+                    errMsg = "Incorrect password.";
+                    return false;
+                }
+                else
+                {
+                    if(newPassword != cPassword)
+                    {
+                        errMsg = "Passwords do not match.";
+                        return false;
+                    }
+                    errMsg = string.Empty;
+                    var request_api = "https://vietnguyen.me/pastime/profile.php";
+                    var client = new RestClient(request_api);
+
+                    var request = new RestRequest(Method.GET);
+
+                    request.AddParameter("current_user", current_user);
+                    request.AddParameter("action", "change_password");
+                    request.AddParameter("current_password", currentPassword);
+                    request.AddParameter("new_password", newPassword);
+                    request.AddParameter("verify_password", cPassword);
+
+                    var response = client.Execute(request).Content;
+
+                    var json_response = JObject.Parse(response);
+                    JArray items = (JArray)json_response["update_profile"];
+                    var item = items[0];
+
+                    if (item["status"].ToString() == "failed")
+                    {
+                        errMsg = item["reason"].ToString();
+                        return false;
+                    }
+                    else
+                    {
+                        User.Password = newPassword;
+                        errMsg = string.Empty;
                         return true;
                     }
                 }
