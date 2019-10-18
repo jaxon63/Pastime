@@ -58,7 +58,6 @@ namespace Pastime.Models
             string status = response[0];
             current_user = response[1];
 
-            
 
             if (status == "success")
             {

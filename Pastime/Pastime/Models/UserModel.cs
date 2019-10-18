@@ -23,6 +23,11 @@ namespace Pastime.Models
             }
         }
 
+        public User User
+        {
+            get => user;
+        }
+
         private User getUser()
         {
             var request_api = "https://vietnguyen.me/pastime/retrieve_user.php";
@@ -52,10 +57,54 @@ namespace Pastime.Models
             return null;
         }
 
-        public User User
+        public bool SaveNewEmail(string email, string password, out string errMsg)
         {
-            get => user;
-        }
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                errMsg = "Email cannot be empty";
+                return false;
+            }
+            else
+            {
+                if (password != User.Password)
+                {
+                    errMsg = "Incorrect password";
+                    return false;
+                }
+                else
+                {
+                    errMsg = string.Empty;
+                    User.Email = email;
+                    var request_api = "https://vietnguyen.me/pastime/profile.php";
+                    var client = new RestClient(request_api);
 
+                    var request = new RestRequest(Method.GET);
+
+                    request.AddParameter("current_user", current_user);
+                    request.AddParameter("action", "change_email");
+                    request.AddParameter("email", User.Email);
+
+                    var response = client.Execute(request).Content;
+
+                    var json_response = JObject.Parse(response);
+                    JArray items = (JArray)json_response["update_profile"];
+                    var item = items[0];
+
+                    if (item["status"].ToString() == "failed")
+                    {
+                        errMsg = item["reason"].ToString();
+                        return false;
+                    }
+                    else
+                    {
+                        //Once the user changes their email, they need to log in again
+                        Application.Current.Properties["IsLoggedIn"] = bool.FalseString;
+                        Application.Current.Properties["current_user"] = string.Empty;
+                        return true;
+                    }
+                }
+            }
+
+        }
     }
 }

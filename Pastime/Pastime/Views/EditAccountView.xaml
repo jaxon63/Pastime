@@ -20,27 +20,23 @@
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                         <Label FontSize="8" Text="Events attended: " />
                         <Label FontSize="8" Text="Events hosted: " />
-                        <Label FontSize="8" Text="User rating: " />
                     </StackLayout>
                 </StackLayout>
 
                 <!-- Body content-->
                 <StackLayout Grid.Row="1">
-                    <TableView  RowHeight="50" Intent="Data">
+                    <TableView HeightRequest="0"  RowHeight="50" Intent="Settings">
                         <TableRoot>
                             <TableSection TextColor="DarkBlue" Title="Basic Information">
                                 <TextCell Detail="{Binding Name}" Text="Change Name" TextColor="Black" Tapped="EditNamePopup" />
                                 <TextCell Text="Change Password" TextColor="Black" Tapped="EditPasswordPopup" />
                                 <TextCell Detail="{Binding Email}" Text="Change Email" TextColor="Black" Tapped="EditEmailPopup" />
                             </TableSection>
-                            <TableSection TextColor="DarkBlue" Title="Other Settings">
-                                <TextCell Text="Notification Settings" TextColor="Black" />
-                            </TableSection>
-                        </TableRoot>
+                        </TableRoot>      
                     </TableView>
                 </StackLayout>
-
             </Grid>
+            <Label Text="{Binding DisplaySuccessMessage}" HorizontalOptions="Center" x:Name="SuccessMessage" TextColor="Green" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

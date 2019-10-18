@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Pastime.Models;
 using Pastime.Popups;
 using Pastime.ViewModels;
@@ -16,6 +17,21 @@ namespace Pastime.Views
             InitializeComponent();
             vm = new EditAccountViewModel();
             this.BindingContext = vm;
+            Label label = (Label)FindByName("SuccessMessage");
+            label.Opacity = 0;
+
+            MessagingCenter.Subscribe<EditAccountViewModel>(this, "updated", async (sender) =>
+            {
+                var taskAnimation = label.FadeTo(1, 3000);
+                var taskDelay = Task.Delay(3000);
+
+                await Task.WhenAll(taskAnimation, taskDelay);
+                await label.FadeTo(0, 1000);
+
+                               
+                
+
+            });
 
         }
 
@@ -33,7 +49,7 @@ namespace Pastime.Views
         {
             ChangeEmailPopup newPopup = new ChangeEmailPopup();
             newPopup.BindingContext = this.vm;
-            PopupNavigation.Instance.PushAsync(new ChangeEmailPopup());
+            PopupNavigation.Instance.PushAsync(newPopup);
         }
     }
 }
