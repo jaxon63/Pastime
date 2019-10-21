@@ -8,7 +8,7 @@
         <Label Text="Change Email Address" HorizontalTextAlignment="Center" />
         <Entry FontSize="8" Keyboard="Email" Placeholder="{Binding Email}" Text="{Binding SendEmail}" />
         <Entry FontSize="8" IsPassword="True" Placeholder="Password" Text="{Binding SendPassword}"/>
-        <Label HorizontalOptions="Center" TextColor="red" FontSize="Micro" Text="{Binding EmailErrMsg}" />
+        <Label HorizontalOptions="Center" TextColor="red" FontSize="Micro" Text="{Binding ErrMsg}" />
         <StackLayout Orientation="Horizontal">
             <Button Clicked="OnCloseButtonClicked" FontSize="8" Text="Cancel" />
             <Button FontSize="8" Text="Save" Command="{Binding SaveNewEmailCommand}"/>

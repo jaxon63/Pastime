@@ -34,7 +34,9 @@ namespace Pastime.Views
 
         private void EditNamePopup(object o, EventArgs e)
         {
-            PopupNavigation.Instance.PushAsync(new ChangeNamePopup());
+            ChangeNamePopup newPopup = new ChangeNamePopup();
+            newPopup.BindingContext = this.vm;
+            PopupNavigation.Instance.PushAsync(newPopup);
         }
 
         private void EditPasswordPopup(object o, EventArgs e)

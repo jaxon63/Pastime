@@ -11,12 +11,13 @@ namespace Pastime.Models
         private string current_user;
         public UserModel()
         {
-            //TODO: At the moment, when a user changes their email, the TargetInvocation exception occurs again
+            //TODO: At the moment, when a user changes their email or username, the TargetInvocation exception occurs again
             current_user = Application.Current.Properties["current_user"].ToString();
 
-            if (getUser() != null)
+            if (user == null)
             {
                 user = getUser();
+                Console.WriteLine(user.Username);
             }
             else
             {
@@ -37,10 +38,12 @@ namespace Pastime.Models
             var request = new RestRequest(Method.GET);
 
             request.AddParameter("username", current_user);
+            Console.WriteLine(current_user);
 
 
             //get the JSON response
             var response = client.Execute<UserJson>(request).Content;
+            Console.WriteLine(response);
             var json_response = JObject.Parse(response);
             JArray items = (JArray)json_response["User"];
             var item = (JObject)items[0];
@@ -98,9 +101,9 @@ namespace Pastime.Models
                     else
                     {
                         User.Email = email;
+                        errMsg = string.Empty;
                         //Once the user changes their email, they need to log in again
                         Application.Current.Properties["IsLoggedIn"] = bool.FalseString;
-                        Application.Current.Properties["current_user"] = string.Empty;
                         return true;
                     }
                 }
@@ -155,10 +158,66 @@ namespace Pastime.Models
                     {
                         User.Password = newPassword;
                         errMsg = string.Empty;
+                        //Once the user changes their details, they need to log in again
+                        Application.Current.Properties["IsLoggedIn"] = bool.FalseString;
                         return true;
                     }
                 }
             }
+
+        }
+
+        public bool SaveNewUsername(string newUsername, string password, out string errMsg)
+        {
+            if (string.IsNullOrWhiteSpace(newUsername) || string.IsNullOrWhiteSpace(password))
+            {
+                errMsg = "Please enter a new username and your current password";
+                return false;
+            }
+            else
+            {
+                if(password != User.Password)
+                {
+                    errMsg = "Incorrect password";
+                    return false;
+                }
+                else
+                {
+                    errMsg = string.Empty;
+
+                    var request_api = "https://vietnguyen.me/pastime/profile.php";
+                    var client = new RestClient(request_api);
+
+                    var request = new RestRequest(Method.GET);
+
+                    request.AddParameter("current_user", current_user);
+                    request.AddParameter("action", "change_username");
+                    request.AddParameter("username", newUsername);
+
+                    var response = client.Execute(request).Content;
+
+                    var json_response = JObject.Parse(response);
+                    JArray items = (JArray)json_response["update_profile"];
+                    var item = items[0];
+
+                    if (item["status"].ToString() == "failed")
+                    {
+                        errMsg = item["reason"].ToString();
+                        return false;
+                    }
+                    else
+                    {
+                        User.Username = newUsername;
+                        errMsg = string.Empty;
+                        //Once the user changes their details, they need to log in again
+                        Application.Current.Properties["IsLoggedIn"] = bool.FalseString;
+                        Application.Current.Properties["current_user"] = newUsername;
+                        return true;
+                    }
+
+                }
+            }
+
 
         }
     }

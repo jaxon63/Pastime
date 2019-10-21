@@ -27,6 +27,7 @@ namespace Pastime.Popups
         private async void OnCloseButtonClicked(object sender, EventArgs e)
         {
             await PopupNavigation.Instance.PopAsync();
+            MessagingCenter.Send(Application.Current, "navigateBack");
         }
 
 
