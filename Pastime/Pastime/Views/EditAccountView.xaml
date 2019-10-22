@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Pastime.Views.EditAccountView" NavigationPage.HasNavigationBar="true">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Pastime.Views.EditAccountView" NavigationPage.HasNavigationBar="true" Title="Edit Account">
     <ContentPage.Content>
         <StackLayout>
             <Grid>
@@ -13,34 +13,30 @@
                     <!-- "Profile picture" frame -->
                     <Frame CornerRadius="30" HeightRequest="60" WidthRequest="60" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Margin="0" Padding="0" BorderColor="black" HasShadow="False">
 
-                        <Label Text="SM" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold" />
+                        <Label Text="{Binding DisplayInitial}" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold" />
                     </Frame>
                     <!-- Label for the User's name-->
                     <Label Text="{Binding Name}" HorizontalTextAlignment="Center" FontSize="20" />
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                         <Label FontSize="8" Text="Events attended: " />
                         <Label FontSize="8" Text="Events hosted: " />
-                        <Label FontSize="8" Text="User rating: " />
                     </StackLayout>
                 </StackLayout>
 
                 <!-- Body content-->
                 <StackLayout Grid.Row="1">
-                    <TableView  RowHeight="50" Intent="Data">
+                    <TableView HeightRequest="0"  RowHeight="50" Intent="Settings">
                         <TableRoot>
                             <TableSection TextColor="DarkBlue" Title="Basic Information">
                                 <TextCell Detail="{Binding Name}" Text="Change Name" TextColor="Black" Tapped="EditNamePopup" />
                                 <TextCell Text="Change Password" TextColor="Black" Tapped="EditPasswordPopup" />
                                 <TextCell Detail="{Binding Email}" Text="Change Email" TextColor="Black" Tapped="EditEmailPopup" />
                             </TableSection>
-                            <TableSection TextColor="DarkBlue" Title="Other Settings">
-                                <TextCell Text="Notification Settings" TextColor="Black" />
-                            </TableSection>
-                        </TableRoot>
+                        </TableRoot>      
                     </TableView>
                 </StackLayout>
-
             </Grid>
+            <Label Text="{Binding DisplaySuccessMessage}" HorizontalOptions="Center" x:Name="SuccessMessage" TextColor="Green" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

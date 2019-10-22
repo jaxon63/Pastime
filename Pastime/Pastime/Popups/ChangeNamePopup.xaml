@@ -8,11 +8,13 @@
     <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20, 20, 20, 20" BackgroundColor="White" HeightRequest="150" WidthRequest="200">
         <Label Text="Change Username" HorizontalTextAlignment="Center" />
 
-        <Entry FontSize="8" Placeholder="{Binding Name}" />
+        <Entry FontSize="8" Keyboard="Plain" Placeholder="{Binding Name}" Text="{Binding SendUsername}" />
+        <Entry FontSize="8" Placeholder="Password" IsPassword="True" Text="{Binding SendCurrentPassword}" />
+        <Label HorizontalOptions="Center" TextColor="red" FontSize="Micro" Text="{Binding ErrMsg}" />
 
         <StackLayout Orientation="Horizontal">
             <Button Clicked="OnCloseButtonClicked" FontSize="8" Text="Cancel" />
-            <Button FontSize="8" Text="Save" />
+            <Button FontSize="8" Text="Save" Command="{Binding SaveNewUsernameCommand}" />
         </StackLayout>
     </StackLayout>
 </pages:PopupPage>

@@ -227,17 +227,18 @@ namespace Pastime.ViewModels
         private void Submit()
         {
             IsBusy = true;
-            var status = model.SubmitRegister(email, username, password, cPassword);
+            var response = model.SubmitRegister(email, username, password, cPassword);
 
-            if(status == "success")
+            string status = response[0];
+
+            if (status == "success")
             {
-                SubmitErrMsg = string.Empty;
-                Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
-                
+                SubmitErrMsg = string.Empty;                
                 Application.Current.MainPage = new MasterView();
             } else
             {
-                SubmitErrMsg = status;
+                string reason = response[1];
+                SubmitErrMsg = reason;
             }
 
         }
