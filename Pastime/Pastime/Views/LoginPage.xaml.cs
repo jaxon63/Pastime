@@ -13,7 +13,6 @@ namespace Pastime.Views
         {
             InitializeComponent();
             this.BindingContext = new LoginPageViewModel(this.Navigation);
-            NavigationPage.SetHasBackButton(this, false);
         }
     }
 }

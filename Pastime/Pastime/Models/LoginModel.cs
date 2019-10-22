@@ -51,7 +51,7 @@ namespace Pastime.Models
         }
 
         //Viet's LogMeIn function with some of its functionality moved to the view model
-        public bool LogMeIn(string email, string password, out string current_user)
+        public int LogMeIn(string email, string password, out string current_user)
         {
             List<string> response = Validate(email, password);
 
@@ -62,11 +62,18 @@ namespace Pastime.Models
             if (status == "success")
             {
                 Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
-                
+
                 Xamarin.Forms.Application.Current.Properties["current_user"] = response[1];
-                return true;
+
+                return 1;
             }
-            return false;
+
+            if (status == "unconfirmed")
+            {
+                return 2;
+            }
+
+            return 0;
         }
     }
 }

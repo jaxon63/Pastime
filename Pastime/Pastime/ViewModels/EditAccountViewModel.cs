@@ -40,7 +40,7 @@ namespace Pastime.ViewModels
 
         public string DisplayInitial
         {
-            get => user.Username[0].ToString();
+            get => user.Username[0].ToString().ToUpper();
         }
 
         public string Name
