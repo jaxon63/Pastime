@@ -11,13 +11,11 @@ namespace Pastime.Models
         private string current_user;
         public UserModel()
         {
-            //TODO: At the moment, when a user changes their email or username, the TargetInvocation exception occurs again
             current_user = Application.Current.Properties["current_user"].ToString();
 
             if (user == null)
             {
                 user = getUser();
-                Console.WriteLine(user.Username);
             }
             else
             {
@@ -38,12 +36,9 @@ namespace Pastime.Models
             var request = new RestRequest(Method.GET);
 
             request.AddParameter("username", current_user);
-            Console.WriteLine(current_user);
-
 
             //get the JSON response
             var response = client.Execute<UserJson>(request).Content;
-            Console.WriteLine(response);
             var json_response = JObject.Parse(response);
             JArray items = (JArray)json_response["User"];
             var item = (JObject)items[0];
@@ -77,15 +72,15 @@ namespace Pastime.Models
                 }
                 else
                 {
+                    string emailToLower = email.ToLower();
                     errMsg = string.Empty;
                     var request_api = "https://vietnguyen.me/pastime/profile.php";
                     var client = new RestClient(request_api);
-
                     var request = new RestRequest(Method.GET);
 
                     request.AddParameter("current_user", current_user);
                     request.AddParameter("action", "change_email");
-                    request.AddParameter("email", email);
+                    request.AddParameter("email", emailToLower);
 
                     var response = client.Execute(request).Content;
 
@@ -100,7 +95,7 @@ namespace Pastime.Models
                     }
                     else
                     {
-                        User.Email = email;
+                        User.Email = emailToLower;
                         errMsg = string.Empty;
                         //Once the user changes their email, they need to log in again
                         Application.Current.Properties["IsLoggedIn"] = bool.FalseString;
@@ -184,18 +179,17 @@ namespace Pastime.Models
                 else
                 {
                     errMsg = string.Empty;
+                    string usernameToLower = newUsername.ToLower();
 
                     var request_api = "https://vietnguyen.me/pastime/profile.php";
                     var client = new RestClient(request_api);
-
                     var request = new RestRequest(Method.GET);
 
                     request.AddParameter("current_user", current_user);
                     request.AddParameter("action", "change_username");
-                    request.AddParameter("username", newUsername);
+                    request.AddParameter("username", usernameToLower);
 
                     var response = client.Execute(request).Content;
-
                     var json_response = JObject.Parse(response);
                     JArray items = (JArray)json_response["update_profile"];
                     var item = items[0];
@@ -207,18 +201,16 @@ namespace Pastime.Models
                     }
                     else
                     {
-                        User.Username = newUsername;
+                        User.Username = usernameToLower;
                         errMsg = string.Empty;
                         //Once the user changes their details, they need to log in again
                         Application.Current.Properties["IsLoggedIn"] = bool.FalseString;
-                        Application.Current.Properties["current_user"] = newUsername;
+                        Application.Current.Properties["current_user"] = usernameToLower;
                         return true;
                     }
 
                 }
             }
-
-
         }
     }
 }
