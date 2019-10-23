@@ -8,7 +8,7 @@ using Android.OS;
 
 namespace Pastime.Droid
 {
-    [Activity(Label = "Pastime", Icon = "@mipmap/icon", Theme = "@style/MyTheme.Splash", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Pastime", Icon = "@mipmap/icon", Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -29,6 +29,17 @@ namespace Pastime.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+    [Activity(Label = "SplashActivity", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory =true)]
+    public class SplashActivity : Activity
+    {
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+            StartActivity(typeof(MainActivity));
+
+
         }
     }
 }
