@@ -22,11 +22,12 @@ namespace Pastime.ViewModels
         private ObservableCollection<Event> events;
         private INavigation nav;
         private bool isBusy;
+        private User current_user;
 
         public MainPageViewModel(INavigation nav)
         {
             ObservableCollection<string> list = new ObservableCollection<string>();
-            list.Add("hello");
+            list.Add("hello");            
 
             events = new ObservableCollection<Event>();
 
@@ -138,9 +139,12 @@ namespace Pastime.ViewModels
                 var longitude = (double)item["longitude"];
                 var max_guests = (int)item["max_guests"];
                 var description = (string)item["description"];
+
+               
                 var date = (DateTime)item["date"];
                 var end_time = (DateTime)item["end_time"];
 
+               
                 //I just put another param for EventID
                 Event newEvent = new Event(eventID, name, null, activity, list,
                 new Xamarin.Essentials.Location(latitude, longitude), max_guests, description,

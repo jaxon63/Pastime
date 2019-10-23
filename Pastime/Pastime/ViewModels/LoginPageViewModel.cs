@@ -143,6 +143,7 @@ namespace Pastime.ViewModels
 
         private void ResendEmail()
         {
+
             Feedback = "Email has been sent";
             Console.WriteLine(Feedback);
             string resend_api = "https://vietnguyen.me/pastime/resend.php";
@@ -183,7 +184,7 @@ namespace Pastime.ViewModels
                     IsBusy = false;
                     break;
 
-                    
+
             }
         }
     }

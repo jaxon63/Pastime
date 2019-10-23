@@ -720,7 +720,6 @@ namespace Pastime.ViewModels
                 var nextPage = new CreateEventViewModalGuests();
                 nextPage.BindingContext = this;
                 Navigation.PushModalAsync(nextPage, true);
-                Console.WriteLine("hello: " + EventDate + " " + EndTime);
             }
 
         }

@@ -7,10 +7,7 @@ namespace Pastime.Models
 {
     public class RegisterModel
     {
-        public RegisterModel()
-        {
-        }
-
+     
         public bool ValidateEmail(string email, out string emailErrMsg)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -54,6 +51,7 @@ namespace Pastime.Models
         public List<string> CreateUser(string email, string username, string password, string cPassword)
         {
             List<string> results = new List<string>();
+            string nameToLower = username.ToLower();
 
             string register_api = "https://vietnguyen.me/pastime/register.php";
 
@@ -65,7 +63,7 @@ namespace Pastime.Models
 
             //add the parameters to APIs
             request.AddParameter("email", email);
-            request.AddParameter("username", username);
+            request.AddParameter("username", nameToLower);
             request.AddParameter("password", password);
             request.AddParameter("verify_password", cPassword);
 
@@ -79,26 +77,24 @@ namespace Pastime.Models
                 var reason = JsonConvert.DeserializeObject<RegisterJSON>(response).register[0].reason;
                 results.Add(reason);
             }
+            else
+            {
+                var current_user = JsonConvert.DeserializeObject<RegisterJSON>(response).register[0].current_user;
+                results.Add(current_user);
+            }
 
             //return the status
             return results;
         }
 
-        public string SubmitRegister(string email, string username, string password, string cPassword)
+        public List<string> SubmitRegister(string email, string username, string password, string cPassword)
         {
             //get the response by calling Validate() method
             List<string> response = CreateUser(email, username, password, cPassword);
+            Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
+            Xamarin.Forms.Application.Current.Properties["current_user"] = response[1];
 
-            string status = response[0];
-            if (status == "success")
-            {
-                return status;
-            }
-            else
-            {
-                string reason = response[1];
-                return reason;
-            }
+            return response;
         }
     }
 }

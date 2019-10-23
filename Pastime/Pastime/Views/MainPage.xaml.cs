@@ -20,6 +20,8 @@ namespace Pastime
             InitializeComponent();
             this.vm = new MainPageViewModel(Navigation);
             this.BindingContext = vm;
+            Console.WriteLine(Application.Current.Properties["IsLoggedIn"]);
+            Console.WriteLine(Application.Current.Properties["current_user"]);
         }
 
         protected override async void OnAppearing()

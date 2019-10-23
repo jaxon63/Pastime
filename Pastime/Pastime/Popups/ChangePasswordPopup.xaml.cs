@@ -1,4 +1,5 @@
-﻿using Rg.Plugins.Popup.Services;
+﻿using Pastime.ViewModels;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,11 @@ namespace Pastime.Popups
         public ChangePasswordPopup()
         {
             InitializeComponent();
+            MessagingCenter.Subscribe<EditAccountViewModel>(this, "updated", async (sender) =>
+            {
+                await PopupNavigation.Instance.PopAsync();
+
+            });
         }
 
         private async void OnCloseButtonClicked(object sender, EventArgs e)

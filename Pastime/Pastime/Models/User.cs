@@ -10,7 +10,6 @@ namespace Pastime.Models
 {
     public class User
     {
-        private int userId;
         private string email;
         private string password;
         private string username;
@@ -22,23 +21,14 @@ namespace Pastime.Models
         private Uri dpUri;
         private int rating;
 
-        public User(int userId, string email, string password, string username, int yearJoined, string faveSport, string bio, Uri dpUri, int rating)
+        public User(string email, string password, string username)
         {
-            this.userId = userId;
             this.email = email;
             this.password = password;
             this.username = username;
-            this.yearJoined = yearJoined;
-            this.faveSport = faveSport;
-            this.bio = bio;
-            this.dpUri = dpUri;
-            this.rating = rating;
         }
 
-        public int UserId
-        {
-            get => userId;
-        }
+       
 
         public string Email
         {
