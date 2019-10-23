@@ -273,6 +273,9 @@
     <ImageAsset Include="Assets.xcassets\soccer.png.imageset\soccer.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Image.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -298,5 +301,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\soccer.png.imageset\" />
+    <Folder Include="Assets.xcassets\logo_splash_screen.imageset\" />
   </ItemGroup>
 </Project>
