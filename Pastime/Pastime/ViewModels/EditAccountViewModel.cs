@@ -19,7 +19,9 @@ namespace Pastime.ViewModels
         private string sendCurrentPassword;
         private string sendNewPassword;
         private string sendCPassword;
-        private string errMsg = string.Empty;
+        private string emailErrMsg = string.Empty;
+        private string usernameErrMsg = string.Empty;
+        private string passwordErrmsg = string.Empty;
         private string displaySuccessMessage = string.Empty;
 
         public EditAccountViewModel()
@@ -31,11 +33,25 @@ namespace Pastime.ViewModels
             SaveNewUsernameCommand = new Command(SaveUsername);
 
             //TODO: Bug where the message persists when the popup is closed. trying to fix
-            MessagingCenter.Subscribe<Application>(this, "navigateBack", (sender) => {
+            MessagingCenter.Subscribe<Application>(this, "navigateBack", (sender) =>
+            {
                 Console.WriteLine("hello!");
-                ErrMsg = string.Empty;  
+                EmailErrMsg = string.Empty;
             });
 
+        }
+
+
+        public User User
+        {
+            get => user;
+            set
+            {
+                if (user == value)
+                    return;
+                user = value;
+                OnPropertyChanged();
+            }
         }
 
         public string DisplayInitial
@@ -144,16 +160,42 @@ namespace Pastime.ViewModels
 
 
 
-        public string ErrMsg
+        public string EmailErrMsg
         {
-            get => errMsg;
+            get => emailErrMsg;
             set
             {
-                if (errMsg == value)
+                if (emailErrMsg == value)
                     return;
-                errMsg = value;
+                emailErrMsg = value;
                 OnPropertyChanged();
             }
+        }
+
+        public string UsernameErrMsg
+        {
+            get => usernameErrMsg;
+            set
+            {
+                if (usernameErrMsg == value)
+                    return;
+                usernameErrMsg = value;
+                OnPropertyChanged();
+            }
+
+        }
+
+        public string PasswordErrMsg
+        {
+            get => passwordErrmsg;
+            set
+            {
+                if (passwordErrmsg == value)
+                    return;
+                passwordErrmsg = value;
+                OnPropertyChanged();
+            }
+
         }
 
 
@@ -179,15 +221,15 @@ namespace Pastime.ViewModels
         {
             if (!model.SaveNewEmail(SendEmail, SendCurrentPassword, out string errMsg))
             {
-                ErrMsg = errMsg;
-                Password = string.Empty;
+                EmailErrMsg = errMsg;
+                SendCurrentPassword = string.Empty;
             }
             else
             {
-                ErrMsg = string.Empty;
+                EmailErrMsg = string.Empty;
                 SendEmail = string.Empty;
                 SendCurrentPassword = string.Empty;
-                Email = user.Email;
+                Email = User.Email;
                 DisplaySuccessMessage = "Email changed successfully!";
                 MessagingCenter.Send<EditAccountViewModel>(this, "updated");
             }
@@ -200,11 +242,11 @@ namespace Pastime.ViewModels
                 SendCurrentPassword = string.Empty;
                 SendNewPassword = string.Empty;
                 SendCPassword = string.Empty;
-                ErrMsg = errMsg;
+                PasswordErrMsg = errMsg;
             }
             else
             {
-                ErrMsg = string.Empty;
+                PasswordErrMsg = string.Empty;
                 SendCurrentPassword = string.Empty;
                 SendNewPassword = string.Empty;
                 SendCPassword = string.Empty;
@@ -215,14 +257,17 @@ namespace Pastime.ViewModels
 
         private void SaveUsername()
         {
-            if(!model.SaveNewUsername(SendUsername, SendCurrentPassword, out string errMsg))
+            if (!model.SaveNewUsername(SendUsername, SendCurrentPassword, out string errMsg))
             {
-                ErrMsg = errMsg;
-            } else
+                UsernameErrMsg = errMsg;
+                SendCurrentPassword = string.Empty;
+            }
+            else
             {
-                ErrMsg = string.Empty;
+                UsernameErrMsg = string.Empty;
                 SendCurrentPassword = string.Empty;
                 SendUsername = string.Empty;
+                Name = User.Username;
                 DisplaySuccessMessage = "Username changed successfully!";
                 MessagingCenter.Send<EditAccountViewModel>(this, "updated");
             }
