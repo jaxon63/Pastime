@@ -7,6 +7,7 @@ namespace Pastime
     public class RegisterObj
     {
         public string status { get; set; }
+        public string current_user { get; set; }
         public string reason { get; set; }
     }
 

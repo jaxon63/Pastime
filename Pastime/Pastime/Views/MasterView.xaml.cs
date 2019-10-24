@@ -47,6 +47,7 @@ namespace Pastime.Views
             {
                 IsBusy = true;
                 Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.FalseString;
+                Xamarin.Forms.Application.Current.Properties["current_user"] = string.Empty;
                 Application.Current.MainPage = new LoginPage();
                 IsBusy = false;
             }
@@ -54,7 +55,6 @@ namespace Pastime.Views
             {
                 IsBusy = true;
                 Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));   //Other items in the list will trigger the detail to change
-
                 item = null;    //Sets the item to null. I don't know if this makes any difference
 
                 IsPresented = false;  //Hides the menu when clicked

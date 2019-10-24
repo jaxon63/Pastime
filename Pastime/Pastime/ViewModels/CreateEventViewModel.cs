@@ -85,7 +85,7 @@ namespace Pastime.ViewModels
 
         private ObservableCollection<AddressInfo> addresses;
 
-        public const string GooglePlacesApiAutoCompletePath = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key={0}&input={1}&components=country:au";
+        public const string GooglePlacesApiAutoCompletePath = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key={0}&sessiontoken{1}&input={2}&components=country:au";
         public const string GooglePlacesDetailPath = "https://maps.googleapis.com/maps/api/place/details/json?place_id={0}&fields=geometry&key={1}";
 
         //TODO: store the key on the server
@@ -680,7 +680,6 @@ namespace Pastime.ViewModels
                 var nextPage = new CreateEventViewModalGuests();
                 nextPage.BindingContext = this;
                 Navigation.PushModalAsync(nextPage, true);
-                Console.WriteLine("hello: " + EventDate + " " + EndTime);
             }
 
         }
@@ -796,8 +795,13 @@ namespace Pastime.ViewModels
             // TODO: Add throttle logic, Google begins denying requests if too many are made in a short amount of time
             CancellationToken cancellationToken = new CancellationTokenSource(TimeSpan.FromMinutes(2)).Token;
 
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, string.Format(GooglePlacesApiAutoCompletePath, GooglePlacesApiKey, WebUtility.UrlEncode(addressText))))
+            //Create a unique session token for billing purposes
+            Guid sessiontoken;
+            sessiontoken = Guid.NewGuid();
+
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, string.Format(GooglePlacesApiAutoCompletePath, GooglePlacesApiKey, sessiontoken, WebUtility.UrlEncode(addressText))))
             { //Be sure to UrlEncode the search term they enter
+
 
                 using (HttpResponseMessage message = await HttpClientInstance.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken).ConfigureAwait(false))
                 {
