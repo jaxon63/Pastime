@@ -509,59 +509,19 @@ namespace Pastime.ViewModels
         {
             get
             {
-                string monthString = string.Empty;
-                //I've used this switch statement instead of a formatter because the output would always be "MMMM" instead of the month string
-                switch (EventDate.Month)
-                {
-                    case (1):
-                        monthString = "January";
-                        break;
-                    case (2):
-                        monthString = "February";
-                        break;
-                    case (3):
-                        monthString = "March";
-                        break;
-                    case (4):
-                        monthString = "April";
-                        break;
-                    case (5):
-                        monthString = "May";
-                        break;
-                    case (6):
-                        monthString = "June";
-                        break;
-                    case (7):
-                        monthString = "July";
-                        break;
-                    case (8):
-                        monthString = "August";
-                        break;
-                    case (9):
-                        monthString = "September";
-                        break;
-                    case (10):
-                        monthString = "October";
-                        break;
-                    case (11):
-                        monthString = "November";
-                        break;
-                    case (12):
-                        monthString = "December";
-                        break;
-                }
+                string monthName = EventDate.ToString("MMMM", CultureInfo.InvariantCulture);
+
                 if (EventDate.Day == 1 || EventDate.Day == 21 || EventDate.Day == 31)
                 {
-                    return $"{EventDate.DayOfWeek} the {EventDate.Day}st of {monthString}";
+                    return $"{EventDate.DayOfWeek} the {EventDate.Day}st of {monthName}";
                 }
                 else if (EventDate.Day == 2 || EventDate.Day == 22)
                 {
-                    return $"{EventDate.DayOfWeek} the {EventDate.Day}nd of {monthString}";
-
+                    return $"{EventDate.DayOfWeek} the {EventDate.Day}nd of {monthName}";
                 }
                 else
                 {
-                    return $"{EventDate.DayOfWeek} the {EventDate.Day}th of {monthString}";
+                    return $"{EventDate.DayOfWeek} the {EventDate.Day}th of {monthName}";
                 }
 
             }
