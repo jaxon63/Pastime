@@ -194,6 +194,8 @@ namespace Pastime.Models
                     JArray items = (JArray)json_response["update_profile"];
                     var item = items[0];
 
+                    Console.WriteLine(item);
+
                     if (item["status"].ToString() == "failed")
                     {
                         errMsg = item["reason"].ToString();
@@ -201,11 +203,13 @@ namespace Pastime.Models
                     }
                     else
                     {
-                        User.Username = usernameToLower;
+                        User.Username = item["updated_username"].ToString();
                         errMsg = string.Empty;
                         //Once the user changes their details, they need to log in again
                         Application.Current.Properties["IsLoggedIn"] = bool.FalseString;
-                        Application.Current.Properties["current_user"] = usernameToLower;
+                        Application.Current.Properties["current_user"] = item["updated_username"].ToString();
+
+                        Console.WriteLine(User.Username);
                         return true;
                     }
 
