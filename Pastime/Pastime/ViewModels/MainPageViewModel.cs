@@ -61,6 +61,11 @@ namespace Pastime.ViewModels
             }
         }
 
+        
+
+
+
+
         private async Task CreateEventNavigateAsync()
         {
             IsBusy = true;

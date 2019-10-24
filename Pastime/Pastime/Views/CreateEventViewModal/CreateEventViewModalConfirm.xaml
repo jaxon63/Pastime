@@ -8,7 +8,7 @@
             <Label HorizontalOptions="Center" HorizontalTextAlignment="Center">
 
                 <!-- Formatted string used to style the data bound parts of the string -->
-                <Label.FormattedText>
+                <Label.FormattedText> 
                     <FormattedString>
                         <Span Text="Almost done! Your " />
                         <Span FontAttributes="Bold" TextColor="Blue" Text="{Binding SelectedActivity.Name}" />
