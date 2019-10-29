@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:Views="clr-namespace:Pastime" xmlns:Views1="clr-namespace:Pastime.Views" x:Class="Pastime.Views.HomeTabbedPage">
+    <!--Pages can be added as references or inline-->
+    <TabbedPage.Children>
+        <NavigationPage Title="Dashboard">
+            <x:Arguments>
+                <Views:MainPage />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage NavigationPage.HasNavigationBar="False" Title="Joined Events">
+            <x:Arguments>
+                <Views1:EventsAttendingView />
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Your Events">
+            <x:Arguments>
+                <Views1:YourEventsView />
+            </x:Arguments>
+        </NavigationPage>
+    </TabbedPage.Children>
+</TabbedPage>

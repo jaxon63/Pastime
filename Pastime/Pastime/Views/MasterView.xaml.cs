@@ -23,7 +23,7 @@ namespace Pastime.Views
             BindingContext = this;
 
             //Create the data ojects for the pages listed in the menu
-            var mainPage = new MasterPageItem() { Title = "Dashboard", Icon = "homeicon.png", TargetType = typeof(MainPage) };
+            var mainPage = new MasterPageItem() { Title = "Dashboard", Icon = "homeicon.png", TargetType = typeof(HomeTabbedPage) };
             var editAccount = new MasterPageItem() { Title = "Edit Account", Icon = "useredit.png", TargetType = typeof(EditAccountView) };
             var loginPage = new MasterPageItem() { Title = "Logout", Icon = "logouticon.png", TargetType = typeof(LoginPage) };
             MenuList.Add(mainPage);
@@ -32,7 +32,7 @@ namespace Pastime.Views
 
             //Sets the detail portion of the master detail page. Defaults to the first in the list (MainPage)
             //The detail will change on MenuItem clicked
-            Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(MainPage)));
+            Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(HomeTabbedPage)));
         }
 
         public List<MasterPageItem> MenuList { get; set; }
@@ -56,7 +56,6 @@ namespace Pastime.Views
                 IsBusy = true;
                 Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));   //Other items in the list will trigger the detail to change
                 item = null;    //Sets the item to null. I don't know if this makes any difference
-
                 IsPresented = false;  //Hides the menu when clicked
                 IsBusy = false;
             }
