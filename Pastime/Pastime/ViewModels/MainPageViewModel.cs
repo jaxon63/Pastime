@@ -127,6 +127,11 @@ namespace Pastime.ViewModels
             {
                 var item = (JObject)items[i];
                 var eventID = (string)item["eventID"];
+
+
+
+
+
                 var name = (string)item["name"];
                 var host = (string)item["host"];
                 var numOfGuests = (int)item["total"];
@@ -153,9 +158,15 @@ namespace Pastime.ViewModels
                 var date = (DateTime)item["date"];
                 var end_time = (DateTime)item["end_time"];
 
+                var total = (int)item["total"];
+                var attendees = item["attendees"];
+                List<string> listAttendees = new List<string>();
+                foreach (string attendee in attendees)
+                {
+                    listAttendees.Add(attendee);
+                }
 
-                Event newEvent = new Event(eventID, name, host, activity, list,
-                new Xamarin.Essentials.Location(latitude, longitude), max_guests, numOfGuests, attendeeList, description,
+                Event newEvent = new Event(eventID, name, host, activity, list, new Xamarin.Essentials.Location(latitude, longitude), max_guests, numOfGuests, listAttendees, description,
                 date, end_time);
 
                 await newEvent.getLocationLocality();
