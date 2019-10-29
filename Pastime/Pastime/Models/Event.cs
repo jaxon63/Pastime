@@ -27,7 +27,7 @@ namespace Pastime.Models
         private DateTime endTime;
         private bool active;
 
-        public Event(string eventId, string name, string host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests, List<string> guests, string description, DateTime startTime, DateTime endTime)
+        public Event(string eventId, string name, string host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests,int numOfGuests, List<string> guests, string description, DateTime startTime, DateTime endTime)
         {
             this.eventId = eventId;
             this.name = name;
@@ -35,13 +35,14 @@ namespace Pastime.Models
             this.activity = activity;
             this.equipmentNeeded = equipment;
             this.location = location;
+            this.numOfGuests = numOfGuests;
             this.maxGuests = maxGuests;
             this.description = description;
             this.startTime = startTime;
             this.endTime = endTime;
             this.active = true;
-            this.guests = new List<string>();
-           
+            this.guests = guests;
+
         }
 
         public string EventId
@@ -68,6 +69,16 @@ namespace Pastime.Models
         {
             get => guests;
         }
+
+        public int NumOfGuests
+        {
+            get => numOfGuests;
+            set
+            {
+                numOfGuests = value;
+            }
+        }
+
 
         public ObservableCollection<string> EquipmentNeeded
         {

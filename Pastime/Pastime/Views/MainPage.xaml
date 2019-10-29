@@ -30,7 +30,7 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="Attendees: " TextColor="Black" />
-                                                    <Span Text="{Binding GuestCount}" />
+                                                    <Span Text="{Binding NumOfGuests}" />
                                                     <Span Text=" / " />
                                                     <Span Text="{Binding MaxGuests}" />
                                                 </FormattedString>

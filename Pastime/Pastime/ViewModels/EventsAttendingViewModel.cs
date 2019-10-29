@@ -1,37 +1,38 @@
-﻿using Pastime.Models;
-using Pastime.Views;
-using Pastime.Views.CreateEventViewModal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
-using Newtonsoft.Json;
-using RestSharp;
 using Newtonsoft.Json.Linq;
+using Pastime.Models;
+using RestSharp;
+using Xamarin.Forms;
 
 namespace Pastime.ViewModels
 {
-
-    public class MainPageViewModel : INotifyPropertyChanged
+    public class EventsAttendingViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Event> events;
-        private INavigation nav;
+        private string current_user;
         private bool isBusy;
-        private User current_user;
 
-        public MainPageViewModel(INavigation nav)
+        public EventsAttendingViewModel()
         {
+            current_user = Application.Current.Properties["current_user"].ToString();
             events = new ObservableCollection<Event>();
+        }
 
-            this.nav = nav;
-
-            CreateEventCommand = new Command(async () => await CreateEventNavigateAsync());
-            ViewCommand = new Command<Event>(async (e) => await NavigateViewEventAsync(e));
+        public ObservableCollection<Event> Events
+        {
+            get => events;
+            set
+            {
+                if (events == value)
+                    return;
+                events = value;
+                OnPropertyChanged();
+            }
         }
 
         public bool IsBusy
@@ -46,42 +47,10 @@ namespace Pastime.ViewModels
             }
         }
 
-        public ObservableCollection<Event> Events
-        {
-            get => events;
-            set
-            {
-                if (events == value)
-                    return;
-
-                events = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-
-
-
-
-        private async Task CreateEventNavigateAsync()
-        {
-            IsBusy = true;
-            try
-            {
-                await nav.PushModalAsync(new CreateEventViewModalName());
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        //use the parameter to limit the number of retrieved events
-        private JArray RetrieveAllEvents(int limit)
+        private JArray RetrieveAllEvents()
         {
             //api link
-            string retrive_all_event = "https://vietnguyen.me/pastime/retrieve_all_events.php";
+            string retrive_all_event = "https://vietnguyen.me/pastime/event_by_attendee.php";
 
             //create a client object
             var client = new RestClient(retrive_all_event);
@@ -90,7 +59,7 @@ namespace Pastime.ViewModels
             var request = new RestRequest(Method.GET);
 
             //add the parameters to APIs
-            request.AddParameter("limit", limit);
+            request.AddParameter("username", current_user);
 
             //get the JSON response
             var response = client.Execute<EventJSON>(request).Content;
@@ -100,28 +69,9 @@ namespace Pastime.ViewModels
             return items;
         }
 
-
-        private async Task NavigateViewEventAsync(Event e)
-        {
-            IsBusy = true;
-            try
-            {
-                EventView eventView = new EventView(e);
-                await nav.PushAsync(eventView);
-
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-
-        }
-
         public async Task GetEventsAsync()
         {
-            IsBusy = true;
-
-            JArray items = RetrieveAllEvents(10);
+            JArray items = RetrieveAllEvents();
 
             for (int i = 0; i < items.Count; i++)
             {
@@ -159,20 +109,19 @@ namespace Pastime.ViewModels
                 date, end_time);
 
                 await newEvent.getLocationLocality();
+                Console.WriteLine(newEvent.Name);
                 events.Add(newEvent);
             }
 
-            IsBusy = false;
-
         }
 
-        public ICommand ViewCommand { private set; get; }
-        public ICommand CreateEventCommand { private set; get; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName]string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 }

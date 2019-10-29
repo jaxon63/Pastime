@@ -25,6 +25,7 @@ namespace Pastime.Models
         private bool active;
         private List<Activity> activities;
         private string current_user;
+        private List<Event> events;
 
 
         public EventModel()
@@ -32,7 +33,7 @@ namespace Pastime.Models
             //TODO: Should eventually retrieve this from the database so it is more dynamic
             activities = new List<Activity>();
             current_user = Application.Current.Properties["current_user"].ToString();
-
+            events = new List<Event>();
 
             InitializeActivityList();
         }
@@ -192,7 +193,6 @@ namespace Pastime.Models
             {
                 var unique_code = JsonConvert.DeserializeObject<CreateEventJSON>(response).create_event[0].event_code;
                 results.Add(unique_code);
-                Console.WriteLine(results);
             }
             else
             {
@@ -234,8 +234,7 @@ namespace Pastime.Models
             {
                 //TODO: Validate before create event maybe
                 Event result = new Event(null, name, null, activity, equipment,
-                    location, maxGuests, null, desc, date, endTime);
-                Console.WriteLine(response);
+                    location, maxGuests, 0, null, desc, date, endTime);
                 return result;
             }
             else
@@ -274,5 +273,9 @@ namespace Pastime.Models
             }
 
         }
+
+        
+
+
     }
 }

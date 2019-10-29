@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.Generic;
 using Pastime.ViewModels;
+using System.Threading.Tasks;
 
 namespace Pastime
 {
@@ -20,19 +21,15 @@ namespace Pastime
             InitializeComponent();
             this.vm = new MainPageViewModel(Navigation);
             this.BindingContext = vm;
-            Console.WriteLine(Application.Current.Properties["IsLoggedIn"]);
-            Console.WriteLine(Application.Current.Properties["current_user"]);
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
             await vm.GetEventsAsync();
+            
         }
 
-
-
-
-
+        
     }
 }

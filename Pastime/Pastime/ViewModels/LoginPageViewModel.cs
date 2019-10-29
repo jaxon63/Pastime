@@ -145,7 +145,6 @@ namespace Pastime.ViewModels
         {
 
             Feedback = "Email has been sent";
-            Console.WriteLine(Feedback);
             string resend_api = "https://vietnguyen.me/pastime/resend.php";
             //create a client object
             var client = new RestClient(resend_api);

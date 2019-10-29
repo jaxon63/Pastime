@@ -35,6 +35,17 @@ namespace Pastime.ViewModels
             current_user = Application.Current.Properties["current_user"].ToString();
 
             this.displayEvent = e;
+            foreach(string guest in displayEvent.Guests)
+            {
+                if(current_user == guest)
+                {
+                    Console.WriteLine(guest);
+                    HasJoined = true;
+                }
+            }
+
+            Console.WriteLine(HasJoined);
+
             if (displayEvent.Host == current_user)
             {
                 IsHost = true;
@@ -95,12 +106,12 @@ namespace Pastime.ViewModels
 
         public bool JoinButtonEnabled
         {
-            get { return !HasJoined && !IsHost; }
+            get { return (!HasJoined && !IsHost); }
         }
 
         public bool LeaveButtonEnabled
         {
-            get { return HasJoined; }
+            get { return HasJoined && !IsHost; }
         }
 
         public bool IsBusy
@@ -121,6 +132,8 @@ namespace Pastime.ViewModels
         {
             Application.Current.MainPage = new MasterView();
         }
+
+        //TODO: doesn't update the attendee count until the page is reloaded
         private async Task JoinEventAsync()
         {
             IsBusy = true;
@@ -139,7 +152,7 @@ namespace Pastime.ViewModels
         {
             IsBusy = true;
             Console.WriteLine("Leaving");
-            HasJoined = false;
+           // HasJoined = false;
             IsBusy = false;
         }
 
