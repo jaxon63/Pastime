@@ -2,52 +2,60 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Pastime.Views.EventView">
     <ContentPage.Title>View Event</ContentPage.Title>
     <ContentPage.Content>
-        <StackLayout>
-            <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand" />
-            <StackLayout Margin="30">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10,0,10">
-                    <Image Source="{Binding DisplayEvent.Activity.IconImage}" HeightRequest="70" />
+        <AbsoluteLayout>
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand" />
+                <StackLayout Margin="30">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10,0,10">
+                        <Image Source="{Binding DisplayEvent.Activity.IconImage}" HeightRequest="70" />
 
+                    </StackLayout>
+                    <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="40" Text="{Binding DisplayEvent.Name}" TextColor="Black" />
+                    <StackLayout Margin="15">
+                        <BoxView HeightRequest="2" BackgroundColor="DarkBlue" HorizontalOptions="FillAndExpand" Margin="0,0,0,15" />
+
+                        <Label Text="About this event" FontAttributes="Bold" FontSize="Large" TextColor="Black" HorizontalOptions="Center" />
+                        <Label Text="{Binding DisplayEvent.Description}" HorizontalOptions="Center" />
+                        <BoxView HeightRequest="1" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" />
+
+
+                        <Label Text="Host" TextColor="Black" FontSize="Large" HorizontalOptions="Center" />
+                        <Label Text="{Binding DisplayEvent.Host}" HorizontalOptions="Center" />
+
+                        <BoxView HeightRequest="1" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" />
+
+                        <Label Text="When and where?" TextColor="Black" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center" />
+                        <Label Text="{Binding DisplayEvent.Locality}" HorizontalOptions="Center" />
+                        <Label Text="{Binding DisplayEvent.DisplayStartDate}" />
+                        <BoxView HeightRequest="1" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" />
+
+
+                        <Label HorizontalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Attendees: " TextColor="Black" FontSize="Large" />
+                                    <Span Text="{Binding DisplayEvent.GuestCount}" />
+                                    <Span Text=" / " />
+                                    <Span Text="{Binding DisplayEvent.MaxGuests}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <BoxView HeightRequest="1" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
                 </StackLayout>
-                <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="40" Text="{Binding DisplayEvent.Name}" TextColor="Black" />
-                <StackLayout Margin="15">
-                    <BoxView HeightRequest="2" BackgroundColor="DarkBlue" HorizontalOptions="FillAndExpand" Margin="0,0,0,15" />
-
-                    <Label Text="About this event" FontAttributes="Bold" FontSize="Large" TextColor="Black" HorizontalOptions="Center" />
-                    <Label Text="{Binding DisplayEvent.Description}" HorizontalOptions="Center" />
-                    <BoxView HeightRequest="1" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" />
-
-
-                    <Label Text="Host" TextColor="Black" FontSize="Large" HorizontalOptions="Center" />
-                    <Label Text="{Binding DisplayEvent.Host}" HorizontalOptions="Center" />
-
-                    <BoxView HeightRequest="1" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" />
-
-                    <Label Text="When and where?" TextColor="Black" FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center" />
-                    <Label Text="{Binding DisplayEvent.Locality}" HorizontalOptions="Center" />
-                    <Label Text="{Binding DisplayEvent.DisplayStartDate}" />
-                    <BoxView HeightRequest="1" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" />
-
-
-                    <Label HorizontalOptions="Center">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Attendees: " TextColor="Black" FontSize="Large" />
-                                <Span Text="{Binding DisplayEvent.GuestCount}" />
-                                <Span Text=" / " />
-                                <Span Text="{Binding DisplayEvent.MaxGuests}" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-
-                    <BoxView HeightRequest="1" BackgroundColor="LightGray" HorizontalOptions="FillAndExpand" />
+                <StackLayout Margin="50" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand">
+                    <Button Text="Back" Command="{Binding BackCommand}" CornerRadius="7" Margin="0,0,50,0" />
+                    <Button Text="Join" Command="{Binding JoinCommand}" IsVisible="{Binding JoinButtonEnabled}" BackgroundColor="Green" Padding="10" CornerRadius="7" TextColor="White" />
+                    <Button Text="Leave" IsVisible="{Binding LeaveButtonEnabled}" Command="{Binding LeaveCommand}" BackgroundColor="Red" Padding="10" CornerRadius="7" TextColor="White" />
+                    <Button Text="Cancel Event" IsVisible="{Binding IsHost}" Command="{Binding CancelCommand}" BackgroundColor="Red" Padding="10" CornerRadius="7" TextColor="White" />
                 </StackLayout>
-            </StackLayout>
-            <StackLayout Margin="50" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand">
-                <Button Text="Back" Command="{Binding BackCommand}" CornerRadius="7" Margin="0,0,50,0" />
-                <Button Text="Join" BackgroundColor="Green" Padding="10" CornerRadius="7" TextColor="White" />
-            </StackLayout>
 
-        </StackLayout>
+                <StackLayout IsVisible="{Binding IsBusy}" Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                    <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" IsRunning="{Binding IsBusy}" />
+                </StackLayout>
+
+            </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

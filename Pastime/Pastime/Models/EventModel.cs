@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using Xamarin.Essentials;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json.Linq;
 
 namespace Pastime.Models
 {
@@ -24,11 +24,15 @@ namespace Pastime.Models
         private DateTime endTime;
         private bool active;
         private List<Activity> activities;
+        private string current_user;
+
 
         public EventModel()
         {
             //TODO: Should eventually retrieve this from the database so it is more dynamic
             activities = new List<Activity>();
+            current_user = Application.Current.Properties["current_user"].ToString();
+
 
             InitializeActivityList();
         }
@@ -168,6 +172,7 @@ namespace Pastime.Models
 
             //add the parameters to APIs
             request.AddParameter("name", name);
+            request.AddParameter("host", current_user);
             request.AddParameter("activity", activity);
             request.AddParameter("equipment", equipment);
             request.AddParameter("latitude", latitude);
@@ -177,7 +182,7 @@ namespace Pastime.Models
             request.AddParameter("date", date);
             request.AddParameter("end_time", endTime);
 
-            
+
             //get the JSON response
             var response = client.Execute<CreateEventJSON>(request).Content;
             var status = JsonConvert.DeserializeObject<CreateEventJSON>(response).create_event[0].status;
@@ -187,6 +192,7 @@ namespace Pastime.Models
             {
                 var unique_code = JsonConvert.DeserializeObject<CreateEventJSON>(response).create_event[0].event_code;
                 results.Add(unique_code);
+                Console.WriteLine(results);
             }
             else
             {
@@ -215,9 +221,7 @@ namespace Pastime.Models
             //to check if new event is recorded (testing purpose)
             //goto: https://vietnguyen.me/pastime/event_table.php
 
-            //TODO: Validate before create event maybe
-            Event result = new Event(null, name, null, activity, equipment,
-                location, maxGuests, desc, date, endTime);
+            
 
             //CREATE EVENT JSON OBJECT RETURNED VALUES
             List<String> response = SaveEvent(name, activity.Name, eqipment_raw,
@@ -228,12 +232,47 @@ namespace Pastime.Models
 
             if (status == "success")
             {
+                //TODO: Validate before create event maybe
+                Event result = new Event(null, name, null, activity, equipment,
+                    location, maxGuests, null, desc, date, endTime);
+                Console.WriteLine(response);
                 return result;
             }
             else
             {
                 return null;
             }
+        }
+
+        public bool JoinEvent(string username, string event_id)
+        {
+            string join_event = "https://vietnguyen.me/pastime/join_event.php";
+
+            var client = new RestClient(join_event);
+
+            var request = new RestRequest(Method.GET);
+
+            request.AddParameter("username", username);
+            request.AddParameter("event_code", event_id);
+            var response = client.Execute(request).Content;
+
+            var json_response = JObject.Parse(response);
+            JArray items = (JArray)json_response["Join"];
+            var item = items[0];
+            if (item["status"].ToString() == "failed")
+            {
+                Console.WriteLine("Failed");
+
+                return false;
+
+            }
+            else
+            {
+                Console.WriteLine("Success");
+
+                return true;
+            }
+
         }
     }
 }

@@ -20,16 +20,31 @@ namespace Pastime.ViewModels
         private INavigation nav;
         private Event displayEvent;
         private int guestsAttending;
+        private string current_user;
+        private EventModel model;
+        private bool hasJoined;
+        private bool isHost;
+        private bool isBusy;
 
         public EventViewModel(INavigation nav, Event e)
         {
             this.nav = nav;
 
+            model = new EventModel();
+
+            current_user = Application.Current.Properties["current_user"].ToString();
+
             this.displayEvent = e;
+            if (displayEvent.Host == current_user)
+            {
+                IsHost = true;
+            }
 
             //Commands
             BackCommand = new Command(NavigateBack);
             JoinCommand = new Command(async () => await JoinEventAsync());
+            LeaveCommand = new Command(LeaveEvent);
+            CancelCommand = new Command(CancelEvent);
         }
 
         public Event DisplayEvent
@@ -52,6 +67,55 @@ namespace Pastime.ViewModels
             }
         }
 
+        public bool HasJoined
+        {
+            get => hasJoined;
+            set
+            {
+                if (hasJoined == value)
+                    return;
+                hasJoined = value;
+                OnPropertyChanged();
+                OnPropertyChanged("JoinButtonEnabled");
+                OnPropertyChanged("LeaveButtonEnabled");
+            }
+        }
+
+        public bool IsHost
+        {
+            get => isHost;
+            set
+            {
+                if (isHost == value)
+                    return;
+                isHost = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool JoinButtonEnabled
+        {
+            get { return !HasJoined && !IsHost; }
+        }
+
+        public bool LeaveButtonEnabled
+        {
+            get { return HasJoined; }
+        }
+
+        public bool IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                if (isBusy == value)
+                    return;
+                isBusy = value;
+                OnPropertyChanged();
+
+            }
+        }
+
         //Methods
         private void NavigateBack()
         {
@@ -59,11 +123,35 @@ namespace Pastime.ViewModels
         }
         private async Task JoinEventAsync()
         {
+            IsBusy = true;
+            if (model.JoinEvent(current_user, DisplayEvent.EventId))
+            {
+                HasJoined = true;
+            }
+            else
+            {
+                HasJoined = false;
+            }
+            IsBusy = false;
+        }
 
+        private void LeaveEvent()
+        {
+            IsBusy = true;
+            Console.WriteLine("Leaving");
+            HasJoined = false;
+            IsBusy = false;
+        }
+
+        private void CancelEvent()
+        {
+            Console.WriteLine("Cancel event");
         }
 
         public ICommand BackCommand { private set; get; }
         public ICommand JoinCommand { private set; get; }
+        public ICommand LeaveCommand { private set; get; }
+        public ICommand CancelCommand { private set; get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -14,8 +14,8 @@ namespace Pastime.Models
     {
         private string eventId;
         private string name;
-        private User host;
-        private List<User> guests;
+        private string host;
+        private List<string> guests;
         private Activity activity;
         private ObservableCollection<string> equipmentNeeded;
         private Location location;
@@ -27,7 +27,7 @@ namespace Pastime.Models
         private DateTime endTime;
         private bool active;
 
-        public Event(string eventId, string name, User host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests, string description, DateTime startTime, DateTime endTime)
+        public Event(string eventId, string name, string host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests, List<string> guests, string description, DateTime startTime, DateTime endTime)
         {
             this.eventId = eventId;
             this.name = name;
@@ -40,7 +40,8 @@ namespace Pastime.Models
             this.startTime = startTime;
             this.endTime = endTime;
             this.active = true;
-            this.guests = new List<User>();
+            this.guests = new List<string>();
+           
         }
 
         public string EventId
@@ -57,13 +58,13 @@ namespace Pastime.Models
             }
         }
 
-        public User Host
+        public string Host
         {
             get => host;
         }
 
 
-        public List<User> Guests
+        public List<string> Guests
         {
             get => guests;
         }
@@ -171,7 +172,7 @@ namespace Pastime.Models
             }
         }
 
-        public bool AddGuest(User guest)
+        public bool AddGuest(string guest)
         {
             if (guests.Count < maxGuests && !guests.Contains(guest) && active)
             {
@@ -181,7 +182,7 @@ namespace Pastime.Models
             return false;
         }
 
-        public bool RemoveGuest(User guest)
+        public bool RemoveGuest(string guest)
         {
             if (guests.Contains(guest))
             {

@@ -8,6 +8,7 @@ namespace Pastime
     {
         public string eventID { get; set; }
         public string name { get; set; }
+        public string host { get; set; }
         public string activity { get; set; }
         public string equipment { get; set; }
         public string latitude { get; set; }

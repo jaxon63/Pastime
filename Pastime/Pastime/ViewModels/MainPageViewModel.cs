@@ -27,7 +27,7 @@ namespace Pastime.ViewModels
         public MainPageViewModel(INavigation nav)
         {
             ObservableCollection<string> list = new ObservableCollection<string>();
-            list.Add("hello");            
+            list.Add("hello");
 
             events = new ObservableCollection<Event>();
 
@@ -62,7 +62,7 @@ namespace Pastime.ViewModels
             }
         }
 
-        
+
 
 
 
@@ -85,7 +85,7 @@ namespace Pastime.ViewModels
         {
             //api link
             string retrive_all_event = "https://vietnguyen.me/pastime/retrieve_all_events.php";
-            
+
             //create a client object
             var client = new RestClient(retrive_all_event);
 
@@ -129,8 +129,40 @@ namespace Pastime.ViewModels
             for (int i = 0; i < items.Count; i++)
             {
                 var item = (JObject)items[i];
-
                 var eventID = (string)item["eventID"];
+
+                var event_request_api = "http://vietnguyen.me/pastime/retrieve_event.php";
+                var client = new RestClient(event_request_api);
+                var request = new RestRequest(Method.GET);
+                request.AddParameter("eventID", eventID);
+                var response = client.Execute(request).Content;
+                var json_response = JObject.Parse(response);
+                JArray eventInfo = (JArray)json_response["Event"];
+                var info = (JObject)eventInfo[0];
+                var host = (string)info["host"];
+
+
+
+
+
+
+                var attendee_request_api = "http://vietnguyen.me/pastime/joint_members.php";
+                var attendee_client = new RestClient(attendee_request_api);
+                var attendee_request = new RestRequest(Method.GET);
+                attendee_request.AddParameter("eventID", eventID);
+                var attendee_response = attendee_client.Execute<AttendeesJSON>(attendee_request).Content;
+                var attendee_json_response = JObject.Parse(attendee_response);
+                JArray attendee_info = (JArray)attendee_json_response["Attendees"];
+                var attendeeObj = (JObject)attendee_info[0];
+                var attendeeCount = (int)attendeeObj["total"];
+                var attendees = attendeeObj["attendees"];
+
+                List<string> attendeeList = new List<string>();
+                foreach (string element in attendees)
+                {
+                    attendeeList.Add(element);
+                }
+
                 var name = (string)item["name"];
                 var str_activity = (string)item["activity"];
                 Activity activity = new Activity(str_activity, str_activity.ToLower() + ".png");
@@ -145,14 +177,13 @@ namespace Pastime.ViewModels
                 var max_guests = (int)item["max_guests"];
                 var description = (string)item["description"];
 
-               
+
                 var date = (DateTime)item["date"];
                 var end_time = (DateTime)item["end_time"];
 
-               
-                //I just put another param for EventID
-                Event newEvent = new Event(eventID, name, null, activity, list,
-                new Xamarin.Essentials.Location(latitude, longitude), max_guests, description,
+
+                Event newEvent = new Event(eventID, name, host, activity, list,
+                new Xamarin.Essentials.Location(latitude, longitude), max_guests, attendeeList, description,
                 date, end_time);
 
                 await newEvent.getLocationLocality();
