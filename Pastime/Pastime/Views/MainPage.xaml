@@ -24,8 +24,19 @@
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
                                             <Label Text="Date: " />
-                                            <Label Text="{Binding StartTime}" />
+                                            <Label Text="{Binding DisplayStartDate}" />
                                         </StackLayout>
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Attendees: " TextColor="Black"  />
+                                                    <Span Text="{Binding GuestCount}" />
+                                                    <Span Text=" / " />
+                                                    <Span Text="{Binding MaxGuests}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
                                         <StackLayout Orientation="Horizontal">
                                             <Button Text="Dismiss" />
                                             <Button  Text="View" Command="{Binding BindingContext.ViewCommand, Source={x:Reference ParentView}}" CommandParameter="{Binding .}" />

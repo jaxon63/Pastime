@@ -6,6 +6,7 @@ using System.Text;
 using Xamarin.Essentials;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace Pastime.Models
 {
@@ -40,8 +41,6 @@ namespace Pastime.Models
             this.endTime = endTime;
             this.active = true;
             this.guests = new List<User>();
-            //Automatically add the host as a guest to the event
-            this.guests.Add(host);
         }
 
         public string EventId
@@ -128,6 +127,32 @@ namespace Pastime.Models
             }
         }
 
+        public string DisplayStartDate
+        {
+            get
+            {
+                string monthName = StartTime.ToString("MMMM", CultureInfo.InvariantCulture);
+                string suffix = string.Empty;
+                string time = StartTime.ToString("h:mm tt");
+
+                if (StartTime.Day == 1 || StartTime.Day == 21 || StartTime.Day == 31)
+                {
+                    suffix = "st";
+                }
+                else if (StartTime.Day == 2 || StartTime.Day == 22)
+                {
+                    suffix = "nd";
+                }
+                else
+                {
+                    suffix = "th";
+                }
+
+                return String.Format($"{StartTime.DayOfWeek.ToString()} the {StartTime.Day}{suffix} of {monthName} at {time}");
+            }
+        }
+
+
         public DateTime EndTime
         {
             get => endTime;
@@ -169,6 +194,11 @@ namespace Pastime.Models
         public int getGuestCount()
         {
             return guests.Count;
+        }
+
+        public string GuestCount
+        {
+            get => getGuestCount().ToString();
         }
 
         public async Task<string> getLocationLocality()

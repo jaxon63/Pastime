@@ -10,7 +10,7 @@
 
         <Entry FontSize="8" Keyboard="Plain" Placeholder="{Binding Name}" Text="{Binding SendUsername}" />
         <Entry FontSize="8" Placeholder="Password" IsPassword="True" Text="{Binding SendCurrentPassword}" />
-        <Label HorizontalOptions="Center" TextColor="red" FontSize="Micro" Text="{Binding ErrMsg}" />
+        <Label HorizontalOptions="Center" TextColor="red" FontSize="Micro" Text="{Binding UsernameErrMsg}" />
 
         <StackLayout Orientation="Horizontal">
             <Button Clicked="OnCloseButtonClicked" FontSize="8" Text="Cancel" />
