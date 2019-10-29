@@ -143,7 +143,7 @@ namespace Pastime.ViewModels
 
 
 
-
+                /*
 
 
                 var attendee_request_api = "http://vietnguyen.me/pastime/joint_members.php";
@@ -162,6 +162,7 @@ namespace Pastime.ViewModels
                 {
                     attendeeList.Add(element);
                 }
+                */
 
                 var name = (string)item["name"];
                 var str_activity = (string)item["activity"];
@@ -181,9 +182,16 @@ namespace Pastime.ViewModels
                 var date = (DateTime)item["date"];
                 var end_time = (DateTime)item["end_time"];
 
+                var total = (int)item["total"];
+                var attendees = item["attendees"];
+                List<string> listAttendees = new List<string>();
+                foreach (string attendee in attendees)
+                {
+                    listAttendees.Add(attendee);
+                }
 
                 Event newEvent = new Event(eventID, name, host, activity, list,
-                new Xamarin.Essentials.Location(latitude, longitude), max_guests, attendeeList, description,
+                new Xamarin.Essentials.Location(latitude, longitude), max_guests, listAttendees, description,
                 date, end_time);
 
                 await newEvent.getLocationLocality();

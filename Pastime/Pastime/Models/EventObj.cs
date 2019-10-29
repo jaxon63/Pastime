@@ -17,6 +17,8 @@ namespace Pastime
         public string description { get; set; }
         public string date { get; set; }
         public string end_time { get; set; }
+        public int total { get; set; }
+        public List<string> attendees { get; set; }
     }
 
     //The login JSON response may include multiple objects
