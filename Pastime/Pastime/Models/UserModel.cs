@@ -121,7 +121,7 @@ namespace Pastime.Models
                 }
                 else
                 {
-                    if(newPassword != cPassword)
+                    if (newPassword != cPassword)
                     {
                         errMsg = "Passwords do not match.";
                         return false;
@@ -171,7 +171,7 @@ namespace Pastime.Models
             }
             else
             {
-                if(password != User.Password)
+                if (password != User.Password)
                 {
                     errMsg = "Incorrect password";
                     return false;
@@ -194,7 +194,6 @@ namespace Pastime.Models
                     JArray items = (JArray)json_response["update_profile"];
                     var item = items[0];
 
-                    Console.WriteLine(item);
 
                     if (item["status"].ToString() == "failed")
                     {
@@ -209,7 +208,6 @@ namespace Pastime.Models
                         Application.Current.Properties["IsLoggedIn"] = bool.FalseString;
                         Application.Current.Properties["current_user"] = item["updated_username"].ToString();
 
-                        Console.WriteLine(User.Username);
                         return true;
                     }
 

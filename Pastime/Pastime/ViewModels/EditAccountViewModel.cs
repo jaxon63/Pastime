@@ -35,7 +35,6 @@ namespace Pastime.ViewModels
             //TODO: Bug where the message persists when the popup is closed. trying to fix
             MessagingCenter.Subscribe<Application>(this, "navigateBack", (sender) =>
             {
-                Console.WriteLine("hello!");
                 EmailErrMsg = string.Empty;
             });
 

@@ -8,6 +8,7 @@ namespace Pastime
     {
         public string eventID { get; set; }
         public string name { get; set; }
+        public string host { get; set; }
         public string activity { get; set; }
         public string equipment { get; set; }
         public string latitude { get; set; }
@@ -16,6 +17,8 @@ namespace Pastime
         public string description { get; set; }
         public string date { get; set; }
         public string end_time { get; set; }
+        public int total { get; set; }
+        public List<string> attendees { get; set; }
     }
 
     //The login JSON response may include multiple objects

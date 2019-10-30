@@ -5,7 +5,7 @@
     <ContentPage.Title>Pastime</ContentPage.Title>
     <ContentPage.Content>
         <AbsoluteLayout>
-            <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding IsVisible}">
                 <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand" />
                 <ListView x:Name="listView" HasUnevenRows="True" ItemsSource="{Binding Events}">
                     <ListView.ItemTemplate>
@@ -29,8 +29,8 @@
                                         <Label>
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="Attendees: " TextColor="Black"  />
-                                                    <Span Text="{Binding GuestCount}" />
+                                                    <Span Text="Attendees: " TextColor="Black" />
+                                                    <Span Text="{Binding NumOfGuests}" />
                                                     <Span Text=" / " />
                                                     <Span Text="{Binding MaxGuests}" />
                                                 </FormattedString>

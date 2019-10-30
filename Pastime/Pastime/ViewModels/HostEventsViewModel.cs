@@ -1,37 +1,44 @@
-﻿using Pastime.Models;
-using Pastime.Views;
-using Pastime.Views.CreateEventViewModal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
-using Newtonsoft.Json;
-using RestSharp;
 using Newtonsoft.Json.Linq;
+using Pastime.Models;
+using Pastime.Views;
+using RestSharp;
+using Xamarin.Forms;
 
 namespace Pastime.ViewModels
 {
-
-    public class MainPageViewModel : INotifyPropertyChanged
+    public class HostEventsViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Event> events;
-        private INavigation nav;
+        private string current_user;
         private bool isBusy;
-        private User current_user;
+        private EventModel model;
 
-        public MainPageViewModel(INavigation nav)
+        public HostEventsViewModel()
         {
             events = new ObservableCollection<Event>();
+            current_user = Application.Current.Properties["current_user"].ToString();
+            model = new EventModel();
 
-            this.nav = nav;
+            CancelCommand = new Command<string>((id) => CancelEvent(id));
+        }
 
-            CreateEventCommand = new Command(async () => await CreateEventNavigateAsync());
-            ViewCommand = new Command<Event>(async (e) => await NavigateViewEventAsync(e));
+        public ObservableCollection<Event> Events
+        {
+            get => events;
+            set
+            {
+                if (events == value)
+                    return;
+                events = value;
+                OnPropertyChanged();
+            }
         }
 
         public bool IsBusy
@@ -43,7 +50,6 @@ namespace Pastime.ViewModels
                     return;
                 isBusy = value;
                 OnPropertyChanged();
-                OnPropertyChanged("IsVisible");
             }
         }
 
@@ -52,42 +58,10 @@ namespace Pastime.ViewModels
             get => !IsBusy;
         }
 
-        public ObservableCollection<Event> Events
-        {
-            get => events;
-            set
-            {
-                if (events == value)
-                    return;
-
-                events = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-
-
-
-
-        private async Task CreateEventNavigateAsync()
-        {
-            IsBusy = true;
-            try
-            {
-                await nav.PushModalAsync(new CreateEventViewModalName());
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        //use the parameter to limit the number of retrieved events
-        private JArray RetrieveAllEvents(int limit)
+        private JArray RetrieveAllEvents()
         {
             //api link
-            string retrive_all_event = "https://vietnguyen.me/pastime/retrieve_all_events.php";
+            string retrive_all_event = "https://vietnguyen.me/pastime/event_by_host.php";
 
             //create a client object
             var client = new RestClient(retrive_all_event);
@@ -96,7 +70,7 @@ namespace Pastime.ViewModels
             var request = new RestRequest(Method.GET);
 
             //add the parameters to APIs
-            request.AddParameter("limit", limit);
+            request.AddParameter("host", current_user);
 
             //get the JSON response
             var response = client.Execute<EventJSON>(request).Content;
@@ -106,38 +80,15 @@ namespace Pastime.ViewModels
             return items;
         }
 
-
-        private async Task NavigateViewEventAsync(Event e)
-        {
-            IsBusy = true;
-            try
-            {
-                EventView eventView = new EventView(e);
-                await nav.PushAsync(eventView);
-
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-
-        }
-
         public async Task GetEventsAsync()
         {
             IsBusy = true;
-
-            JArray items = RetrieveAllEvents(10);
+            JArray items = RetrieveAllEvents();
 
             for (int i = 0; i < items.Count; i++)
             {
                 var item = (JObject)items[i];
                 var eventID = (string)item["eventID"];
-
-
-
-
-
                 var name = (string)item["name"];
                 var host = (string)item["host"];
                 var numOfGuests = (int)item["total"];
@@ -164,27 +115,43 @@ namespace Pastime.ViewModels
                 var date = (DateTime)item["date"];
                 var end_time = (DateTime)item["end_time"];
 
-                var total = (int)item["total"];
-                var attendees = item["attendees"];
-                List<string> listAttendees = new List<string>();
-                foreach (string attendee in attendees)
-                {
-                    listAttendees.Add(attendee);
-                }
 
-                Event newEvent = new Event(eventID, name, host, activity, list, new Xamarin.Essentials.Location(latitude, longitude), max_guests, numOfGuests, listAttendees, description,
+                Event newEvent = new Event(eventID, name, host, activity, list,
+                new Xamarin.Essentials.Location(latitude, longitude), max_guests, numOfGuests, attendeeList, description,
                 date, end_time);
 
                 await newEvent.getLocationLocality();
                 events.Add(newEvent);
             }
-
             IsBusy = false;
 
         }
 
-        public ICommand ViewCommand { private set; get; }
-        public ICommand CreateEventCommand { private set; get; }
+        private void CancelEvent(string eventid)
+        {
+            MessagingCenter.Send<HostEventsViewModel>(this, "cancel_message");
+            MessagingCenter.Subscribe<YourEventsView>(this, "cancel", (sender) =>
+            {
+                if (model.CancelEvent(eventid))
+                {
+                    Console.WriteLine("Success");
+                    for (int i = events.Count - 1; i >= 0; i--)
+                    {
+                        if (events[i].EventId == eventid)
+                        {
+                            events.RemoveAt(i);
+                        }
+                    }
+                }
+                Console.WriteLine("Cancel event");
+            });
+
+
+        }
+
+        public ICommand CancelCommand { private set; get; }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName]string propertyName = "")

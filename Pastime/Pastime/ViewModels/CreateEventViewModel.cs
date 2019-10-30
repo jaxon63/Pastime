@@ -89,7 +89,7 @@ namespace Pastime.ViewModels
         public const string GooglePlacesDetailPath = "https://maps.googleapis.com/maps/api/place/details/json?place_id={0}&fields=geometry&key={1}";
 
         //TODO: store the key on the server
-        public const string GooglePlacesApiKey = "";
+        public const string GooglePlacesApiKey = "AIzaSyAbMnMl96EPvoL0MhxavWv1RDJPJHBA4Pw";
 
         //Event model used to handle all the business logic regarding events
         private readonly EventModel model;
