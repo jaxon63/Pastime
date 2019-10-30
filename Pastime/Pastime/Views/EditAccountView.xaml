@@ -17,10 +17,10 @@
                     </Frame>
                     <!-- Label for the User's name-->
                     <Label Text="{Binding Name}" HorizontalTextAlignment="Center" FontSize="20" />
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <!--<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                         <Label FontSize="8" Text="Events attended: " />
                         <Label FontSize="8" Text="Events hosted: " />
-                    </StackLayout>
+                    </StackLayout> -->
                 </StackLayout>
 
                 <!-- Body content-->

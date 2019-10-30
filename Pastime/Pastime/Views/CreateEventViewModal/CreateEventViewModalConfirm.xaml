@@ -4,28 +4,30 @@
         <StackLayout Padding="10,10" Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center">
 
             <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Large" Text="{Binding Name}" />
+            <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand" Margin="0,0,0,30" />
+
 
             <Label HorizontalOptions="Center" HorizontalTextAlignment="Center">
 
                 <!-- Formatted string used to style the data bound parts of the string -->
-                <Label.FormattedText> 
+                <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="Almost done! Your " />
-                        <Span FontAttributes="Bold" TextColor="Blue" Text="{Binding SelectedActivity.Name}" />
-                        <Span Text=" event will be held on " />
-                        <Span FontAttributes="Bold" TextColor="Blue" Text="{Binding DisplayEventDateString}" />
-                        <Span Text=" in " />
-                        <Span FontAttributes="Bold" TextColor="Blue" Text="{Binding SelectedAddress.City}" />
-                        <Span Text=". It will begin at " />
-                        <Span FontAttributes="Bold" TextColor="Blue" Text="{Binding DisplayEventStartTimeString }" />
-                        <Span Text=" and will end at " />
-                        <Span FontAttributes="Bold" TextColor="Blue" Text="{Binding DisplayEventEndTimeString}" />
-                        <Span Text="." />
+                        <Span Text="Almost done! Your " FontSize="20" />
+                        <Span FontSize="20" FontAttributes="Bold" TextColor="Blue" Text="{Binding SelectedActivity.Name}" />
+                        <Span FontSize="20" Text=" event will be held on " />
+                        <Span  FontSize="20" FontAttributes="Bold" TextColor="Blue" Text="{Binding DisplayEventDateString}" />
+                        <Span FontSize="20" Text=" in " />
+                        <Span FontSize="20" FontAttributes="Bold" TextColor="Blue" Text="{Binding SelectedAddress.City}" />
+                        <Span FontSize="20" Text=". It will begin at " />
+                        <Span FontSize="20" FontAttributes="Bold" TextColor="Blue" Text="{Binding DisplayEventStartTimeString }" />
+                        <Span FontSize="20" Text=" and will end at " />
+                        <Span FontSize="20" FontAttributes="Bold" TextColor="Blue" Text="{Binding DisplayEventEndTimeString}" />
+                        <Span FontSize="20" Text="." />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
-            <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="If you're happy with the details you have provided, press next to create your event." />
-            <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Have fun!" />
+            <Label HorizontalOptions="Center" FontSize="15" HorizontalTextAlignment="Center" Text="If you're happy with the details you have provided, press next to create your event." />
+            <Label HorizontalOptions="Center" FontSize="15" HorizontalTextAlignment="Center" Text="Have fun!" />
             <Button Text="Back" Command="{Binding GoBackCommand}" />
             <Button Text="Cancel" Command="{Binding CancelCommand}" />
             <Button Text="Next" Command="{Binding SubmitEventCommand}" />

@@ -198,8 +198,11 @@ namespace Pastime.Models
             {
                 var reason = JsonConvert.DeserializeObject<CreateEventJSON>(response).create_event[0].reason;
                 results.Add(reason);
+                Console.WriteLine("Hello: " + reason);
             }
+            Console.WriteLine("Hello: " + results);
             return results;
+
         }
 
         public Event CreateEvent(string name, Activity activity,
@@ -235,11 +238,15 @@ namespace Pastime.Models
                 //TODO: Validate before create event maybe
                 Event result = new Event(null, name, null, activity, equipment,
                     location, maxGuests, 0, null, desc, date, endTime);
+                Console.WriteLine("success");
+
                 return result;
             }
             else
             {
+                Console.WriteLine("Status: " + status);
                 return null;
+
             }
         }
 
