@@ -198,9 +198,7 @@ namespace Pastime.Models
             {
                 var reason = JsonConvert.DeserializeObject<CreateEventJSON>(response).create_event[0].reason;
                 results.Add(reason);
-                Console.WriteLine("Hello: " + reason);
             }
-            Console.WriteLine("Hello: " + results);
             return results;
 
         }
