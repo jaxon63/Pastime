@@ -23,6 +23,7 @@ namespace Pastime.ViewModels
         private INavigation nav;
         private bool isBusy;
         private User current_user;
+        private bool isRefreshing;
 
         public MainPageViewModel(INavigation nav)
         {
@@ -32,6 +33,13 @@ namespace Pastime.ViewModels
 
             CreateEventCommand = new Command(async () => await CreateEventNavigateAsync());
             ViewCommand = new Command<Event>(async (e) => await NavigateViewEventAsync(e));
+            RefreshCommand = new Command(async () =>
+            {
+                IsRefreshing = true;
+                await RefreshEvents();
+                IsRefreshing = false;
+
+            });
         }
 
         public bool IsBusy
@@ -46,6 +54,22 @@ namespace Pastime.ViewModels
                 OnPropertyChanged("IsVisible");
             }
         }
+
+        public bool IsRefreshing
+        {
+            get => isRefreshing;
+            set
+            {
+                if (isRefreshing == value)
+                    return;
+
+                isRefreshing = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+
 
         public bool IsVisible
         {
@@ -81,6 +105,12 @@ namespace Pastime.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        private async Task RefreshEvents()
+        {
+            Events.Clear();
+            await GetEventsAsync();
         }
 
         //use the parameter to limit the number of retrieved events
@@ -125,7 +155,9 @@ namespace Pastime.ViewModels
 
         public async Task GetEventsAsync()
         {
+
             IsBusy = true;
+
 
             JArray items = RetrieveAllEvents(10);
 
@@ -133,10 +165,6 @@ namespace Pastime.ViewModels
             {
                 var item = (JObject)items[i];
                 var eventID = (string)item["eventID"];
-
-
-
-
 
                 var name = (string)item["name"];
                 var host = (string)item["host"];
@@ -164,7 +192,6 @@ namespace Pastime.ViewModels
                 var date = (DateTime)item["date"];
                 var end_time = (DateTime)item["end_time"];
 
-                var total = (int)item["total"];
                 var attendees = item["attendees"];
                 List<string> listAttendees = new List<string>();
                 foreach (string attendee in attendees)
@@ -176,15 +203,15 @@ namespace Pastime.ViewModels
                 date, end_time);
 
                 await newEvent.getLocationLocality();
-                events.Add(newEvent);
+                Events.Add(newEvent);
             }
 
             IsBusy = false;
-
         }
 
         public ICommand ViewCommand { private set; get; }
         public ICommand CreateEventCommand { private set; get; }
+        public ICommand RefreshCommand { private set; get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName]string propertyName = "")

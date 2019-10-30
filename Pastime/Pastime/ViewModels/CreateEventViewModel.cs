@@ -89,7 +89,7 @@ namespace Pastime.ViewModels
         public const string GooglePlacesDetailPath = "https://maps.googleapis.com/maps/api/place/details/json?place_id={0}&fields=geometry&key={1}";
 
         //TODO: store the key on the server
-        public const string GooglePlacesApiKey = "AIzaSyAbMnMl96EPvoL0MhxavWv1RDJPJHBA4Pw";
+        public const string GooglePlacesApiKey = "AIzaSyAS3m6Xk4BukO3eMRRKmGDxHgnZK1N8lDk";
 
         //Event model used to handle all the business logic regarding events
         private readonly EventModel model;
@@ -109,7 +109,7 @@ namespace Pastime.ViewModels
             LocationCommand = new Command(async () => await SubmitLocation());
             SubmitEventCommand = new Command(async () => await SubmitEvent());
             GoBackCommand = new Command(async () => await NavigateGoBackAsync());
-            CancelCommand = new Command(BackToHomeScreen);
+            CancelCommand = new Command(async () => await BackToHomeScreen());
 
             //Instantiate the EventModel
             model = new EventModel();
@@ -619,9 +619,16 @@ namespace Pastime.ViewModels
             await Navigation.PopModalAsync();
         }
 
-        private void BackToHomeScreen()
+        private async Task BackToHomeScreen()
         {
-            Application.Current.MainPage = new MasterView();
+            //Navigation.PopAsync();
+            int numModals = Navigation.ModalStack.Count;
+            for (int i = 0; i < numModals; i++)
+            {
+                await Navigation.PopModalAsync(false);
+            }
+            MessagingCenter.Send<CreateEventViewModel>(this, "navigate_back");
+            //Application.Current.MainPage = new MasterView();
         }
 
         private void SubmitName()

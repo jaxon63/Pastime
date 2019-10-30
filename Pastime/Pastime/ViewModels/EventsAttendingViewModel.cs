@@ -103,50 +103,53 @@ namespace Pastime.ViewModels
 
         public async Task GetEventsAsync()
         {
-            IsBusy = true;
-            JArray items = RetrieveAllEvents();
-
-            for (int i = 0; i < items.Count; i++)
+            if (events.Count <= 0)
             {
-                var item = (JObject)items[i];
-                var eventID = (string)item["eventID"];
-                var name = (string)item["name"];
-                var host = (string)item["host"];
-                var numOfGuests = (int)item["total"];
-                var str_activity = (string)item["activity"];
-                Activity activity = new Activity(str_activity, str_activity.ToLower() + ".png");
-                var eqipments = item["equipment"];
-                ObservableCollection<string> list = new ObservableCollection<string>();
-                foreach (string element in eqipments)
+                IsBusy = true;
+                JArray items = RetrieveAllEvents();
+
+                for (int i = 0; i < items.Count; i++)
                 {
-                    list.Add(element);
+                    var item = (JObject)items[i];
+                    var eventID = (string)item["eventID"];
+                    var name = (string)item["name"];
+                    var host = (string)item["host"];
+                    var numOfGuests = (int)item["total"];
+                    var str_activity = (string)item["activity"];
+                    Activity activity = new Activity(str_activity, str_activity.ToLower() + ".png");
+                    var eqipments = item["equipment"];
+                    ObservableCollection<string> list = new ObservableCollection<string>();
+                    foreach (string element in eqipments)
+                    {
+                        list.Add(element);
+                    }
+                    var latitude = (double)item["latitude"];
+                    var longitude = (double)item["longitude"];
+                    var max_guests = (int)item["max_guests"];
+                    var description = (string)item["description"];
+
+                    List<string> attendeeList = new List<string>();
+                    foreach (string element in item["attendees"])
+                    {
+                        attendeeList.Add(element);
+                    }
+
+
+                    var date = (DateTime)item["date"];
+                    var end_time = (DateTime)item["end_time"];
+
+
+                    Event newEvent = new Event(eventID, name, host, activity, list,
+                    new Xamarin.Essentials.Location(latitude, longitude), max_guests, numOfGuests, attendeeList, description,
+                    date, end_time);
+
+                    await newEvent.getLocationLocality();
+                    Console.WriteLine(newEvent.Name);
+                    events.Add(newEvent);
                 }
-                var latitude = (double)item["latitude"];
-                var longitude = (double)item["longitude"];
-                var max_guests = (int)item["max_guests"];
-                var description = (string)item["description"];
+                IsBusy = false;
 
-                List<string> attendeeList = new List<string>();
-                foreach (string element in item["attendees"])
-                {
-                    attendeeList.Add(element);
-                }
-
-
-                var date = (DateTime)item["date"];
-                var end_time = (DateTime)item["end_time"];
-
-
-                Event newEvent = new Event(eventID, name, host, activity, list,
-                new Xamarin.Essentials.Location(latitude, longitude), max_guests, numOfGuests, attendeeList, description,
-                date, end_time);
-
-                await newEvent.getLocationLocality();
-                Console.WriteLine(newEvent.Name);
-                events.Add(newEvent);
             }
-            IsBusy = false;
-
         }
 
         public ICommand LeaveCommand { private set; get; }

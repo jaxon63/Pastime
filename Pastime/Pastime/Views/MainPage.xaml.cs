@@ -26,10 +26,14 @@ namespace Pastime
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await vm.GetEventsAsync();
-            
+            if (vm.Events.Count == 0)
+            {
+                await vm.GetEventsAsync();
+
+            }
+
         }
 
-        
+
     }
 }

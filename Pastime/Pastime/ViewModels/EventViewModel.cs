@@ -44,8 +44,6 @@ namespace Pastime.ViewModels
                 }
             }
 
-            Console.WriteLine(HasJoined);
-
             if (displayEvent.Host == current_user)
             {
                 IsHost = true;
@@ -76,6 +74,7 @@ namespace Pastime.ViewModels
             {
                 return displayEvent.getGuestCount();
             }
+          
         }
 
         public bool HasJoined
@@ -131,7 +130,11 @@ namespace Pastime.ViewModels
         //Methods
         private void NavigateBack()
         {
-            Application.Current.MainPage = new MasterView();
+            MessagingCenter.Send<EventViewModel>(this, "navigate_back");
+            
+
+
+            //Application.Current.MainPage = new MasterView();
         }
 
         //TODO: doesn't update the attendee count until the page is reloaded

@@ -7,7 +7,7 @@
         <AbsoluteLayout>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="{Binding IsVisible}">
                 <BoxView HeightRequest="3" BackgroundColor="Green" HorizontalOptions="FillAndExpand" />
-                <ListView x:Name="listView" HasUnevenRows="True" ItemsSource="{Binding Events}">
+                <ListView IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" x:Name="listView" HasUnevenRows="True" ItemsSource="{Binding Events}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

@@ -188,6 +188,7 @@ namespace Pastime.Models
             var response = client.Execute<CreateEventJSON>(request).Content;
             var status = JsonConvert.DeserializeObject<CreateEventJSON>(response).create_event[0].status;
             results.Add(status);
+            Console.WriteLine(response);
 
             if (status == "success")
             {
