@@ -27,7 +27,7 @@ namespace Pastime.Models
         private DateTime endTime;
         private bool active;
 
-        public Event(string eventId, string name, string host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests,int numOfGuests, List<string> guests, string description, DateTime startTime, DateTime endTime)
+        public Event(string eventId, string name, string host, Activity activity, ObservableCollection<string> equipment, Location location, int maxGuests, int numOfGuests, List<string> guests, string description, DateTime startTime, DateTime endTime)
         {
             this.eventId = eventId;
             this.name = name;

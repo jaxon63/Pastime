@@ -221,7 +221,7 @@ namespace Pastime.Models
             //to check if new event is recorded (testing purpose)
             //goto: https://vietnguyen.me/pastime/event_table.php
 
-            
+
 
             //CREATE EVENT JSON OBJECT RETURNED VALUES
             List<String> response = SaveEvent(name, activity.Name, eqipment_raw,
@@ -274,7 +274,71 @@ namespace Pastime.Models
 
         }
 
-        
+        public bool LeaveEvent(string username, string event_id)
+        {
+            string leave_event = "https://vietnguyen.me/pastime/leave_event.php";
+
+            var client = new RestClient(leave_event);
+
+            var request = new RestRequest(Method.GET);
+
+            request.AddParameter("username", username);
+            request.AddParameter("event_code", event_id);
+            var response = client.Execute(request).Content;
+
+            var json_response = JObject.Parse(response);
+            JArray items = (JArray)json_response["Leave"];
+            var item = items[0];
+            if (item["status"].ToString() == "failed")
+            {
+                Console.WriteLine("Failed");
+
+                return false;
+
+            }
+            else
+            {
+                Console.WriteLine("Success");
+
+                return true;
+            }
+
+        }
+
+        public bool CancelEvent(string event_id)
+        {
+
+
+            string cancel_event = "http://vietnguyen.me/pastime/delete_event.php";
+
+            var client = new RestClient(cancel_event);
+
+            var request = new RestRequest(Method.GET);
+
+            request.AddParameter("username", current_user);
+            request.AddParameter("event_code", event_id);
+            var response = client.Execute(request).Content;
+
+            var json_response = JObject.Parse(response);
+            JArray items = (JArray)json_response["Delete_Event"];
+            var item = items[0];
+            if (item["status"].ToString() == "failed")
+            {
+                Console.WriteLine("Failed");
+
+                return false;
+
+            }
+            else
+            {
+                Console.WriteLine("Success");
+
+                return true;
+            }
+
+        }
+
+
 
 
     }

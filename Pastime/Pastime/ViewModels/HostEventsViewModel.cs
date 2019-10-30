@@ -17,12 +17,14 @@ namespace Pastime.ViewModels
     {
         private ObservableCollection<Event> events;
         private string current_user;
+        private bool isBusy;
+        private EventModel model;
 
         public HostEventsViewModel()
         {
             events = new ObservableCollection<Event>();
             current_user = Application.Current.Properties["current_user"].ToString();
-
+            model = new EventModel();
 
             CancelCommand = new Command<string>((id) => CancelEvent(id));
         }
@@ -37,6 +39,23 @@ namespace Pastime.ViewModels
                 events = value;
                 OnPropertyChanged();
             }
+        }
+
+        public bool IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                if (isBusy == value)
+                    return;
+                isBusy = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsVisible
+        {
+            get => !IsBusy;
         }
 
         private JArray RetrieveAllEvents()
@@ -63,6 +82,7 @@ namespace Pastime.ViewModels
 
         public async Task GetEventsAsync()
         {
+            IsBusy = true;
             JArray items = RetrieveAllEvents();
 
             for (int i = 0; i < items.Count; i++)
@@ -103,6 +123,7 @@ namespace Pastime.ViewModels
                 await newEvent.getLocationLocality();
                 events.Add(newEvent);
             }
+            IsBusy = false;
 
         }
 
@@ -111,6 +132,17 @@ namespace Pastime.ViewModels
             MessagingCenter.Send<HostEventsViewModel>(this, "cancel_message");
             MessagingCenter.Subscribe<YourEventsView>(this, "cancel", (sender) =>
             {
+                if (model.CancelEvent(eventid))
+                {
+                    Console.WriteLine("Success");
+                    for (int i = events.Count - 1; i >= 0; i--)
+                    {
+                        if (events[i].EventId == eventid)
+                        {
+                            events.RemoveAt(i);
+                        }
+                    }
+                }
                 Console.WriteLine("Cancel event");
             });
 

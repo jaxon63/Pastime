@@ -43,7 +43,13 @@ namespace Pastime.ViewModels
                     return;
                 isBusy = value;
                 OnPropertyChanged();
+                OnPropertyChanged("IsVisible");
             }
+        }
+
+        public bool IsVisible
+        {
+            get => !IsBusy;
         }
 
         public ObservableCollection<Event> Events

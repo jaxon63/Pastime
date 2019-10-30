@@ -13,6 +13,15 @@ namespace Pastime.Views
             InitializeComponent();
             vm = new EventsAttendingViewModel();
             this.BindingContext = vm;
+
+            MessagingCenter.Subscribe<EventsAttendingViewModel>(this, "leave_confirm", async (sender) =>
+            {
+                bool confirm = await DisplayAlert("Leave Event", "Are you sure you want to leave?", "Yes", "Cancel");
+                if(confirm)
+                {
+                    MessagingCenter.Send<EventsAttendingView>(this, "confirmed_leave");
+                }
+            });
         }
 
         protected override async void OnAppearing()
@@ -20,5 +29,6 @@ namespace Pastime.Views
             base.OnAppearing();
             await vm.GetEventsAsync();
         }
+
     }
 }

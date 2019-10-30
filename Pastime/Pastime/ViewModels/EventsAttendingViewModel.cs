@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Newtonsoft.Json.Linq;
 using Pastime.Models;
+using Pastime.Views;
 using RestSharp;
 using Xamarin.Forms;
 
@@ -16,11 +18,15 @@ namespace Pastime.ViewModels
         private ObservableCollection<Event> events;
         private string current_user;
         private bool isBusy;
+        private EventModel model;
 
         public EventsAttendingViewModel()
         {
             current_user = Application.Current.Properties["current_user"].ToString();
             events = new ObservableCollection<Event>();
+            this.model = new EventModel();
+
+            LeaveCommand = new Command<string>((id) => LeaveEvent(id));
         }
 
         public ObservableCollection<Event> Events
@@ -44,7 +50,33 @@ namespace Pastime.ViewModels
                     return;
                 isBusy = value;
                 OnPropertyChanged();
+                OnPropertyChanged("IsVisible");
             }
+        }
+
+        public bool IsVisible
+        {
+            get => !IsBusy;
+        }
+
+        private void LeaveEvent(string eventid)
+        {
+            MessagingCenter.Send<EventsAttendingViewModel>(this, "leave_confirm");
+            MessagingCenter.Subscribe<EventsAttendingView>(this, "confirmed_leave", async (sender) =>
+            {
+                if (model.LeaveEvent(current_user, eventid))
+                {
+                    Console.WriteLine("Success");
+                    for (int i = events.Count - 1; i >= 0; i--)
+                    {
+                        if (events[i].EventId == eventid)
+                        {
+                            events.RemoveAt(i);
+                        }
+                    }
+                }
+            });
+
         }
 
         private JArray RetrieveAllEvents()
@@ -71,6 +103,7 @@ namespace Pastime.ViewModels
 
         public async Task GetEventsAsync()
         {
+            IsBusy = true;
             JArray items = RetrieveAllEvents();
 
             for (int i = 0; i < items.Count; i++)
@@ -112,10 +145,11 @@ namespace Pastime.ViewModels
                 Console.WriteLine(newEvent.Name);
                 events.Add(newEvent);
             }
+            IsBusy = false;
 
         }
 
-
+        public ICommand LeaveCommand { private set; get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName]string propertyName = "")

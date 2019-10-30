@@ -35,9 +35,9 @@ namespace Pastime.ViewModels
             current_user = Application.Current.Properties["current_user"].ToString();
 
             this.displayEvent = e;
-            foreach(string guest in displayEvent.Guests)
+            foreach (string guest in displayEvent.Guests)
             {
-                if(current_user == guest)
+                if (current_user == guest)
                 {
                     Console.WriteLine(guest);
                     HasJoined = true;
@@ -127,6 +127,7 @@ namespace Pastime.ViewModels
             }
         }
 
+
         //Methods
         private void NavigateBack()
         {
@@ -136,29 +137,51 @@ namespace Pastime.ViewModels
         //TODO: doesn't update the attendee count until the page is reloaded
         private async Task JoinEventAsync()
         {
-            IsBusy = true;
-            if (model.JoinEvent(current_user, DisplayEvent.EventId))
+            MessagingCenter.Send<EventViewModel>(this, "join_confirm");
+            MessagingCenter.Subscribe<EventView>(this, "confirmed_join", (sender) =>
             {
-                HasJoined = true;
-            }
-            else
-            {
-                HasJoined = false;
-            }
-            IsBusy = false;
+                IsBusy = true;
+                if (model.JoinEvent(current_user, DisplayEvent.EventId))
+                {
+                    HasJoined = true;
+                }
+                else
+                {
+                    HasJoined = false;
+                }
+                IsBusy = false;
+
+            });
+
         }
 
         private void LeaveEvent()
         {
             IsBusy = true;
-            Console.WriteLine("Leaving");
-           // HasJoined = false;
+
+            MessagingCenter.Send<EventViewModel>(this, "leave_confirm");
+            MessagingCenter.Subscribe<EventView>(this, "confirmed_leave", (sender) =>
+            {
+                if (model.LeaveEvent(current_user, DisplayEvent.EventId))
+                {
+                    HasJoined = false;
+                }
+            });
             IsBusy = false;
+
         }
 
         private void CancelEvent()
         {
-            Console.WriteLine("Cancel event");
+            MessagingCenter.Send<EventViewModel>(this, "cancel_message");
+            MessagingCenter.Subscribe<EventView>(this, "confirmed_cancel", (sender) =>
+            {
+                if (model.CancelEvent(DisplayEvent.EventId))
+                {
+                    Console.WriteLine("Success");
+                    MessagingCenter.Send<EventViewModel>(this, "navigate_back");
+                }
+            });
         }
 
         public ICommand BackCommand { private set; get; }
