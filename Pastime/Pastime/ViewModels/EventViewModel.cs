@@ -19,12 +19,14 @@ namespace Pastime.ViewModels
     {
         private INavigation nav;
         private Event displayEvent;
-        private int guestsAttending;
+        private int numOfGuests;
         private string current_user;
         private EventModel model;
         private bool hasJoined;
         private bool isHost;
         private bool isBusy;
+        private bool isVisible = true;
+
 
         public EventViewModel(INavigation nav, Event e)
         {
@@ -44,6 +46,10 @@ namespace Pastime.ViewModels
                 }
             }
 
+            //Initialise initial value
+            //Will update this in the view when user successfully joins
+            numOfGuests = e.NumOfGuests;
+
             if (displayEvent.Host == current_user)
             {
                 IsHost = true;
@@ -51,7 +57,7 @@ namespace Pastime.ViewModels
 
             //Commands
             BackCommand = new Command(NavigateBack);
-            JoinCommand = new Command(async () => await JoinEventAsync());
+            JoinCommand = new Command(JoinEvent);
             LeaveCommand = new Command(LeaveEvent);
             CancelCommand = new Command(CancelEvent);
         }
@@ -68,13 +74,17 @@ namespace Pastime.ViewModels
             }
         }
 
-        public int GuestsAttending
+        public int NumOfGuests
         {
-            get
+            get => numOfGuests;
+            set
             {
-                return displayEvent.getGuestCount();
+                if (numOfGuests == value)
+                    return;
+                numOfGuests = value;
+                OnPropertyChanged();
             }
-          
+
         }
 
         public bool HasJoined
@@ -125,34 +135,42 @@ namespace Pastime.ViewModels
 
             }
         }
+        public bool IsVisible
+        {
+            get => isVisible;
+            set
+            {
+                if (isVisible == value)
+                    return;
+                isVisible = value;
+                OnPropertyChanged();
+
+            }
+        }
 
 
         //Methods
         private void NavigateBack()
         {
             MessagingCenter.Send<EventViewModel>(this, "navigate_back");
-            
-
-
-            //Application.Current.MainPage = new MasterView();
         }
 
         //TODO: doesn't update the attendee count until the page is reloaded
-        private async Task JoinEventAsync()
+        private void JoinEvent()
         {
             MessagingCenter.Send<EventViewModel>(this, "join_confirm");
             MessagingCenter.Subscribe<EventView>(this, "confirmed_join", (sender) =>
             {
-                IsBusy = true;
                 if (model.JoinEvent(current_user, DisplayEvent.EventId))
                 {
+                    NumOfGuests++;
                     HasJoined = true;
+                    MessagingCenter.Send<EventViewModel>(this, "update_main_page");
                 }
                 else
                 {
                     HasJoined = false;
                 }
-                IsBusy = false;
 
             });
 
@@ -167,7 +185,10 @@ namespace Pastime.ViewModels
             {
                 if (model.LeaveEvent(current_user, DisplayEvent.EventId))
                 {
+                    NumOfGuests--;
                     HasJoined = false;
+                    MessagingCenter.Send<EventViewModel>(this, "update_main_page");
+
                 }
             });
             IsBusy = false;

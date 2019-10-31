@@ -274,7 +274,6 @@ namespace Pastime.Models
             else
             {
                 Console.WriteLine("Success");
-
                 return true;
             }
 

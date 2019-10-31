@@ -31,6 +31,12 @@ namespace Pastime.ViewModels
 
             this.nav = nav;
 
+            MessagingCenter.Subscribe<EventViewModel>(this, "update_main_page", async (sender) =>
+            {
+                await RefreshEvents();
+
+            });
+
             CreateEventCommand = new Command(async () => await CreateEventNavigateAsync());
             ViewCommand = new Command<Event>(async (e) => await NavigateViewEventAsync(e));
             RefreshCommand = new Command(async () =>
@@ -89,6 +95,18 @@ namespace Pastime.ViewModels
             }
         }
 
+        private void IncrementEventGuestCount(string event_id)
+        {
+            foreach (Event item in Events)
+            {
+                if (item.EventId == event_id)
+                {
+                    item.NumOfGuests++;
+                    OnPropertyChanged("Events");
+                }
+
+            }
+        }
 
 
 
