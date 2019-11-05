@@ -13,13 +13,8 @@ namespace Pastime.Models
         private string email;
         private string password;
         private string username;
-        private int yearJoined;
         private Location location;
         private string locality;
-        private string faveSport;
-        private string bio;
-        private Uri dpUri;
-        private int rating;
 
         public User(string email, string password, string username)
         {
@@ -29,7 +24,6 @@ namespace Pastime.Models
         }
 
        
-
         public string Email
         {
             get => email;
@@ -57,32 +51,10 @@ namespace Pastime.Models
             }
         }
 
-        public int YearJoined
-        {
-            get => yearJoined;
-        }
-
+      
         public string Locality
         {
             get => locality;
-        }
-
-        public string FaveSport
-        {
-            get => faveSport;
-            set
-            {
-                faveSport = value;
-            }
-        }
-
-        public string Bio
-        {
-            get => bio;
-            set
-            {
-                bio = value;
-            }
         }
 
         // Gets the user's current geographical location and sets it to a Location object.

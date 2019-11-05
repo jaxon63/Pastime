@@ -26,8 +26,8 @@
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
-            <Label HorizontalOptions="Center" FontSize="15" HorizontalTextAlignment="Center" Text="If you're happy with the details you have provided, press next to create your event." />
-            <Label HorizontalOptions="Center" FontSize="15" HorizontalTextAlignment="Center" Text="Have fun!" />
+            <Label HorizontalOptions="Center" FontSize="20" HorizontalTextAlignment="Center" Text="If you're happy with the details you have provided, press next to create your event." />
+            <Label HorizontalOptions="Center" FontSize="20" HorizontalTextAlignment="Center" Text="Have fun!" />
             <Button Text="Back" Command="{Binding GoBackCommand}" />
             <Button Text="Cancel" Command="{Binding CancelCommand}" />
             <Button Text="Next" Command="{Binding SubmitEventCommand}" />

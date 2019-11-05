@@ -137,7 +137,6 @@ namespace Pastime.ViewModels
             {
                 if (model.CancelEvent(eventid))
                 {
-                    Console.WriteLine("Success");
                     for (int i = events.Count - 1; i >= 0; i--)
                     {
                         if (events[i].EventId == eventid)
@@ -146,15 +145,10 @@ namespace Pastime.ViewModels
                         }
                     }
                 }
-                Console.WriteLine("Cancel event");
             });
-
-
         }
 
         public ICommand CancelCommand { private set; get; }
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName]string propertyName = "")

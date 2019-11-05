@@ -22,7 +22,6 @@ namespace Pastime.ViewModels
         private ObservableCollection<Event> events;
         private INavigation nav;
         private bool isBusy;
-        private User current_user;
         private bool isRefreshing;
 
         public MainPageViewModel(INavigation nav)

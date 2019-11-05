@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Xamarin.Essentials;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Globalization;
 

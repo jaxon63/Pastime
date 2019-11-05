@@ -12,28 +12,15 @@ namespace Pastime.Models
 {
     public class EventModel
     {
-        private int eventId;
-        private string name;
-        private User host;
-        private List<User> guests;
-        private List<string> equipmentNeeded;
-        private Xamarin.Essentials.Location location;
-        private int maxGuests;
-        private string description;
-        private DateTime startTime;
-        private DateTime endTime;
-        private bool active;
         private List<Activity> activities;
         private string current_user;
-        private List<Event> events;
-
 
         public EventModel()
         {
-            //TODO: Should eventually retrieve this from the database so it is more dynamic
+            //TODO: Activities should be stored on and retrieved from the database so
+            //an app administrator can add/delete them as needed
             activities = new List<Activity>();
             current_user = Application.Current.Properties["current_user"].ToString();
-            events = new List<Event>();
 
             InitializeActivityList();
         }
@@ -188,7 +175,6 @@ namespace Pastime.Models
             var response = client.Execute<CreateEventJSON>(request).Content;
             var status = JsonConvert.DeserializeObject<CreateEventJSON>(response).create_event[0].status;
             results.Add(status);
-            Console.WriteLine(response);
 
             if (status == "success")
             {
@@ -234,18 +220,14 @@ namespace Pastime.Models
 
             if (status == "success")
             {
-                //TODO: Validate before create event maybe
                 Event result = new Event(null, name, null, activity, equipment,
                     location, maxGuests, 0, null, desc, date, endTime);
-                Console.WriteLine("success");
 
                 return result;
             }
             else
             {
-                Console.WriteLine("Status: " + status);
                 return null;
-
             }
         }
 
@@ -266,14 +248,10 @@ namespace Pastime.Models
             var item = items[0];
             if (item["status"].ToString() == "failed")
             {
-                Console.WriteLine("Failed");
-
                 return false;
-
             }
             else
             {
-                Console.WriteLine("Success");
                 return true;
             }
 
@@ -296,15 +274,10 @@ namespace Pastime.Models
             var item = items[0];
             if (item["status"].ToString() == "failed")
             {
-                Console.WriteLine("Failed");
-
                 return false;
-
             }
             else
             {
-                Console.WriteLine("Success");
-
                 return true;
             }
 
@@ -312,8 +285,6 @@ namespace Pastime.Models
 
         public bool CancelEvent(string event_id)
         {
-
-
             string cancel_event = "http://vietnguyen.me/pastime/delete_event.php";
 
             var client = new RestClient(cancel_event);
@@ -329,22 +300,14 @@ namespace Pastime.Models
             var item = items[0];
             if (item["status"].ToString() == "failed")
             {
-                Console.WriteLine("Failed");
-
                 return false;
-
             }
             else
             {
-                Console.WriteLine("Success");
-
                 return true;
             }
 
         }
-
-
-
 
     }
 }

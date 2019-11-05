@@ -31,13 +31,6 @@ namespace Pastime.ViewModels
             SaveNewEmailCommand = new Command(SaveEmail);
             SaveNewPasswordCommand = new Command(SavePassword);
             SaveNewUsernameCommand = new Command(SaveUsername);
-
-            //TODO: Bug where the message persists when the popup is closed. trying to fix
-            MessagingCenter.Subscribe<Application>(this, "navigateBack", (sender) =>
-            {
-                EmailErrMsg = string.Empty;
-            });
-
         }
 
 

@@ -41,7 +41,6 @@ namespace Pastime.ViewModels
             {
                 if (current_user == guest)
                 {
-                    Console.WriteLine(guest);
                     HasJoined = true;
                 }
             }
@@ -155,7 +154,6 @@ namespace Pastime.ViewModels
             MessagingCenter.Send<EventViewModel>(this, "navigate_back");
         }
 
-        //TODO: doesn't update the attendee count until the page is reloaded
         private void JoinEvent()
         {
             MessagingCenter.Send<EventViewModel>(this, "join_confirm");
@@ -202,7 +200,6 @@ namespace Pastime.ViewModels
             {
                 if (model.CancelEvent(DisplayEvent.EventId))
                 {
-                    Console.WriteLine("Success");
                     MessagingCenter.Send<EventViewModel>(this, "navigate_back");
                 }
             });

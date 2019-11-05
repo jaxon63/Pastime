@@ -64,7 +64,6 @@ namespace Pastime.Models
                 Xamarin.Forms.Application.Current.Properties["IsLoggedIn"] = bool.TrueString;
 
                 Xamarin.Forms.Application.Current.Properties["current_user"] = response[1];
-                Console.WriteLine(Application.Current.Properties["current_user"]);
 
                 return 1;
             }

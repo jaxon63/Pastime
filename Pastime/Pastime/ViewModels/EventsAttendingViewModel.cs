@@ -62,11 +62,10 @@ namespace Pastime.ViewModels
         private void LeaveEvent(string eventid)
         {
             MessagingCenter.Send<EventsAttendingViewModel>(this, "leave_confirm");
-            MessagingCenter.Subscribe<EventsAttendingView>(this, "confirmed_leave", async (sender) =>
+            MessagingCenter.Subscribe<EventsAttendingView>(this, "confirmed_leave", (sender) =>
             {
                 if (model.LeaveEvent(current_user, eventid))
                 {
-                    Console.WriteLine("Success");
                     for (int i = events.Count - 1; i >= 0; i--)
                     {
                         if (events[i].EventId == eventid)
@@ -76,7 +75,6 @@ namespace Pastime.ViewModels
                     }
                 }
             });
-
         }
 
         private JArray RetrieveAllEvents()
@@ -144,7 +142,6 @@ namespace Pastime.ViewModels
                     date, end_time);
 
                     await newEvent.getLocationLocality();
-                    Console.WriteLine(newEvent.Name);
                     events.Add(newEvent);
                 }
                 IsBusy = false;

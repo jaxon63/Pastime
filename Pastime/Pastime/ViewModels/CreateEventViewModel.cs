@@ -77,7 +77,6 @@ namespace Pastime.ViewModels
         private TimeSpan startTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(0, 0, 0));
 
         //End time is automatically set to 2 hours from the current time
-        //TODO: Make it default to 1 hour from the start time instead of the current time
         private TimeSpan endTime = DateTime.Now.TimeOfDay.Add(new TimeSpan(0, 0, 0));
 
         private static HttpClient httpClientInstance;
@@ -88,8 +87,8 @@ namespace Pastime.ViewModels
         public const string GooglePlacesApiAutoCompletePath = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key={0}&sessiontoken{1}&input={2}&components=country:au";
         public const string GooglePlacesDetailPath = "https://maps.googleapis.com/maps/api/place/details/json?place_id={0}&fields=geometry&key={1}";
 
-        //TODO: store the key on the server
-        public const string GooglePlacesApiKey = "AIzaSyAS3m6Xk4BukO3eMRRKmGDxHgnZK1N8lDk";
+        //This API key needs to stored separate from the code
+        public const string GooglePlacesApiKey = "";
 
         //Event model used to handle all the business logic regarding events
         private readonly EventModel model;
@@ -110,6 +109,7 @@ namespace Pastime.ViewModels
             SubmitEventCommand = new Command(async () => await SubmitEvent());
             GoBackCommand = new Command(async () => await NavigateGoBackAsync());
             CancelCommand = new Command(async () => await BackToHomeScreen());
+            AddEquipCommand = new Command(AddEquipmentToList);
 
             //Instantiate the EventModel
             model = new EventModel();
@@ -118,13 +118,6 @@ namespace Pastime.ViewModels
 
             //Instantiate the minimium date the user can select to the current time
             DateTime MinimumDate = DateTime.Now;
-        }
-
-        //TODO: the app crashes when setting the time near midnight
-        //Need to handle the logic here
-        private void InitializeTimes()
-        {
-
         }
 
         public INavigation Navigation
@@ -595,7 +588,6 @@ namespace Pastime.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand SubmitCommand { private set; get; }
-        public ICommand AddEquipCommand { private set; get; }
         public ICommand ClearEquipCommand { private set; get; }
         public ICommand LocationCommand { private set; get; }
 
@@ -610,6 +602,8 @@ namespace Pastime.ViewModels
         public ICommand SubmitEventCommand { private set; get; }
         public ICommand GoBackCommand { private set; get; }
         public ICommand CancelCommand { private set; get; }
+        public ICommand AddEquipCommand { private set; get; }
+
 
 
         //Modal command functions
@@ -760,8 +754,7 @@ namespace Pastime.ViewModels
 
         }
 
-        //Clears the lears
-        //TODO: Delete individual items
+        //Clears the list
         private void ClearEquipmentList()
         {
             if (EquipmentList.Count > 0)
@@ -799,7 +792,6 @@ namespace Pastime.ViewModels
         public async Task GetPlacesPredictionsAsync()
         {
 
-            // TODO: Add throttle logic, Google begins denying requests if too many are made in a short amount of time
             CancellationToken cancellationToken = new CancellationTokenSource(TimeSpan.FromMinutes(2)).Token;
 
             //Create a unique session token for billing purposes
